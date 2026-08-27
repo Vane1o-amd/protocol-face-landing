@@ -43,7 +43,7 @@ export default function Process() {
           </motion.p>
         </div>
 
-        <Carousel trackClassName="process" ariaLabel="Этапы работы">
+        <Carousel trackClassName="process" ariaLabel="Этапы работы" wrapperClassName="process-carousel">
           {STEPS.map((s) => (
             <motion.div className="p-step" key={s.num} variants={fadeUp}>
               <div className="p-num">{s.num}</div>

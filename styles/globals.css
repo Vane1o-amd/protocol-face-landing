@@ -1031,8 +1031,9 @@ footer .wrap {
   /* testimonials — 3-up desktop (gap 20px) */
   .testimonials > * { width: calc((100% - 40px) / 3); }
 
-  /* desktop: process 4-up (gap 0) */
+  /* desktop: process 4-up (gap 0) — all 4 fit, hide arrows */
   .process > * { width: 25%; }
+  .process-carousel .car-arrow { display: none; }
 
   /* desktop: clients 3-up (gap 22px) */
   .clients-grid > * { width: calc((100% - 44px) / 3); }
