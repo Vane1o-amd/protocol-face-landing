@@ -125,6 +125,7 @@ export default function ApplyForm() {
               name="name"
               type="text"
               autoComplete="name"
+              placeholder="Ваше имя"
               ref={nameRef}
               data-error={!!fieldErrors.name}
               aria-invalid={!!fieldErrors.name}
@@ -144,6 +145,7 @@ export default function ApplyForm() {
               name="contact"
               type="text"
               autoComplete="tel"
+              placeholder="+47 ... или @telegram"
               ref={contactRef}
               data-error={!!fieldErrors.contact}
               aria-invalid={!!fieldErrors.contact}
@@ -162,6 +164,7 @@ export default function ApplyForm() {
               id={goalId}
               name="goal"
               rows={3}
+              placeholder="Опишите, что хотите изменить"
               ref={goalRef}
               data-error={!!fieldErrors.goal}
               aria-invalid={!!fieldErrors.goal}
@@ -207,7 +210,7 @@ export default function ApplyForm() {
 
           <div className="honeypot" aria-hidden="true">
             <label htmlFor={hpId}>Компания (не заполнять)</label>
-            <input id={hpId} name="company" type="text" tabIndex={-1} autoComplete="off" />
+            <input id={hpId} name="company" type="text" tabIndex={-1} autoComplete="off" placeholder="Компания" />
           </div>
 
           <button type="submit" className="submit-btn" disabled={status === "loading"}>
