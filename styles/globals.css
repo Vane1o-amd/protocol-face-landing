@@ -563,13 +563,16 @@ h2 { max-width: 16ch; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
+  gap: 15px;
   text-align: center;
 }
 
+/* Uniform 15px between every item: eyebrow->h2, h2->button, button->note. */
+.final .eyebrow { margin-bottom: 15px; }
+
 .final .note {
   display: block;
-  margin-top: 12px;
+  margin-top: 15px;
 }
 
 /* =========================================================================
@@ -1021,7 +1024,6 @@ footer .wrap {
   section { text-align: left; }
 
   .final { padding-block: 32px; }
-  .final .wrap { gap: 32px; }
 
   /* discovery — 2-col on tablet */
   .discovery-grid { grid-template-columns: 1fr 1fr; align-items: start; }
