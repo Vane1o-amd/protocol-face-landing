@@ -46,7 +46,7 @@ export default function CaseStudies() {
           </motion.p>
         </div>
 
-        <Carousel trackClassName="clients-grid" ariaLabel="Результаты клиентов">
+        <Carousel trackClassName="clients-grid" ariaLabel="Результаты клиентов" wrapperClassName="clients-carousel">
           {CLIENTS.map((c) => (
             <motion.article className="client-card" key={c.name} variants={fadeUp}>
               <div className="meta">
