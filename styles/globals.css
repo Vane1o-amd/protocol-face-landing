@@ -318,6 +318,7 @@ h2 { max-width: 16ch; }
 .car-track > * {
   flex: none;
   scroll-snap-align: start;
+  scroll-snap-stop: always;
 }
 .car-arrow {
   position: absolute;
