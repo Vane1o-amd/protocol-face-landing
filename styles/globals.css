@@ -939,6 +939,11 @@ footer .wrap {
 @media (max-width: 767px) {
   .hero-grid > div:first-child { place-items: center; }
 
+  /* Carousels: 1 item centered, no asymmetric peek of next.
+     Remove side padding so item fills viewport; snap center. */
+  .car-track { padding-inline: 0; }
+  .car-track > * { scroll-snap-align: center; }
+
   .discovery-grid { text-align: center; }
   .discovery-list li { justify-content: center; }
   .discovery-cta { justify-content: center; }
