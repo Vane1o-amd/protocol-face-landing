@@ -641,6 +641,12 @@ footer .wrap {
   font-size: 13px;
   color: var(--color-ink-soft);
 }
+.lead-form .field-error {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-mark);
+  margin-top: 2px;
+}
 .lead-form .consent-row input[type="checkbox"] {
   width: auto;
   margin-top: 3px;
@@ -737,11 +743,12 @@ footer .wrap {
   /* tablet: process 2-col */
   .process {
     grid-template-columns: 1fr 1fr;
-    row-gap: 32px;
   }
   .p-step {
     border-right: 1px solid var(--color-line);
     border-bottom: none;
+    text-align: left;
+    padding: 28px 22px 0 0;
   }
   .p-step:nth-child(2n) { border-right: none; }
 
@@ -797,6 +804,7 @@ footer .wrap {
   .p-step {
     border-right: 1px solid var(--color-line);
     border-bottom: none;
+    padding: 28px 22px 0 0;
   }
   .p-step:nth-child(2n) { border-right: 1px solid var(--color-line); }
   .p-step:last-child { border-right: none; }
