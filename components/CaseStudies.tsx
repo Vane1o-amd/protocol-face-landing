@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "motion/react";
 import { fadeUp, inViewOnce } from "@/lib/motion";
+import Carousel from "@/components/Carousel";
 
 const CLIENTS = [
   {
@@ -45,17 +46,9 @@ export default function CaseStudies() {
           </motion.p>
         </div>
 
-        <div className="clients-grid">
-          {CLIENTS.map((c, i) => (
-            <motion.article
-              className="client-card"
-              key={c.name}
-              variants={fadeUp}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ delay: i * 0.1 }}
-            >
+        <Carousel trackClassName="clients-grid" ariaLabel="Результаты клиентов">
+          {CLIENTS.map((c) => (
+            <motion.article className="client-card" key={c.name} variants={fadeUp}>
               <div className="meta">
                 <span className="cname">{c.name}</span>
                 <span className="days">{c.days}</span>
@@ -71,7 +64,7 @@ export default function CaseStudies() {
               </figure>
             </motion.article>
           ))}
-        </div>
+        </Carousel>
       </div>
     </section>
   );

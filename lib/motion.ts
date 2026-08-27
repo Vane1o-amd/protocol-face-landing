@@ -17,6 +17,14 @@ export const inViewOnce = {
   viewport: { once: true, margin: "-80px" },
 } as const;
 
+/* staggered container — children fade up in sequence (wave) */
+export const staggerContainer: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.12, delayChildren: 0.05 },
+  },
+};
+
 export const transition: Transition = {
   duration: 0.6,
   ease: EASE,

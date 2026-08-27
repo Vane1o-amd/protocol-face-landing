@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "motion/react";
-import { inViewOnce } from "@/lib/motion";
+import { fadeUp, inViewOnce } from "@/lib/motion";
+import Carousel from "@/components/Carousel";
 
 const STEPS = [
   {
@@ -42,15 +43,15 @@ export default function Process() {
           </motion.p>
         </div>
 
-        <motion.div className="process" {...inViewOnce}>
+        <Carousel trackClassName="process" ariaLabel="Этапы работы">
           {STEPS.map((s) => (
-            <div className="p-step" key={s.num}>
+            <motion.div className="p-step" key={s.num} variants={fadeUp}>
               <div className="p-num">{s.num}</div>
               <h3>{s.title}</h3>
               <p>{s.text}</p>
-            </div>
+            </motion.div>
           ))}
-        </motion.div>
+        </Carousel>
       </div>
     </section>
   );
