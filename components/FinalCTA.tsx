@@ -15,9 +15,7 @@ export default function FinalCTA() {
           <a href="#apply" className="btn-primary">
             Оставить заявку
           </a>
-          <span className="note" style={{ display: "block", marginTop: 10 }}>
-            Ответ в течение 24 часов
-          </span>
+          <span className="note">Ответ в течение 24 часов</span>
         </motion.div>
       </div>
     </section>
