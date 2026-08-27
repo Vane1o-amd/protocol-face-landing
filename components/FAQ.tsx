@@ -28,7 +28,7 @@ const ITEMS = [
 ] as const;
 
 export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
     <section id="faq" aria-labelledby="faq-head">
