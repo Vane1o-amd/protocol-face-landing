@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { motion } from "motion/react";
 import { fadeUp, inViewOnce, staggerContainer } from "@/lib/motion";
 
@@ -35,16 +36,13 @@ export default function DiscoveryCTA() {
             {POINTS.map((p) => (
               <motion.li key={p} variants={fadeUp}>
                 <span className="check" aria-hidden="true">
-                  <svg width="14" height="14" viewBox="0 0 14 14">
-                    <path
-                      d="M2 7 L6 11 L12 3"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
+                  <Image
+                    src="/images/galochka.png"
+                    alt=""
+                    width={14}
+                    height={14}
+                    className="check-img"
+                  />
                 </span>
                 <span>{p}</span>
               </motion.li>
