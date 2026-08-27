@@ -1,0 +1,78 @@
+"use client";
+
+import Image from "next/image";
+import { motion } from "motion/react";
+import { fadeUp, inViewOnce } from "@/lib/motion";
+
+const CLIENTS = [
+  {
+    name: "Денис",
+    days: "84 дня",
+    image: "/images/case-denis.jpg",
+    alt: "Денис — результат протокола",
+  },
+  {
+    name: "Артур",
+    days: "91 день",
+    image: "/images/case-artur.jpg",
+    alt: "Артур — результат протокола",
+  },
+  {
+    name: "Клиент 3",
+    days: "12 недель",
+    image: "/images/case-3.webp",
+    alt: "Клиент 3 — результат протокола",
+  },
+  {
+    name: "Клиент 4",
+    days: "12 недель",
+    image: "/images/case-4.webp",
+    alt: "Клиент 4 — результат протокола",
+  },
+] as const;
+
+export default function CaseStudies() {
+  return (
+    <section id="cases" aria-labelledby="cases-head">
+      <div className="wrap">
+        <div className="section-head">
+          <motion.div {...inViewOnce}>
+            <div className="eyebrow">Клиенты</div>
+            <h2 id="cases-head">Реальные результаты за 12 недель</h2>
+          </motion.div>
+          <motion.p {...inViewOnce}>
+            Не ретушь. Не фильтры. Фотографии до и после — без монтажа.
+          </motion.p>
+        </div>
+
+        <div className="clients-grid">
+          {CLIENTS.map((c, i) => (
+            <motion.article
+              className="client-card"
+              key={c.name}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ delay: i * 0.1 }}
+            >
+              <div className="meta">
+                <span className="cname">{c.name}</span>
+                <span className="days">{c.days}</span>
+              </div>
+              <figure>
+                <Image
+                  src={c.image}
+                  alt={c.alt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 480px"
+                  loading="lazy"
+                />
+              </figure>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
