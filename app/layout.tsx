@@ -6,6 +6,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import MetaPixel from "@/components/MetaPixel";
 import ConsentBanner from "@/components/ConsentBanner";
 import ScrollProgress from "@/components/ScrollProgress";
+import ScrollTopButton from "@/components/ScrollTopButton";
 import "@/styles/globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -72,6 +73,7 @@ export default function RootLayout({
         <MotionConfig reducedMotion="user">
           <ScrollProgress />
           {children}
+          <ScrollTopButton />
           <MetaPixel />
           <ConsentBanner />
           <Analytics />
