@@ -811,6 +811,8 @@ footer .wrap {
   padding: 0;
   display: grid;
   gap: 14px;
+  place-self: center;
+  /* place-content: center; */
 }
 .discovery-list li {
   display: flex;
