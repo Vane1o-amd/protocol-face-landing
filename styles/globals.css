@@ -221,7 +221,7 @@ h4 {
    Section shell
    ========================================================================= */
 
-section { padding-block: var(--section-py); }
+section { padding-block: var(--section-py); text-align: center; }
 section.alt { background: var(--color-paper-alt); }
 
 .section-head {
@@ -706,6 +706,7 @@ footer .wrap {
     --wrap-px: 32px;
   }
   body { font-size: var(--text-body); }
+  section { text-align: left; }
 
   .topbar .wrap { height: 64px; }
   .logo { font-size: 18px; }
