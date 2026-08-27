@@ -151,7 +151,8 @@ h4 { font-size: var(--text-h4); letter-spacing: 0.08em; text-transform: uppercas
   display: inline-flex;
   align-items: center;
 }
-.nav-cta:hover { background: var(--color-ink); color: var(--color-paper); }
+.nav-cta { transition: opacity 0.15s ease, transform 0.1s ease; }
+.nav-cta:hover { opacity: 0.82; }
 .nav-cta:active { transform: scale(0.98); }
 
 /* =========================================================================
@@ -584,9 +585,9 @@ footer .wrap {
   border-radius: var(--radius);
   border: 1px solid var(--color-line);
   background: transparent;
-  transition: background 0.15s ease, color 0.15s ease;
+  transition: opacity 0.15s ease, transform 0.1s ease;
 }
-.consent-banner .btn-decline:hover { background: var(--color-paper-alt); }
+.consent-banner .btn-decline:hover { opacity: 0.82; }
 .consent-banner .btn-decline:active { transform: scale(0.98); }
 
 .consent-banner .btn-allow {
