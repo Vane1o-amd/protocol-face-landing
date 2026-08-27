@@ -937,26 +937,60 @@ footer .wrap {
    ========================================================================= */
 
 @media (max-width: 767px) {
-  .hero-grid > div:first-child { place-items: center; }
+  /* === Universal mobile centering — every section, one rule set ===
+     Three CSS layers cooperate so no section needs its own patch:
+     (a) text-align: center     — inline text + inline-blocks.
+     (b) margin-inline: auto    — block elements carrying a max-width.
+     (c) place-items: center     — grid items within their tracks.
+     (d) justify-content: center — flex rows along their main axis.
+     Every explicit text-align: left from base/tablet is overridden here. */
+
+  section,
+  section .wrap,
+  .section-head,
+  .hero-grid,
+  .hero-grid > div:first-child,
+  .discovery-grid,
+  .discovery-list,
+  .discovery-cta,
+  .t-row,
+  .why .card,
+  .client-card,
+  .quote-card,
+  footer .wrap,
+  .footer-nav,
+  .final .wrap {
+    text-align: center;
+  }
+
+  /* Grid containers: center items in their tracks. */
+  .hero-grid > div:first-child,
+  .discovery-grid,
+  .t-row {
+    place-items: center;
+  }
+
+  /* Block elements with max-width: center within their parent. */
+  h1, h2, h3,
+  .hero .sub,
+  .section-head p,
+  .discovery-grid .sub,
+  .visual-note {
+    margin-inline: auto;
+  }
+
+  /* Flex rows: center along main axis. */
+  .discovery-list li,
+  .discovery-cta,
+  .client-card .meta,
+  .quote-author {
+    justify-content: center;
+  }
 
   /* Carousels: 1 item centered, no asymmetric peek of next.
      Remove side padding so item fills viewport; snap center. */
   .car-track { padding-inline: 0; }
   .car-track > * { scroll-snap-align: center; }
-
-  .discovery-grid { text-align: center; place-items: center; }
-  .discovery-list li { justify-content: center; }
-  .discovery-cta { justify-content: center; }
-
-  .t-row { justify-items: center; text-align: center; }
-
-  .why .card { text-align: center; }
-
-  .client-card { text-align: center; }
-  .client-card .meta { justify-content: center; }
-
-  .quote-card { text-align: center; }
-  .quote-author { justify-content: center; }
 }
 
 /* =========================================================================
