@@ -570,9 +570,12 @@ h2 { max-width: 16ch; }
 /* Uniform 15px between every item: eyebrow->h2, h2->button, button->note. */
 .final .eyebrow { margin-bottom: 15px; }
 
+/* CTA/note block: extra 15px on top of the 15px wrap gap. */
+.final .wrap > :last-child { margin-top: 15px; }
+
 .final .note {
   display: block;
-  margin-top: 15px;
+  margin-top: 30px;
 }
 
 /* =========================================================================
