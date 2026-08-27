@@ -312,7 +312,7 @@ h2 { max-width: 16ch; }
   list-style: none;
   margin: 0;
   padding-block: 0 8px;
-  padding-inline: 34px;
+  padding-inline: 0;
 }
 .car-track::-webkit-scrollbar { display: none; }
 .car-track > * {
