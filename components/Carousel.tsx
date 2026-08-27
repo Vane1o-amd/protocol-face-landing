@@ -8,12 +8,13 @@ type CarouselProps = {
   children: ReactNode;
   trackClassName: string;
   ariaLabel: string;
+  wrapperClassName?: string;
 };
 
 /* scroll-snap horizontal carousel with prev/next arrows.
    The track is the motion stagger parent; each child uses fadeUp variants.
    Arrows disable at scroll edges. Native scroll/drag + snap still work. */
-export default function Carousel({ children, trackClassName, ariaLabel }: CarouselProps) {
+export default function Carousel({ children, trackClassName, ariaLabel, wrapperClassName }: CarouselProps) {
   const trackRef = useRef<HTMLDivElement>(null);
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
@@ -44,7 +45,7 @@ export default function Carousel({ children, trackClassName, ariaLabel }: Carous
   };
 
   return (
-    <div className="carousel">
+    <div className={`carousel${wrapperClassName ? ` ${wrapperClassName}` : ""}`}>
       <button
         type="button"
         className="car-arrow car-prev"
