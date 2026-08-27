@@ -779,7 +779,7 @@ footer .wrap {
 @media (min-width: 1024px) {
   :root {
     --text-body: 18px;
-    --text-h1: 77px;
+    /* --text-h1: 77px; */
     --text-h2: 64px;
     --text-h3: 36px;
     --section-py: 160px;
