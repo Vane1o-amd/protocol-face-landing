@@ -46,7 +46,7 @@
 }
 
 /* =========================================================================
-   Base
+   Reset / base
    ========================================================================= */
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -55,7 +55,6 @@ html { scroll-behavior: smooth; }
 
 body {
   background: var(--color-paper);
-  /* color: var(--color-ink); */
   font-family: var(--font-sans);
   font-size: var(--text-body);
   line-height: var(--text-lh);
@@ -69,6 +68,7 @@ button { font-family: inherit; cursor: pointer; }
 input, textarea, select { font-family: inherit; font-size: inherit; }
 img, video { max-width: 100%; display: block; }
 
+/* headings */
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   font-weight: 600;
@@ -79,7 +79,13 @@ h1, h2, h3, h4 {
 h1 { font-size: var(--text-h1); }
 h2 { font-size: var(--text-h2); letter-spacing: -0.01em; }
 h3 { font-size: var(--text-h3); }
-h4 { font-size: var(--text-h4); letter-spacing: 0.08em; text-transform: uppercase; font-family: var(--font-mono); font-weight: 500; }
+h4 {
+  font-size: var(--text-h4);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
 
 /* font utility classes */
 .hand { font-family: var(--font-hand); }
@@ -92,7 +98,10 @@ h4 { font-size: var(--text-h4); letter-spacing: 0.08em; text-transform: uppercas
   outline-offset: 2px;
 }
 
-/* layout container */
+/* =========================================================================
+   Layout
+   ========================================================================= */
+
 .wrap {
   width: 100%;
   max-width: var(--container-max);
@@ -100,8 +109,38 @@ h4 { font-size: var(--text-h4); letter-spacing: 0.08em; text-transform: uppercas
   padding-inline: var(--wrap-px);
 }
 
-/* min tap target */
 .touch { min-height: var(--touch); min-width: var(--touch); }
+
+/* =========================================================================
+   Buttons — shared base + variants
+   All buttons color-flip on hover, 0.15s smooth.
+   ========================================================================= */
+
+.btn {
+  font-family: var(--font-mono);
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius);
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+.btn:active { transform: scale(0.98); }
+
+/* primary / submit — ink bg, paper text, flips to paper/ink */
+.btn-primary,
+.submit-btn {
+  font-size: 13px;
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border: 1px solid var(--color-ink);
+  padding: 15px 26px;
+}
+.btn-primary:hover,
+.submit-btn:hover {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
+.submit-btn { justify-self: start; }
+.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
 /* =========================================================================
    Topbar
@@ -149,9 +188,9 @@ h4 { font-size: var(--text-h4); letter-spacing: 0.08em; text-transform: uppercas
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
-  transition: opacity 0.15s ease, transform 0.1s ease;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
 }
-.nav-cta:hover { opacity: 0.82; }
+.nav-cta:hover { background: var(--color-ink); color: var(--color-paper); }
 .nav-cta:active { transform: scale(0.98); }
 
 /* =========================================================================
@@ -225,21 +264,6 @@ h2 { max-width: 16ch; }
   align-items: center;
   gap: 10px;
 }
-
-.btn-primary {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  background: var(--color-ink);
-  color: var(--color-paper);
-  border: 1px solid var(--color-ink);
-  padding: 15px 26px;
-  border-radius: var(--radius);
-  display: inline-flex;
-  align-items: center;
-  transition: opacity 0.15s ease, transform 0.1s ease;
-}
-.btn-primary:hover { opacity: 0.82; }
-.btn-primary:active { transform: scale(0.98); }
 
 .hero .note {
   font-family: var(--font-mono);
@@ -472,9 +496,7 @@ h2 { max-width: 16ch; }
    Final CTA
    ========================================================================= */
 
-.final {
-  border-top: 1px solid var(--color-line);
-}
+.final { border-top: 1px solid var(--color-line); }
 
 .final h2 { max-width: 20ch; }
 
@@ -541,6 +563,7 @@ footer .wrap {
   flex-shrink: 0;
 }
 
+/* consent buttons — shared base, two variants (decline transparent, allow ink) */
 .consent-banner .btn-decline,
 .consent-banner .btn-allow {
   font-family: var(--font-mono);
@@ -549,9 +572,13 @@ footer .wrap {
   border-radius: var(--radius);
   border: 1px solid var(--color-line);
   background: transparent;
-  transition: opacity 0.15s ease, transform 0.1s ease;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
 }
-.consent-banner .btn-decline:hover { opacity: 0.82; }
+.consent-banner .btn-decline:hover {
+  background: var(--color-ink);
+  color: var(--color-paper);
+  border-color: var(--color-ink);
+}
 .consent-banner .btn-decline:active { transform: scale(0.98); }
 
 .consent-banner .btn-allow {
@@ -559,7 +586,10 @@ footer .wrap {
   color: var(--color-paper);
   border-color: var(--color-ink);
 }
-.consent-banner .btn-allow:hover { opacity: 0.82; }
+.consent-banner .btn-allow:hover {
+  background: var(--color-paper);
+  color: var(--color-ink);
+}
 .consent-banner .btn-allow:active { transform: scale(0.98); }
 
 /* =========================================================================
@@ -631,21 +661,6 @@ footer .wrap {
   height: 1px;
   overflow: hidden;
 }
-
-.submit-btn {
-  font-family: var(--font-mono);
-  font-size: 13px;
-  background: var(--color-ink);
-  color: var(--color-paper);
-  border: 1px solid var(--color-ink);
-  padding: 15px 26px;
-  border-radius: var(--radius);
-  transition: opacity 0.15s ease, transform 0.1s ease;
-  justify-self: start;
-}
-.submit-btn:hover { opacity: 0.82; }
-.submit-btn:active { transform: scale(0.98); }
-.submit-btn:disabled { opacity: 0.5; cursor: not-allowed; }
 
 .lead-form .form-status {
   font-family: var(--font-mono);
@@ -731,12 +746,10 @@ footer .wrap {
     row-gap: 32px;
   }
   .p-step {
-    padding: 28px 22px 0 0;
     border-right: 1px solid var(--color-line);
     border-bottom: none;
-    text-align: left;
   }
-  .p-step:nth-child(2n) { border-right: none; padding-right: 0; }
+  .p-step:nth-child(2n) { border-right: none; }
 
   .t-row {
     grid-template-columns: 120px 1fr;
@@ -788,14 +801,10 @@ footer .wrap {
     row-gap: 0;
   }
   .p-step {
-    padding: 28px 22px 0 0;
     border-right: 1px solid var(--color-line);
     border-bottom: none;
   }
-  .p-step:nth-child(2n) {
-    border-right: 1px solid var(--color-line);
-    padding-right: 22px;
-  }
+  .p-step:nth-child(2n) { border-right: 1px solid var(--color-line); }
   .p-step:last-child { border-right: none; }
 }
 
