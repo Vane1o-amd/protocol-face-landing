@@ -358,6 +358,7 @@ h2 { max-width: 16ch; }
 
 .p-step {
   text-align: center;
+  padding: 22px 22px 0 0;
   transition: transform 0.2s ease, border-color 0.2s ease;
 }
 .p-step:hover {
@@ -982,9 +983,6 @@ footer .wrap {
 
   /* tablet: process 2-up (gap 0) */
   .process > * { width: 50%; }
-  .p-step {
-    padding: 0 22px 0 0;
-  }
 
   .t-row {
     grid-template-columns: 120px 1fr;
