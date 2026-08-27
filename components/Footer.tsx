@@ -6,7 +6,7 @@ export default function Footer() {
     <footer>
       <div className="wrap">
         <span>© {year} Protocol Face. Все права защищены.</span>
-        <nav style={{ display: "flex", gap: "18px", flexWrap: "wrap" }}>
+        <nav className="footer-nav">
           <Link
             href="/privacy"
             style={{
