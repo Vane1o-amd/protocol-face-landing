@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import { useState } from "react";
 import { inViewOnce } from "@/lib/motion";
 
 const ITEMS = [
@@ -27,6 +28,8 @@ const ITEMS = [
 ] as const;
 
 export default function FAQ() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
   return (
     <section id="faq" aria-labelledby="faq-head">
       <div className="wrap">
@@ -42,7 +45,15 @@ export default function FAQ() {
 
         <motion.div className="faq-list" {...inViewOnce}>
           {ITEMS.map((item, i) => (
-            <details className="faq-item" key={item.q} {...(i === 0 ? { open: true } : {})}>
+            <details
+              className="faq-item"
+              key={item.q}
+              open={openIndex === i}
+              onToggle={(e) => {
+                if (e.currentTarget.open) setOpenIndex(i);
+                else if (openIndex === i) setOpenIndex(null);
+              }}
+            >
               <summary className="faq-q">
                 <span>{item.q}</span>
                 <span className="faq-icon" aria-hidden="true">
