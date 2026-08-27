@@ -27,9 +27,11 @@ export default function Carousel({ children, trackClassName, ariaLabel, wrapperC
   }, []);
 
   useEffect(() => {
-    syncEdges();
     const el = trackRef.current;
     if (!el) return;
+    /* Force first item on mount — browser may restore prior horizontal scroll on reload. */
+    el.scrollLeft = 0;
+    syncEdges();
     el.addEventListener("scroll", syncEdges, { passive: true });
     window.addEventListener("resize", syncEdges);
     return () => {
