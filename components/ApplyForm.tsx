@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState, useRef } from "react";
+import Link from "next/link";
 import { trackLead } from "@/components/MetaPixel";
 import { consentGranted } from "@/lib/consent";
 import { readFbclid } from "@/lib/meta-cookies";
@@ -184,7 +185,18 @@ export default function ApplyForm() {
               aria-describedby={fieldErrors.consent ? `${consentId}-err` : undefined}
             />
             <label htmlFor={consentId}>
-              Согласен на обработку персональных данных согласно политике конфиденциальности
+              Согласен на обработку персональных данных согласно{" "}
+              <Link
+                href="/privacy"
+                target="_blank"
+                rel="noopener"
+                style={{
+                  color: "var(--color-mark)",
+                  textDecoration: "underline",
+                }}
+              >
+                политике конфиденциальности
+              </Link>
             </label>
             {fieldErrors.consent && (
               <span id={`${consentId}-err`} className="field-error">

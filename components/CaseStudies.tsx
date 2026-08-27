@@ -19,13 +19,13 @@ const CLIENTS = [
   },
   {
     name: "Клиент 3",
-    days: "12 недель",
+    days: "30 дней",
     image: "/images/case-3.webp",
     alt: "Клиент 3 — результат протокола",
   },
   {
     name: "Клиент 4",
-    days: "12 недель",
+    days: "90 дней",
     image: "/images/case-4.webp",
     alt: "Клиент 4 — результат протокола",
   },
@@ -38,7 +38,7 @@ export default function CaseStudies() {
         <div className="section-head">
           <motion.div {...inViewOnce}>
             <div className="eyebrow">Клиенты</div>
-            <h2 id="cases-head">Реальные результаты за 12 недель</h2>
+            <h2 id="cases-head">Реальные результаты — от 30 дней</h2>
           </motion.div>
           <motion.p {...inViewOnce}>
             Не ретушь. Не фильтры. Фотографии до и после — без монтажа.
