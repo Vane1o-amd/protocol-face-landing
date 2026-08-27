@@ -39,7 +39,7 @@
   --text-h4: 11px;
   --text-eyebrow: 11px;
   --text-mono: 12px;
-  --section-py: 72px;
+  --section-py: 48px;
   --touch: 48px;
   --wrap-px: 24px;
 }
@@ -931,6 +931,29 @@ footer .wrap {
 .faq-a p { margin: 0; }
 
 /* =========================================================================
+   Responsive — Mobile (≤767px)
+   Center all section content below tablet breakpoint.
+   ========================================================================= */
+
+@media (max-width: 767px) {
+  .hero-grid > div:first-child { place-items: center; }
+
+  .discovery-grid { text-align: center; }
+  .discovery-list li { justify-content: center; }
+  .discovery-cta { justify-content: center; }
+
+  .t-row { justify-items: center; text-align: center; }
+
+  .why .card { text-align: center; }
+
+  .client-card { text-align: center; }
+  .client-card .meta { justify-content: center; }
+
+  .quote-card { text-align: center; }
+  .quote-author { justify-content: center; }
+}
+
+/* =========================================================================
    Responsive — Tablet (≥768px)
    Sizing adjustments happen HERE only.
    ========================================================================= */
@@ -941,7 +964,7 @@ footer .wrap {
     --text-h1: 52px;
     --text-h2: 36px;
     --text-h3: 24px;
-    --section-py: 120px;
+    --section-py: 96px;
     --touch: 44px;
     --wrap-px: 32px;
   }
@@ -1028,6 +1051,7 @@ footer .wrap {
     --text-h2: 52px;
     --text-h3: 30px;
     --touch: 40px;
+    --section-py: 120px;
   }
   body { font-size: var(--text-body); }
 
