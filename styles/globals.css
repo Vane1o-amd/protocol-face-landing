@@ -551,7 +551,11 @@ h2 { max-width: 16ch; }
    Final CTA
    ========================================================================= */
 
-.final { border-top: 1px solid var(--color-line); }
+.final {
+  border-top: 1px solid var(--color-line);
+  /* Smaller than global --section-py (48/96/120): final CTA is a tight closer. */
+  padding-block: 36px;
+}
 
 .final h2 { max-width: 20ch; }
 
@@ -559,8 +563,19 @@ h2 { max-width: 16ch; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  gap: 32px;
   text-align: center;
+}
+
+/* Even padding-block on both items so the eyebrow/h2 block and the CTA/note
+   block breathe symmetrically — the gap alone left the CTA block tighter. */
+.final .wrap > * {
+  padding-block: 8px;
+}
+
+.final .note {
+  display: block;
+  margin-top: 12px;
 }
 
 /* =========================================================================
@@ -1011,6 +1026,9 @@ footer .wrap {
   body { font-size: var(--text-body); }
   section { text-align: left; }
 
+  .final { padding-block: 64px; }
+  .final .wrap { gap: 40px; }
+
   /* discovery — 2-col on tablet */
   .discovery-grid { grid-template-columns: 1fr 1fr; align-items: start; }
   .discovery-cta { grid-column: 1 / -1; }
@@ -1094,6 +1112,8 @@ footer .wrap {
     --section-py: 120px;
   }
   body { font-size: var(--text-body); }
+
+  .final { padding-block: 80px; }
 
   /* testimonials — 3-up desktop (gap 20px) */
   .testimonials > * { width: calc((100% - 40px) / 3); }
