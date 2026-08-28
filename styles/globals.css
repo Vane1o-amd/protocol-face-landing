@@ -568,8 +568,7 @@ h2 { max-width: 16ch; }
 
 .final {
   border-top: 1px solid var(--color-line);
-  /* Tight closer — much smaller than global --section-py (48/96/120). */
-  padding-block: 20px;
+  padding-block: 24px;
 }
 
 .final h2 { max-width: 20ch; }
@@ -580,17 +579,6 @@ h2 { max-width: 16ch; }
   align-items: center;
   gap: 15px;
   text-align: center;
-}
-
-/* Uniform 15px between every item: eyebrow->h2, h2->button, button->note. */
-.final .eyebrow { margin-bottom: 15px; }
-
-/* CTA/note block: extra 15px on top of the 15px wrap gap. */
-.final .wrap > :last-child { margin-top: 15px; }
-
-.final .note {
-  display: block;
-  margin-top: 30px;
 }
 
 /* =========================================================================
@@ -1061,8 +1049,6 @@ footer .wrap {
   body { font-size: var(--text-body); }
   section { text-align: left; }
 
-  .final { padding-block: 32px; }
-
   /* discovery — 2-col on tablet */
   .discovery-grid { grid-template-columns: 1fr 1fr; align-items: start; }
   .discovery-cta { grid-column: 1 / -1; }
@@ -1146,8 +1132,6 @@ footer .wrap {
     --section-py: 120px;
   }
   body { font-size: var(--text-body); }
-
-  .final { padding-block: 40px; }
 
   /* testimonials — 3-up desktop (gap 20px) */
   .testimonials > * { width: calc((100% - 40px) / 3); }

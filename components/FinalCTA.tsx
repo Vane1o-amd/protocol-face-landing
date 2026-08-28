@@ -11,12 +11,12 @@ export default function FinalCTA() {
           <div className="eyebrow">Начать</div>
           <h2 id="final-head">Готовы изменить лицо — за 12 недель?</h2>
         </motion.div>
-        <motion.div {...inViewOnce}>
-          <a href="#apply" className="btn-primary">
-            Оставить заявку
-          </a>
-          <span className="note">Ответ в течение 24 часов</span>
-        </motion.div>
+        <motion.a href="#apply" className="btn-primary" {...inViewOnce}>
+          Оставить заявку
+        </motion.a>
+        <motion.span className="note" {...inViewOnce}>
+          Ответ в течение 24 часов
+        </motion.span>
       </div>
     </section>
   );
