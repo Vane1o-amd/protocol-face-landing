@@ -40,6 +40,10 @@ export default function Detail() {
             <figcaption className="after">После</figcaption>
           </figure>
         </motion.div>
+
+        <motion.div className="section-cta" {...inViewOnce}>
+          <a href="#apply" className="btn-primary">Оставить заявку</a>
+        </motion.div>
       </div>
     </section>
   );

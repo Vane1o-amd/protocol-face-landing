@@ -48,6 +48,10 @@ export default function Timeline() {
             </div>
           ))}
         </motion.div>
+
+        <motion.div className="section-cta" {...inViewOnce}>
+          <a href="#apply" className="btn-primary">Оставить заявку</a>
+        </motion.div>
       </div>
     </section>
   );

@@ -258,6 +258,14 @@ h2 { max-width: 16ch; }
   color: var(--color-ink-soft);
 }
 
+.hero .hero-subtitle {
+  margin-top: 12px;
+  font-size: var(--text-h3);
+  font-weight: 500;
+  color: var(--color-ink-soft);
+  max-width: 30ch;
+}
+
 .hero .cta-row {
   margin-top: 28px;
   display: flex;
@@ -294,6 +302,13 @@ h2 { max-width: 16ch; }
   max-width: 52ch;
 }
 .visual-note b { color: var(--color-ink); font-weight: 600; }
+
+/* Section-level CTA — centered button after section content */
+.section-cta {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
 
 /* =========================================================================
    Carousel (shared scroll-snap track + arrows)
@@ -1008,6 +1023,24 @@ footer .wrap {
      Remove side padding so item fills viewport; snap center. */
   .car-track { padding-inline: 0; }
   .car-track > * { scroll-snap-align: center; }
+
+  /* === Hero reorder on phone: h1 → subtitle → photo → text → button ===
+     display:contents flattens the two hero-grid children so their leaves
+     become flex items of .hero-grid; order interleaves them. */
+  .hero-grid {
+    display: flex;
+    flex-direction: column;
+  }
+  .hero-grid > div {
+    display: contents;
+  }
+  .hero-grid > div:first-child .eyebrow { order: 1; }
+  .hero-grid > div:first-child h1 { order: 2; }
+  .hero-grid > div:first-child .hero-subtitle { order: 3; }
+  .hero-visual figure { order: 4; }
+  .hero-grid > div:first-child .sub { order: 5; }
+  .hero-grid > div:first-child .cta-row { order: 6; }
+  .hero-visual .visual-note { order: 7; }
 }
 
 /* =========================================================================

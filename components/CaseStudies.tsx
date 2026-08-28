@@ -8,7 +8,7 @@ import Carousel from "@/components/Carousel";
 const CLIENTS = [
   {
     name: "Денис",
-    days: "84 дня",
+    days: "30 дней",
     image: "/images/case-denis.jpg",
     alt: "Денис — результат протокола",
   },
@@ -65,6 +65,10 @@ export default function CaseStudies() {
             </motion.article>
           ))}
         </Carousel>
+
+        <motion.div className="section-cta" {...inViewOnce}>
+          <a href="#apply" className="btn-primary">Оставить заявку</a>
+        </motion.div>
       </div>
     </section>
   );

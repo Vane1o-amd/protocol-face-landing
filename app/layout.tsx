@@ -42,12 +42,12 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://protocolface.com"),
   title: "Protocol Face — персональная диагностика и сопровождение",
   description:
-    "Личный протокол лица: измени лицо за 60 дней — первые изменения уже через неделю.",
+    "Личный протокол лица: измени лицо за 30 дней — первые изменения уже через неделю.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "Protocol Face — персональная диагностика и сопровождение",
     description:
-      "Личный протокол лица: измени лицо за 60 дней — первые изменения уже через неделю.",
+      "Личный протокол лица: измени лицо за 30 дней — первые изменения уже через неделю.",
     type: "website",
     locale: "ru_RU",
     siteName: "Protocol Face",
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Protocol Face — персональная диагностика и сопровождение",
     description:
-      "Личный протокол лица: измени лицо за 60 дней — первые изменения уже через неделю.",
+      "Личный протокол лица: измени лицо за 30 дней — первые изменения уже через неделю.",
   },
   robots: { index: true, follow: true },
 };

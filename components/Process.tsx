@@ -52,6 +52,10 @@ export default function Process() {
             </motion.div>
           ))}
         </Carousel>
+
+        <motion.div className="section-cta" {...inViewOnce}>
+          <a href="#apply" className="btn-primary">Оставить заявку</a>
+        </motion.div>
       </div>
     </section>
   );
