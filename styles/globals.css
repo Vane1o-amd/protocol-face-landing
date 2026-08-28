@@ -284,7 +284,7 @@ h2 { max-width: 16ch; }
 .hero-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 36px;
+  gap: 0px;
   align-items: center;
 }
 .hero-grid > div:first-child { text-align: center; }
@@ -1072,7 +1072,7 @@ footer .wrap {
   /* tablet: hero 2-col */
   .hero-grid {
     grid-template-columns: 0.92fr 1.2fr;
-    gap: 52px;
+    gap: 20px;
   }
 
   .section-head {
@@ -1135,6 +1135,9 @@ footer .wrap {
 
   /* testimonials — 3-up desktop (gap 20px) */
   .testimonials > * { width: calc((100% - 40px) / 3); }
+
+  /* desktop: hero 2-col — wider gap */
+  .hero-grid { gap: 36px; }
 
   /* desktop: process 4-up (gap 0) — all 4 fit, hide arrows */
   .process > * { width: 25%; }
