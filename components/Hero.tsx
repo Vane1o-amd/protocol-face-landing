@@ -11,8 +11,11 @@ export default function Hero() {
           <motion.div {...inViewOnce}>
             <div className="eyebrow">Личный протокол лица</div>
             <motion.h1 variants={fadeUp} initial="hidden" animate="visible">
-              ИЗМЕНИ ЛИЦО ЗА 60 ДНЕЙ (1-вые изменения уже через неделю)
+              ИЗМЕНИ ЛИЦО ЗА 30 ДНЕЙ
             </motion.h1>
+            <motion.p className="hero-subtitle" variants={fadeUp} initial="hidden" animate="visible">
+              (1-вые изменения уже через неделю)
+            </motion.p>
             <motion.p className="sub" variants={fadeUp} initial="hidden" animate="visible">
               уберем отеки, жир, прыщи, добавим контраст, выразим челюсть.
               Сделаем мужские черты лица. Всего 15 минут в день, питание,

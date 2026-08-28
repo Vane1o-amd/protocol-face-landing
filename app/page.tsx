@@ -1,7 +1,7 @@
 import Topbar from "@/components/Topbar";
 import Hero from "@/components/Hero";
 import Process from "@/components/Process";
-import VideoShowcase from "@/components/VideoShowcase";
+// VideoShowcase hidden until Roman provides /public/videos/showcase.mp4 — controls fully functional, just uncomment import + <VideoShowcase />
 import Habits from "@/components/Habits";
 import Timeline from "@/components/Timeline";
 import CaseStudies from "@/components/CaseStudies";
@@ -21,7 +21,7 @@ export default function Home() {
       <main>
         <Hero />
         <Process />
-        <VideoShowcase />
+        {/* TODO: uncomment when Roman provides /public/videos/showcase.mp4 — controls fully functional, section just hidden <VideoShowcase /> */}
         <Habits />
         <Timeline />
         <CaseStudies />
