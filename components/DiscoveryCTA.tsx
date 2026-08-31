@@ -51,7 +51,7 @@ export default function DiscoveryCTA() {
 
           <motion.div className="discovery-cta" {...inViewOnce}>
             <a href="#apply" className="btn-primary">
-              Начать заявку →
+              Записаться на разбор →
             </a>
             <span className="note">Ответ в течение 24 часов</span>
           </motion.div>

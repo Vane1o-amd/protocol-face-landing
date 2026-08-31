@@ -6,7 +6,7 @@ import Habits from "@/components/Habits";
 import Timeline from "@/components/Timeline";
 import CaseStudies from "@/components/CaseStudies";
 import Testimonials from "@/components/Testimonials";
-import Detail from "@/components/Detail";
+// Detail removed from page per docx prototype section order; component file kept for future use
 import Why from "@/components/Why";
 import DiscoveryCTA from "@/components/DiscoveryCTA";
 import FinalCTA from "@/components/FinalCTA";
@@ -23,11 +23,10 @@ export default function Home() {
         <Process />
         {/* TODO: uncomment when Roman provides /public/videos/showcase.mp4 — controls fully functional, section just hidden <VideoShowcase /> */}
         <Habits />
-        <Timeline />
         <CaseStudies />
         <Testimonials />
-        <Detail />
         <Why />
+        <Timeline />
         <DiscoveryCTA />
         <FinalCTA />
         <FAQ />

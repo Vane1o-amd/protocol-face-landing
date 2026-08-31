@@ -23,24 +23,6 @@ const QUOTES = [
     quote:
       "Прыщи ушли за три недели. Сон и питание оказались важнее всего остального.",
   },
-  {
-    name: "Никита",
-    role: "29 лет, Киев",
-    quote:
-      "Поддержка 24/7 — не маркетинг. На любой вопрос отвечали в тот же день. План подстраивался под меня.",
-  },
-  {
-    name: "Игорь",
-    role: "31 год, Харьков",
-    quote:
-      "Думал, нужен спортзал и косметолог. Оказалось — осанка, тонус и привычки. Намного дешевле и проще.",
-  },
-  {
-    name: "Сергей",
-    role: "26 лет, Тверь",
-    quote:
-      "Контур лица изменился так, что знакомые спрашивают, что я сделал. Ничего не делал — просто следовал протоколу.",
-  },
 ] as const;
 
 export default function Testimonials() {
@@ -60,6 +42,9 @@ export default function Testimonials() {
         <Carousel trackClassName="testimonials" ariaLabel="Отзывы клиентов">
           {QUOTES.map((q) => (
             <motion.figure className="quote-card" key={q.name} variants={fadeUp}>
+              <div className="video-slot" aria-hidden="true">
+                ▶ ВИДЕО-ОТЗЫВ
+              </div>
               <blockquote className="quote-body">{q.quote}</blockquote>
               <figcaption className="quote-author">
                 <span className="avatar" aria-hidden="true">

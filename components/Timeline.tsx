@@ -50,7 +50,7 @@ export default function Timeline() {
         </motion.div>
 
         <motion.div className="section-cta" {...inViewOnce}>
-          <a href="#apply" className="btn-primary">Оставить заявку</a>
+          <a href="#apply" className="btn-primary">Записаться на разбор →</a>
         </motion.div>
       </div>
     </section>

@@ -12,7 +12,7 @@ export default function FinalCTA() {
           <h2 id="final-head">Готовы изменить лицо — за 12 недель?</h2>
         </motion.div>
         <motion.a href="#apply" className="btn-primary" {...inViewOnce}>
-          Оставить заявку
+          Записаться на разбор →
         </motion.a>
         <motion.span className="note" {...inViewOnce}>
           Ответ в течение 24 часов
