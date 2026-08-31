@@ -8,7 +8,6 @@ import { sendLeadEvent } from "@/lib/meta-capi";
 const LeadSchema = z.object({
   name: z.string().min(1).max(200),
   contact: z.string().min(1).max(200),
-  goal: z.string().min(1).max(2000),
   consent: z.boolean().refine((v) => v === true, "Consent required"),
   eventId: z.string().uuid().optional(),
   fbclid: z.string().optional(),
@@ -80,7 +79,6 @@ export async function POST(req: NextRequest) {
   const leadData: LeadData = {
     name: d.name,
     contact: d.contact,
-    goal: d.goal,
     consent: d.consent,
     eventId: d.eventId,
     fbclid: d.fbclid,

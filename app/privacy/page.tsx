@@ -41,7 +41,6 @@ export default function PrivacyPage() {
       <h2 style={sectionH2}>Данные, которые мы собираем</h2>
       <ul style={list}>
         <li>Имя, телефон или Telegram</li>
-        <li>Ваша цель/проблема (свободный текст из формы заявки)</li>
         <li>UTM-параметры (source/medium/campaign) из ссылки, по которой вы пришли</li>
         <li>IP-адрес (только для rate-limit и маршрутизации)</li>
         <li>Отметка времени согласия</li>

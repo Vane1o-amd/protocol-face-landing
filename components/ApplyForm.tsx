@@ -12,7 +12,6 @@ type Issues = { field?: string; message: string }[];
 export default function ApplyForm() {
   const nameId = useId();
   const contactId = useId();
-  const goalId = useId();
   const consentId = useId();
   const hpId = useId();
 
@@ -21,7 +20,6 @@ export default function ApplyForm() {
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const nameRef = useRef<HTMLInputElement>(null);
   const contactRef = useRef<HTMLInputElement>(null);
-  const goalRef = useRef<HTMLTextAreaElement>(null);
   const consentRef = useRef<HTMLInputElement>(null);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -34,7 +32,6 @@ export default function ApplyForm() {
     const data = new FormData(form);
     const name = String(data.get("name") ?? "").trim();
     const contact = String(data.get("contact") ?? "").trim();
-    const goal = String(data.get("goal") ?? "").trim();
     const consent = data.get("consent") === "on";
     const hp = String(data.get("company") ?? "").trim();
 
@@ -48,7 +45,6 @@ export default function ApplyForm() {
     const issues: Issues = [];
     if (!name) issues.push({ field: "name", message: "Укажите имя" });
     if (!contact) issues.push({ field: "contact", message: "Укажите телефон или Telegram" });
-    if (!goal) issues.push({ field: "goal", message: "Опишите цель" });
     if (!consent) issues.push({ field: "consent", message: "Требуется согласие на обработку" });
 
     if (issues.length > 0) {
@@ -59,7 +55,7 @@ export default function ApplyForm() {
       setFieldErrors(errors);
       setStatus("error");
       setMessage(issues[0].message);
-      const order = [nameRef, contactRef, goalRef, consentRef];
+      const order = [nameRef, contactRef, consentRef];
       for (const ref of order) {
         if (ref.current && ref.current.dataset.error === "true") {
           ref.current.focus();
@@ -76,7 +72,7 @@ export default function ApplyForm() {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, contact, goal, consent, eventId, fbclid }),
+        body: JSON.stringify({ name, contact, consent, eventId, fbclid }),
       });
 
       const body = (await res.json()) as { ok?: boolean; error?: string };
@@ -154,25 +150,6 @@ export default function ApplyForm() {
             {fieldErrors.contact && (
               <span id={`${contactId}-err`} className="field-error">
                 {fieldErrors.contact}
-              </span>
-            )}
-          </div>
-
-          <div className="field">
-            <label htmlFor={goalId}>Цель</label>
-            <textarea
-              id={goalId}
-              name="goal"
-              rows={3}
-              placeholder="Опишите, что хотите изменить"
-              ref={goalRef}
-              data-error={!!fieldErrors.goal}
-              aria-invalid={!!fieldErrors.goal}
-              aria-describedby={fieldErrors.goal ? `${goalId}-err` : undefined}
-            />
-            {fieldErrors.goal && (
-              <span id={`${goalId}-err`} className="field-error">
-                {fieldErrors.goal}
               </span>
             )}
           </div>
