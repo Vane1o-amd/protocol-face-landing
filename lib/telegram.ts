@@ -3,7 +3,6 @@ import { getEnv } from "./env";
 export interface LeadData {
   name: string;
   contact: string; // phone or telegram handle
-  goal: string;
   consent: boolean;
   utm?: { source?: string; medium?: string; campaign?: string };
   eventId?: string;
@@ -27,7 +26,6 @@ export function composeLeadMessage(d: LeadData): string {
     "",
     `👤 Имя: ${sanitize(d.name)}`,
     `📞 Контакт: ${sanitize(d.contact)}`,
-    `🎯 Цель: ${sanitize(d.goal)}`,
     `✅ Согласие: ${d.consent ? "да" : "нет"}`,
   ];
   if (d.utm?.source) lines.push(`📊 utm_source: ${sanitize(d.utm.source)}`);
