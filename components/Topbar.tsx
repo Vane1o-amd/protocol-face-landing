@@ -7,7 +7,7 @@ export default function Topbar() {
           Protocol Face
         </a>
         <a href="#apply" className="nav-cta">
-          Оставить заявку
+          Записаться на разбор →
         </a>
       </div>
     </header>

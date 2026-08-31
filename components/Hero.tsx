@@ -11,21 +11,42 @@ export default function Hero() {
           <motion.div {...inViewOnce}>
             <div className="eyebrow">Личный протокол лица</div>
             <motion.h1 variants={fadeUp} initial="hidden" animate="visible">
-              ИЗМЕНИ ЛИЦО ЗА 30 ДНЕЙ
+              Мужское, выразительное лицо за 90 дней
             </motion.h1>
-            <motion.p className="hero-subtitle" variants={fadeUp} initial="hidden" animate="visible">
-              (1-вые изменения уже через неделю)
-            </motion.p>
             <motion.p className="sub" variants={fadeUp} initial="hidden" animate="visible">
-              уберем отеки, жир, прыщи, добавим контраст, выразим челюсть.
-              Сделаем мужские черты лица. Всего 15 минут в день, питание,
-              упражнения, привычки в одной системе.
+              Уберём отёки, жир и прыщи, добавим контраст и чёткую челюсть —
+              без диет, инъекций и спортзала. Всего 15 минут в день.
             </motion.p>
+            <motion.p className="hero-subtitle" variants={fadeUp} initial="hidden" animate="visible">
+              Персональный протокол по фото и разбору. Первые изменения — уже
+              через 7 дней. Система встраивается в любой график: командировки,
+              тренировки, ресторан — без исключений.
+            </motion.p>
+            <motion.ul className="hero-points" variants={fadeUp} initial="hidden" animate="visible">
+              <li>
+                <b>Не косметика, а причина.</b> Работаем не с симптомами (крем,
+                филлер), а с первопричиной: осанка, тонус мышц лица, мимические
+                привычки.
+              </li>
+              <li>
+                <b>Без стресса и голода.</b> Изменения копятся постепенно, шаг
+                за шагом. Никаких жёстких диет, уколов и тяжёлых тренировок —
+                15 минут в день.
+              </li>
+              <li>
+                <b>Результат остаётся.</b> Протокол меняет привычки, а не даёт
+                разовый эффект — после завершения работы форма и тонус лица
+                не откатываются назад.
+              </li>
+            </motion.ul>
             <div className="cta-row">
               <a href="#apply" className="btn-primary">
-                Оставить заявку
+                Записаться на разбор →
               </a>
-              <span className="note">Ответ в течение 24 часов</span>
+              <span className="note">
+                Ответ в течение 24 часов · разбор бесплатный · веду клиентов
+                лично, мест на месяц ограниченное количество
+              </span>
             </div>
           </motion.div>
 

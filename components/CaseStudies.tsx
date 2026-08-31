@@ -18,18 +18,6 @@ const CLIENTS = [
     image: "/images/case-artur.jpg",
     alt: "Артур — результат протокола",
   },
-  {
-    name: "Эмиль",
-    days: "30 дней",
-    image: "/images/case-3.webp",
-    alt: "Эмиль — результат протокола",
-  },
-  {
-    name: "Даниил",
-    days: "90 дней",
-    image: "/images/case-4.webp",
-    alt: "Даниил — результат протокола",
-  },
 ] as const;
 
 export default function CaseStudies() {
@@ -67,7 +55,7 @@ export default function CaseStudies() {
         </Carousel>
 
         <motion.div className="section-cta" {...inViewOnce}>
-          <a href="#apply" className="btn-primary">Оставить заявку</a>
+          <a href="#apply" className="btn-primary">Записаться на разбор →</a>
         </motion.div>
       </div>
     </section>
