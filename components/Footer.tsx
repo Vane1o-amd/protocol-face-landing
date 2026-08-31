@@ -28,6 +28,17 @@ export default function Footer() {
             Instagram
           </a>
           <a
+            href="https://youtube.com/@roman.ascend"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              textDecoration: "underline",
+              textDecorationColor: "var(--color-line)",
+            }}
+          >
+            YouTube
+          </a>
+          <a
             href="mailto:roman.derkach.business@gmail.com"
             style={{
               textDecoration: "underline",

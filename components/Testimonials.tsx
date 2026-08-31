@@ -39,7 +39,11 @@ export default function Testimonials() {
           </motion.p>
         </div>
 
-        <Carousel trackClassName="testimonials" ariaLabel="Отзывы клиентов">
+        <Carousel
+          trackClassName="testimonials"
+          wrapperClassName="testimonials-carousel"
+          ariaLabel="Отзывы клиентов"
+        >
           {QUOTES.map((q) => (
             <motion.figure className="quote-card" key={q.name} variants={fadeUp}>
               <div className="video-slot" aria-hidden="true">
