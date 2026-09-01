@@ -280,7 +280,7 @@ h2 { max-width: 16ch; }
   color: var(--color-ink-soft);
 }
 
-/* hero objection-closing bullets */
+/* hero objection-closing bullets — compact boxes, galochka bullet, b as title */
 .hero .hero-points {
   margin: 24px 0 0;
   padding: 0;
@@ -291,21 +291,25 @@ h2 { max-width: 16ch; }
 }
 .hero .hero-points li {
   display: flex;
+  align-items: center;
   gap: 10px;
-  align-items: flex-start;
-  font-size: 14px;
-  line-height: 1.5;
-  color: var(--color-ink-soft);
-  text-align: left;
   max-width: 52ch;
+  font-size: 14px;
+  color: var(--color-ink-soft);
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  background: var(--color-card);
+  padding: 14px 16px;
 }
-.hero .hero-points li::before {
-  content: "✓";
-  flex: none;
-  color: var(--color-mark);
+.hero .hero-points li .point-check { flex: none; }
+.hero .hero-points li .point-body {
+  display: grid;
+  gap: 4px;
+}
+.hero .hero-points li b {
+  color: var(--color-ink);
   font-weight: 600;
 }
-.hero .hero-points li b { color: var(--color-ink); font-weight: 600; }
 
 /* hero grid — mobile stack */
 .hero-grid {
@@ -1052,7 +1056,7 @@ footer .wrap {
   .car-track { padding-inline: 0; }
   .car-track > * { scroll-snap-align: center; }
 
-  /* === Hero reorder on phone: h1 → subtitle → photo → text → button ===
+  /* === Hero reorder on phone: h1 → photo → note → subtitle → points → button ===
      display:contents flattens the two hero-grid children so their leaves
      become flex items of .hero-grid; order interleaves them. */
   .hero-grid {
@@ -1064,12 +1068,12 @@ footer .wrap {
   }
   .hero-grid > div:first-child .eyebrow { order: 1; }
   .hero-grid > div:first-child h1 { order: 2; }
-  .hero-grid > div:first-child .sub { order: 3; }
-  .hero-grid > div:first-child .hero-subtitle { order: 4; }
-  .hero-grid > div:first-child .hero-points { order: 5; }
-  .hero-visual figure { order: 6; }
-  .hero-grid > div:first-child .cta-row { order: 7; }
-  .hero-visual .visual-note { order: 8; }
+  .hero-visual figure { order: 3; }
+  .hero-visual .visual-note { order: 4; }
+  .hero-grid > div:first-child .sub { order: 5; }
+  .hero-grid > div:first-child .hero-subtitle { order: 6; }
+  .hero-grid > div:first-child .hero-points { order: 7; }
+  .hero-grid > div:first-child .cta-row { order: 8; }
 }
 
 /* =========================================================================
@@ -1105,7 +1109,8 @@ footer .wrap {
   .nav-cta { font-size: 13px; }
 
   .hero { padding: 64px 0 40px; }
-  .hero .sub { margin-top: 22px; font-size: 17.5px; }
+  .hero .sub { margin-top: 22px; font-size: var(--text-h3); }
+  .hero .hero-subtitle { font-size: var(--text-body); }
   .hero .cta-row { margin-top: 32px; }
   .btn-primary { font-size: 13.5px; }
   .hero .note { font-size: 12.5px; }

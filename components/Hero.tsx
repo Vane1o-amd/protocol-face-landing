@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
+import Image from "next/image";
 import { fadeUp, inViewOnce } from "@/lib/motion";
 
 export default function Hero() {
@@ -24,19 +25,52 @@ export default function Hero() {
             </motion.p>
             <motion.ul className="hero-points" variants={fadeUp} initial="hidden" animate="visible">
               <li>
-                <b>Не косметика, а причина.</b> Работаем не с симптомами (крем,
-                филлер), а с первопричиной: осанка, тонус мышц лица, мимические
-                привычки.
+                <Image
+                  src="/images/galochka.png"
+                  alt=""
+                  width={29}
+                  height={16}
+                  className="point-check"
+                />
+                <span className="point-body">
+                  <b>Не косметика, а причина.</b>
+                  <span>
+                    Работаем не с симптомами (крем, филлер), а с первопричиной:
+                    осанка, тонус мышц лица, мимические привычки.
+                  </span>
+                </span>
               </li>
               <li>
-                <b>Без стресса и голода.</b> Изменения копятся постепенно, шаг
-                за шагом. Никаких жёстких диет, уколов и тяжёлых тренировок —
-                15 минут в день.
+                <Image
+                  src="/images/galochka.png"
+                  alt=""
+                  width={29}
+                  height={16}
+                  className="point-check"
+                />
+                <span className="point-body">
+                  <b>Без стресса и голода.</b>
+                  <span>
+                    Изменения копятся постепенно, шаг за шагом. Никаких жёстких
+                    диет, уколов и тяжёлых тренировок — 15 минут в день.
+                  </span>
+                </span>
               </li>
               <li>
-                <b>Результат остаётся.</b> Протокол меняет привычки, а не даёт
-                разовый эффект — после завершения работы форма и тонус лица
-                не откатываются назад.
+                <Image
+                  src="/images/galochka.png"
+                  alt=""
+                  width={29}
+                  height={16}
+                  className="point-check"
+                />
+                <span className="point-body">
+                  <b>Результат остаётся.</b>
+                  <span>
+                    Протокол меняет привычки, а не даёт разовый эффект — после
+                    завершения работы форма и тонус лица не откатываются назад.
+                  </span>
+                </span>
               </li>
             </motion.ul>
             <div className="cta-row">
