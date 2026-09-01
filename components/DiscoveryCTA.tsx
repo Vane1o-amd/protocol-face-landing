@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "motion/react";
 import { fadeUp, inViewOnce, staggerContainer } from "@/lib/motion";
 
@@ -36,11 +35,11 @@ export default function DiscoveryCTA() {
             {POINTS.map((p) => (
               <motion.li key={p} variants={fadeUp}>
                 <span className="check" aria-hidden="true">
-                  <Image
-                    src="/images/galochka.png"
+                  <img
+                    src="/images/galochka.svg"
                     alt=""
                     width={14}
-                    height={14}
+                    height={11}
                     className="check-img"
                   />
                 </span>

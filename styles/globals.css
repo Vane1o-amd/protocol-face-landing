@@ -301,7 +301,7 @@ h2 { max-width: 16ch; }
   background: var(--color-card);
   padding: 14px 16px;
 }
-.hero .hero-points li .point-check { flex: none; }
+.hero .hero-points li .point-check { flex: none; color: var(--color-ink); }
 .hero .hero-points li .point-body {
   display: grid;
   gap: 4px;
@@ -342,7 +342,7 @@ h2 { max-width: 16ch; }
 }
 
 /* =========================================================================
-   Carousel (shared scroll-snap track + arrows)
+   Carousel (shared scroll-snap track + nav row below: arrows + progress bar)
    ========================================================================= */
 
 .carousel {
@@ -366,11 +366,14 @@ h2 { max-width: 16ch; }
   scroll-snap-align: start;
   scroll-snap-stop: always;
 }
+.car-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 14px;
+}
 .car-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -386,14 +389,22 @@ h2 { max-width: 16ch; }
   border-color: var(--color-ink);
 }
 .car-arrow:active {
-  transform: translateY(-50%) scale(0.96);
+  transform: scale(0.96);
 }
 .car-arrow:disabled {
   opacity: 0.3;
   cursor: not-allowed;
 }
-.car-prev { left: -10px; }
-.car-next { right: -10px; }
+.car-bar {
+  width: min(160px, 40%);
+  height: 2px;
+  background: var(--color-line);
+  overflow: hidden;
+}
+.car-bar-fill {
+  height: 100%;
+  background: var(--color-ink);
+}
 
 /* =========================================================================
    Process
@@ -1181,19 +1192,19 @@ footer .wrap {
 
   /* testimonials — 3-up desktop (gap 20px); only 3 cards — hide arrows */
   .testimonials > * { width: calc((100% - 40px) / 3); }
-  .testimonials-carousel .car-arrow { display: none; }
+  .testimonials-carousel .car-nav { display: none; }
 
   /* desktop: hero 2-col — wider gap */
   .hero-grid { gap: 36px; }
 
   /* desktop: process 4-up (gap 0) — all 4 fit, hide arrows */
   .process > * { width: 25%; }
-  .process-carousel .car-arrow { display: none; }
+  .process-carousel .car-nav { display: none; }
 
   /* desktop: clients — only 2 cards: keep card size, center pair, hide arrows */
   .clients-grid > * { width: calc((100% - 44px) / 3); }
   .clients-grid { justify-content: safe center; }
-  .clients-carousel .car-arrow { display: none; }
+  .clients-carousel .car-nav { display: none; }
 }
 
 /* =========================================================================
