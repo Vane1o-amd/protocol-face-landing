@@ -159,6 +159,7 @@ export default function ApplyForm() {
               id={consentId}
               name="consent"
               type="checkbox"
+              defaultChecked
               ref={consentRef}
               data-error={!!fieldErrors.consent}
               aria-invalid={!!fieldErrors.consent}
