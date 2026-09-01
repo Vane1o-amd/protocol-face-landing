@@ -259,6 +259,7 @@ h2 { max-width: 16ch; }
 }
 
 .hero .hero-subtitle {
+  place-self: center;
   margin-top: 12px;
   font-size: var(--text-h3);
   font-weight: 500;
