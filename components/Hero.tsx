@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "motion/react";
-import Image from "next/image";
 import { fadeUp, inViewOnce } from "@/lib/motion";
 
 export default function Hero() {
@@ -25,11 +24,11 @@ export default function Hero() {
             </motion.p>
             <motion.ul className="hero-points" variants={fadeUp} initial="hidden" animate="visible">
               <li>
-                <Image
-                  src="/images/galochka.png"
+                <img
+                  src="/images/galochka.svg"
                   alt=""
                   width={29}
-                  height={16}
+                  height={22}
                   className="point-check"
                 />
                 <span className="point-body">
@@ -41,11 +40,11 @@ export default function Hero() {
                 </span>
               </li>
               <li>
-                <Image
-                  src="/images/galochka.png"
+                <img
+                  src="/images/galochka.svg"
                   alt=""
                   width={29}
-                  height={16}
+                  height={22}
                   className="point-check"
                 />
                 <span className="point-body">
@@ -57,11 +56,11 @@ export default function Hero() {
                 </span>
               </li>
               <li>
-                <Image
-                  src="/images/galochka.png"
+                <img
+                  src="/images/galochka.svg"
                   alt=""
                   width={29}
-                  height={16}
+                  height={22}
                   className="point-check"
                 />
                 <span className="point-body">

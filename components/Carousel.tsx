@@ -18,12 +18,15 @@ export default function Carousel({ children, trackClassName, ariaLabel, wrapperC
   const trackRef = useRef<HTMLDivElement>(null);
   const [atStart, setAtStart] = useState(true);
   const [atEnd, setAtEnd] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   const syncEdges = useCallback(() => {
     const el = trackRef.current;
     if (!el) return;
     setAtStart(el.scrollLeft <= 1);
     setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 1);
+    const max = el.scrollWidth - el.clientWidth;
+    setProgress(max > 0 ? el.scrollLeft / max : 1);
   }, []);
 
   useEffect(() => {
@@ -48,24 +51,6 @@ export default function Carousel({ children, trackClassName, ariaLabel, wrapperC
 
   return (
     <div className={`carousel${wrapperClassName ? ` ${wrapperClassName}` : ""}`}>
-      <button
-        type="button"
-        className="car-arrow car-prev"
-        aria-label="Назад"
-        onClick={() => go(-1)}
-        disabled={atStart}
-      >
-        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
-          <path
-            d="M11 3 L6 9 L11 15"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </button>
       <motion.div
         ref={trackRef}
         className={`car-track ${trackClassName}`}
@@ -78,24 +63,50 @@ export default function Carousel({ children, trackClassName, ariaLabel, wrapperC
       >
         {children}
       </motion.div>
-      <button
-        type="button"
-        className="car-arrow car-next"
-        aria-label="Вперёд"
-        onClick={() => go(1)}
-        disabled={atEnd}
-      >
-        <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
-          <path
-            d="M7 3 L12 9 L7 15"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.6"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+      <div className="car-nav">
+        <button
+          type="button"
+          className="car-arrow car-prev"
+          aria-label="Назад"
+          onClick={() => go(-1)}
+          disabled={atStart}
+        >
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+            <path
+              d="M11 3 L6 9 L11 15"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+        <div className="car-bar" aria-hidden="true">
+          <div
+            className="car-bar-fill"
+            style={{ width: `${Math.round(progress * 100)}%` }}
           />
-        </svg>
-      </button>
+        </div>
+        <button
+          type="button"
+          className="car-arrow car-next"
+          aria-label="Вперёд"
+          onClick={() => go(1)}
+          disabled={atEnd}
+        >
+          <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true">
+            <path
+              d="M7 3 L12 9 L7 15"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
   );
 }
