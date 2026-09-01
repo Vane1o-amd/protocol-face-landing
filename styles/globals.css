@@ -1174,8 +1174,9 @@ footer .wrap {
   }
   body { font-size: var(--text-body); }
 
-  /* testimonials — 3-up desktop (gap 20px) */
+  /* testimonials — 3-up desktop (gap 20px); only 3 cards — hide arrows */
   .testimonials > * { width: calc((100% - 40px) / 3); }
+  .testimonials-carousel .car-arrow { display: none; }
 
   /* desktop: hero 2-col — wider gap */
   .hero-grid { gap: 36px; }
@@ -1184,8 +1185,10 @@ footer .wrap {
   .process > * { width: 25%; }
   .process-carousel .car-arrow { display: none; }
 
-  /* desktop: clients 3-up (gap 22px) */
+  /* desktop: clients — only 2 cards: keep card size, center pair, hide arrows */
   .clients-grid > * { width: calc((100% - 44px) / 3); }
+  .clients-grid { justify-content: safe center; }
+  .clients-carousel .car-arrow { display: none; }
 }
 
 /* =========================================================================
