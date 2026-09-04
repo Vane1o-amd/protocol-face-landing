@@ -1,8 +1,13 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import { fadeUp, inViewOnce } from "@/lib/motion";
 import Carousel from "@/components/Carousel";
+
+type VideoElement = HTMLVideoElement & {
+  webkitEnterFullscreen?: () => void;
+};
 
 const QUOTES = [
   {
@@ -28,6 +33,59 @@ const QUOTES = [
   },
 ] as const;
 
+function TestimonialVideo({ src, name }: { src: string; name: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const v = ref.current as VideoElement | null;
+    if (!v) return;
+    const onFullscreenChange = () => {
+      if (!document.fullscreenElement) {
+        v.pause();
+        v.controls = false;
+      }
+    };
+    document.addEventListener("fullscreenchange", onFullscreenChange);
+    return () =>
+      document.removeEventListener("fullscreenchange", onFullscreenChange);
+  }, []);
+
+  function open() {
+    const v = ref.current as VideoElement | null;
+    if (!v) return;
+    v.controls = true;
+    if (typeof v.requestFullscreen === "function") {
+      v.requestFullscreen()
+        .then(() => v.play())
+        .catch(() => v.play());
+    } else if (typeof v.webkitEnterFullscreen === "function") {
+      v.webkitEnterFullscreen();
+      v.play();
+    } else {
+      v.play();
+    }
+  }
+
+  return (
+    <button
+      type="button"
+      className="video-thumb"
+      onClick={open}
+      aria-label={`Смотреть видео-отзыв: ${name} на весь экран`}
+    >
+      <video
+        ref={ref}
+        src={`${src}#t=0.1`}
+        playsInline
+        preload="metadata"
+      />
+      <span className="thumb-play" aria-hidden="true">
+        ▶
+      </span>
+    </button>
+  );
+}
+
 export default function Testimonials() {
   return (
     <section id="testimonials" aria-labelledby="testimonials-head">
@@ -49,20 +107,7 @@ export default function Testimonials() {
         >
           {QUOTES.map((q) => (
             <motion.figure className="quote-card" key={q.name} variants={fadeUp}>
-              {"video" in q ? (
-                <video
-                  className="video-slot video-real"
-                  src={q.video}
-                  controls
-                  playsInline
-                  preload="metadata"
-                  aria-label={`Видео-отзыв: ${q.name}`}
-                />
-              ) : (
-                <div className="video-slot" aria-hidden="true">
-                  ▶ ВИДЕО-ОТЗЫВ
-                </div>
-              )}
+              <TestimonialVideo src={q.video} name={q.name} />
               <blockquote className="quote-body">{q.quote}</blockquote>
               <figcaption className="quote-author">
                 <span className="avatar" aria-hidden="true">
