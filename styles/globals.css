@@ -1242,3 +1242,85 @@ footer .wrap {
 /* Safari: hide <details> disclosure triangle */
 summary::-webkit-details-marker { display: none; }
 summary { list-style: none; }
+
+/* =========================================================================
+   Custom loading screen — matches brand (dot + MenFace wordmark)
+   ========================================================================= */
+
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  background: var(--color-paper);
+  display: grid;
+  place-items: center;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.loading-screen.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loading-mark {
+  display: grid;
+  justify-items: center;
+  gap: 18px;
+}
+
+.loading-mark .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-mark);
+  animation: load-dot 0.45s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.loading-word {
+  display: flex;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 34px;
+  letter-spacing: -0.01em;
+  color: var(--color-ink);
+}
+
+.loading-word span {
+  display: inline-block;
+  opacity: 0;
+  animation: load-rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.loading-bar {
+  width: 120px;
+  height: 2px;
+  background: var(--color-line);
+  overflow: hidden;
+  position: relative;
+}
+
+.loading-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-mark);
+  transform: translateX(-100%);
+  animation: load-sweep 1.1s ease-in-out infinite;
+}
+
+@keyframes load-dot {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
+}
+
+@keyframes load-rise {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes load-sweep {
+  0% { transform: translateX(-100%); }
+  55% { transform: translateX(0); }
+  100% { transform: translateX(100%); }
+}

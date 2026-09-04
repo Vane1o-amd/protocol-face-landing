@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import MetaPixel from "@/components/MetaPixel";
 import ConsentBanner from "@/components/ConsentBanner";
+import LoadingScreen from "@/components/LoadingScreen";
 import ScrollProgress from "@/components/ScrollProgress";
 import ScrollTopButton from "@/components/ScrollTopButton";
 import "@/styles/globals.css";
@@ -71,6 +72,7 @@ export default function RootLayout({
     >
       <body>
         <MotionConfig reducedMotion="user">
+          <LoadingScreen />
           <ScrollProgress />
           {children}
           <ScrollTopButton />

@@ -4,7 +4,7 @@ export default function Topbar() {
       <div className="wrap">
         <a href="#top" className="logo">
           <span className="dot" />
-          Protocol Face
+          MenFace
         </a>
         <a href="#apply" className="nav-cta">
           Записаться на разбор →
