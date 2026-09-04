@@ -511,8 +511,21 @@ h2 { max-width: 16ch; }
 .client-card figure {
   position: relative;
   margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.client-card figure > span {
+  position: relative;
+  display: block;
   aspect-ratio: 900 / 867;
   overflow: hidden;
+}
+
+/* Two-angle client photos side by side */
+.client-card figure.pair {
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
 .client-card img {

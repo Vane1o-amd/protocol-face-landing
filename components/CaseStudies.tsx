@@ -5,20 +5,28 @@ import { motion } from "motion/react";
 import { fadeUp, inViewOnce } from "@/lib/motion";
 import Carousel from "@/components/Carousel";
 
-const CLIENTS = [
+type CaseImage = { src: string; alt: string };
+
+const CLIENTS: { name: string; days: string; images: CaseImage[] }[] = [
   {
     name: "Денис",
     days: "30 дней",
-    image: "/images/case-denis.jpg",
-    alt: "Денис — результат протокола",
+    images: [{ src: "/images/case-denis.jpg", alt: "Денис — результат протокола" }],
   },
   {
     name: "Артур",
     days: "91 день",
-    image: "/images/case-artur.jpg",
-    alt: "Артур — результат протокола",
+    images: [{ src: "/images/case-artur.jpg", alt: "Артур — результат протокола" }],
   },
-] as const;
+  {
+    name: "Емиль",
+    days: "30 дней",
+    images: [
+      { src: "/images/case-emil-front.jpg", alt: "Емиль — результат протокола, вид спереди" },
+      { src: "/images/case-emil-side.jpg", alt: "Емиль — результат протокола, вид сбоку" },
+    ],
+  },
+];
 
 export default function CaseStudies() {
   return (
@@ -41,14 +49,18 @@ export default function CaseStudies() {
                 <span className="cname">{c.name}</span>
                 <span className="days">{c.days}</span>
               </div>
-              <figure>
-                <Image
-                  src={c.image}
-                  alt={c.alt}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 480px"
-                  loading="lazy"
-                />
+              <figure className={c.images.length > 1 ? "pair" : undefined}>
+                {c.images.map((img) => (
+                  <span key={img.src}>
+                    <Image
+                      src={img.src}
+                      alt={img.alt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 480px"
+                      loading="lazy"
+                    />
+                  </span>
+                ))}
               </figure>
             </motion.article>
           ))}
