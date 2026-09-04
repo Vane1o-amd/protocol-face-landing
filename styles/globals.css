@@ -920,6 +920,16 @@ footer .wrap {
   text-transform: uppercase;
   color: var(--color-ink-soft);
 }
+
+.video-real {
+  aspect-ratio: 9 / 16;
+  width: 100%;
+  display: block;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius);
+  background: var(--color-paper-alt);
+  object-fit: cover;
+}
 .quote-card {
   margin: 0;
   border: 1px solid var(--color-line);
