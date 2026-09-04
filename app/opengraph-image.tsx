@@ -20,7 +20,7 @@ export default function OpenGraphImage() {
         }}
       >
         <div style={{ fontSize: 28, color: "#C1401C", marginBottom: 24 }}>
-          PROTOCOL FACE
+          MENFACE
         </div>
         <div
           style={{

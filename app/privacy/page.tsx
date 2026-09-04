@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Политика конфиденциальности — Protocol Face",
-  description: "Как Protocol Face обрабатывает ваши персональные данные. GDPR.",
+  title: "Политика конфиденциальности — MenFace",
+  description: "Как MenFace обрабатывает ваши персональные данные. GDPR.",
   // TODO: replace placeholder domain once user provides it
   alternates: { canonical: "https://menface.pro/privacy" },
   robots: { index: true, follow: true },
@@ -31,7 +31,7 @@ export default function PrivacyPage() {
 
       <h2 style={sectionH2}>Контроллер данных</h2>
       <p style={dim}>
-        Protocol Face является контроллером данных для этого сайта. Контакт:{" "}
+        MenFace является контроллером данных для этого сайта. Контакт:{" "}
         <a href="mailto:roman.derkach.business@gmail.com" style={accent}>
           roman.derkach.business@gmail.com
         </a>
@@ -47,7 +47,7 @@ export default function PrivacyPage() {
       </ul>
       <p style={{ ...dim, marginTop: "12px" }}>
         Вы можете передать эти данные через сайт, Instagram, Facebook или другие
-        площадки, где работает Protocol Face.{" "}
+        площадки, где работает MenFace.{" "}
         <strong>Мы не продаём ваши персональные данные третьим лицам.</strong>
       </p>
 
@@ -69,7 +69,7 @@ export default function PrivacyPage() {
       <p style={dim}>
         Данные лидов хранятся до 12 месяцев, затем удаляются. Вы можете запросить
         удаление раньше. Сообщения в Telegram хранятся согласно настройкам чата
-        Protocol Face; удаление из Telegram выполняется вручную по запросу.
+        MenFace; удаление из Telegram выполняется вручную по запросу.
       </p>
 
       <h2 style={sectionH2}>Сторонние обработчики</h2>
@@ -111,7 +111,7 @@ export default function PrivacyPage() {
 
       <h2 style={sectionH2}>Передача данных в третью страну</h2>
       <p style={dim}>
-        Ваша заявка доставляется в Protocol Face через Telegram Bot API, чьи
+        Ваша заявка доставляется в MenFace через Telegram Bot API, чьи
         серверы управляются Telegram (зарегистрирован на Британских Виргинских
         островах) с маршрутами доставки, которые могут проходить через США. Это
         составляет передачу персональных данных в третью страну вне ЕС/ЕЭЗ без
@@ -135,7 +135,7 @@ export default function PrivacyPage() {
         <li>Доступ, исправление, удаление, переносимость, возражение</li>
         <li>Отозвать согласие в любой момент</li>
         <li>
-          Попросить Protocol Face прекратить контактировать вас в любой момент —
+          Попросить MenFace прекратить контактировать вас в любой момент —
           напишите на адрес выше, и запрос будет выполнен
         </li>
         <li>

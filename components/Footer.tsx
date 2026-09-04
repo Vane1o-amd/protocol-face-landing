@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer>
       <div className="wrap">
-        <span>© {year} Protocol Face. Все права защищены.</span>
+        <span>© {year} MenFace. Все права защищены.</span>
         <nav className="footer-nav">
           <Link
             href="/privacy"
