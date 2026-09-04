@@ -22,7 +22,7 @@ function sanitize(text: string): string {
 
 export function composeLeadMessage(d: LeadData): string {
   const lines = [
-    "🔔 Новый лид — Protocol Face",
+    "🔔 Новый лид — MenFace",
     "",
     `👤 Имя: ${sanitize(d.name)}`,
     `📞 Контакт: ${sanitize(d.contact)}`,
