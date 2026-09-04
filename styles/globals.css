@@ -522,10 +522,11 @@ h2 { max-width: 16ch; }
   overflow: hidden;
 }
 
-/* Two-angle client photos side by side */
+/* Two-angle client photos side by side, vertically centered in the card */
 .client-card figure.pair {
   grid-template-columns: 1fr 1fr;
   gap: 10px;
+  margin-block: auto;
 }
 
 .client-card img {
