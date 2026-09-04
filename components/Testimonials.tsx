@@ -17,7 +17,7 @@ const QUOTES = [
   },
   {
     name: "Марк",
-    role: "Протокол лица — 90 дней",
+    role: "Протокол лица — 30 дней",
     video: "/videos/testimonial-2.mp4",
   },
   {
