@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title: "Политика конфиденциальности — Protocol Face",
   description: "Как Protocol Face обрабатывает ваши персональные данные. GDPR.",
   // TODO: replace placeholder domain once user provides it
-  alternates: { canonical: "https://protocolface.com/privacy" },
+  alternates: { canonical: "https://menface.pro/privacy" },
   robots: { index: true, follow: true },
 };
 

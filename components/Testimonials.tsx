@@ -6,22 +6,25 @@ import Carousel from "@/components/Carousel";
 
 const QUOTES = [
   {
-    name: "Артём",
-    role: "27 лет, Москва",
+    name: "Денис",
+    role: "Протокол лица — 90 дней",
     quote:
       "За месяц ушли отёки, челюсть стала чётче. Главное — понял, что дело в привычках, а не в кремах.",
+    video: "/videos/testimonial-denis.mp4",
   },
   {
-    name: "Дмитрий",
-    role: "34 года, Санкт-Петербург",
+    name: "Марк",
+    role: "Протокол лица — 90 дней",
     quote:
-      "Не верил, пока не увидел фото до/после. 15 минут в день реально работают, если система.",
+      "Не верил, пока не увидел своё фото до и после. Теперь 15 минут в день — просто привычка, как чистить зубы.",
+    video: "/videos/testimonial-2.mp4",
   },
   {
     name: "Насрулла",
     role: "22 года, Алматы",
     quote:
       "Прыщи ушли за три недели. Сон и питание оказались важнее всего остального.",
+    video: "/videos/testimonial-3.mp4",
   },
 ] as const;
 
@@ -46,9 +49,20 @@ export default function Testimonials() {
         >
           {QUOTES.map((q) => (
             <motion.figure className="quote-card" key={q.name} variants={fadeUp}>
-              <div className="video-slot" aria-hidden="true">
-                ▶ ВИДЕО-ОТЗЫВ
-              </div>
+              {"video" in q ? (
+                <video
+                  className="video-slot video-real"
+                  src={q.video}
+                  controls
+                  playsInline
+                  preload="metadata"
+                  aria-label={`Видео-отзыв: ${q.name}`}
+                />
+              ) : (
+                <div className="video-slot" aria-hidden="true">
+                  ▶ ВИДЕО-ОТЗЫВ
+                </div>
+              )}
               <blockquote className="quote-body">{q.quote}</blockquote>
               <figcaption className="quote-author">
                 <span className="avatar" aria-hidden="true">

@@ -39,7 +39,7 @@ const caveat = Caveat({
 
 // TODO: replace placeholder domain once user confirms final domain
 export const metadata: Metadata = {
-  metadataBase: new URL("https://protocolface.com"),
+  metadataBase: new URL("https://menface.pro"),
   title: "Protocol Face — персональная диагностика и сопровождение",
   description:
     "Личный протокол лица: измени лицо за 30 дней — первые изменения уже через неделю.",
