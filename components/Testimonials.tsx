@@ -12,23 +12,17 @@ type VideoElement = HTMLVideoElement & {
 const QUOTES = [
   {
     name: "Денис",
-    role: "Протокол лица — 90 дней",
-    quote:
-      "За месяц ушли отёки, челюсть стала чётче. Главное — понял, что дело в привычках, а не в кремах.",
+    role: "Протокол лица — 30 дней",
     video: "/videos/testimonial-denis.mp4",
   },
   {
     name: "Марк",
     role: "Протокол лица — 90 дней",
-    quote:
-      "Не верил, пока не увидел своё фото до и после. Теперь 15 минут в день — просто привычка, как чистить зубы.",
     video: "/videos/testimonial-2.mp4",
   },
   {
     name: "Насрулла",
-    role: "22 года, Алматы",
-    quote:
-      "Прыщи ушли за три недели. Сон и питание оказались важнее всего остального.",
+    role: "Протокол лица — 3 недели",
     video: "/videos/testimonial-3.mp4",
   },
 ] as const;
@@ -108,16 +102,7 @@ export default function Testimonials() {
           {QUOTES.map((q) => (
             <motion.figure className="quote-card" key={q.name} variants={fadeUp}>
               <TestimonialVideo src={q.video} name={q.name} />
-              <blockquote className="quote-body">{q.quote}</blockquote>
-              <figcaption className="quote-author">
-                <span className="avatar" aria-hidden="true">
-                  {q.name.charAt(0)}
-                </span>
-                <span className="author-meta">
-                  <b>{q.name}</b>
-                  <span className="role">{q.role}</span>
-                </span>
-              </figcaption>
+              <figcaption className="quote-role">{q.role}</figcaption>
             </motion.figure>
           ))}
         </Carousel>
