@@ -21,10 +21,7 @@ const CLIENTS: { name: string; days: string; images: CaseImage[] }[] = [
   {
     name: "Эмиль",
     days: "30 дней",
-    images: [
-      { src: "/images/case-emil-front.jpg", alt: "Эмиль — результат протокола, вид спереди" },
-      { src: "/images/case-emil-side.jpg", alt: "Эмиль — результат протокола, вид сбоку" },
-    ],
+    images: [{ src: "/images/case-emil.jpg", alt: "Эмиль — до и после, результат протокола" }],
   },
 ];
 
