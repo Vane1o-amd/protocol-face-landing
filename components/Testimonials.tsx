@@ -21,7 +21,7 @@ const QUOTES = [
     video: "/videos/testimonial-2.mp4",
   },
   {
-    name: "Емиль",
+    name: "Эмиль",
     role: "Протокол лица — 30 дней",
     video: "/videos/testimonial-3.mp4",
   },
