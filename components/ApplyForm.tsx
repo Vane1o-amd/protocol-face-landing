@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState, useRef } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { trackLead } from "@/components/MetaPixel";
 import { consentGranted } from "@/lib/consent";
@@ -14,8 +15,9 @@ export default function ApplyForm() {
   const contactId = useId();
   const consentId = useId();
   const hpId = useId();
+  const router = useRouter();
 
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<"idle" | "loading" | "error">("idle");
   const [message, setMessage] = useState("");
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const nameRef = useRef<HTMLInputElement>(null);
@@ -36,9 +38,8 @@ export default function ApplyForm() {
     const hp = String(data.get("company") ?? "").trim();
 
     if (hp) {
-      setStatus("success");
-      setMessage("Заявка отправлена. Мы свяжемся в течение 24 часов.");
       form.reset();
+      router.push("/success");
       return;
     }
 
@@ -88,9 +89,8 @@ export default function ApplyForm() {
         trackLead(eventId);
       }
 
-      setStatus("success");
-      setMessage("Заявка отправлена. Мы свяжемся в течение 24 часов.");
       form.reset();
+      router.push("/success");
     } catch {
       setStatus("error");
       setMessage("Сеть недоступна. Попробуйте позже.");
@@ -198,7 +198,7 @@ export default function ApplyForm() {
           {message && (
             <output
               id="form-status"
-              className={`form-status show ${status === "success" ? "success" : "error"}`}
+              className="form-status show error"
               aria-live="polite"
             >
               {message}
