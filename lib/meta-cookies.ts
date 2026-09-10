@@ -43,3 +43,17 @@ export function readFbclid(): string | undefined {
     return undefined;
   }
 }
+
+// Read-only accessor for the _fbp cookie Meta's Pixel manages (or that
+// ensureFbp seeded pre-consent). Needed server-side: CAPI user_data.fbp.
+export function readFbp(): string | undefined {
+  if (typeof document === "undefined") return undefined;
+  try {
+    return document.cookie
+      .split("; ")
+      .find((c) => c.startsWith(`${FBP_COOKIE}=`))
+      ?.split("=")[1];
+  } catch {
+    return undefined;
+  }
+}

@@ -11,6 +11,7 @@ const LeadSchema = z.object({
   consent: z.boolean().refine((v) => v === true, "Consent required"),
   eventId: z.string().uuid().optional(),
   fbclid: z.string().optional(),
+  fbp: z.string().optional(),
   company: z.string().optional(),
 });
 
@@ -100,6 +101,7 @@ export async function POST(req: NextRequest) {
         contact: d.contact,
         eventId: d.eventId,
         fbclid: d.fbclid,
+        fbp: d.fbp,
         ip,
         userAgent: req.headers.get("user-agent") ?? undefined,
       });

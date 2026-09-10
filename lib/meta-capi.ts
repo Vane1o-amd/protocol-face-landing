@@ -41,9 +41,11 @@ export async function sendLeadEvent(input: CapiLeadInput): Promise<void> {
   if (/^\+?\d{7,}$/.test(phone)) {
     userData.ph = sha256(phone);
   }
-  if (input.fbp) userData.fbp = sha256(input.fbp);
+  // fbp/fbc go to CAPI raw (click/cookie ids are not hashed — only personal
+  // identifiers like fn/ln/ph/em are, per Meta's user_data spec).
+  if (input.fbp) userData.fbp = input.fbp;
   const fbc = synthesizeFbc(input.fbclid);
-  if (fbc) userData.fbc = sha256(fbc);
+  if (fbc) userData.fbc = fbc;
   if (input.ip) userData.client_ip_address = input.ip;
   if (input.userAgent) userData.client_user_agent = input.userAgent;
 

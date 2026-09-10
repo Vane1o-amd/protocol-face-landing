@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { trackLead } from "@/components/MetaPixel";
 import { consentGranted } from "@/lib/consent";
-import { readFbclid } from "@/lib/meta-cookies";
+import { readFbclid, readFbp } from "@/lib/meta-cookies";
 
 type FieldErrors = Record<string, string>;
 type Issues = { field?: string; message: string }[];
@@ -68,12 +68,13 @@ export default function ApplyForm() {
 
     const eventId = crypto.randomUUID();
     const fbclid = readFbclid();
+    const fbp = readFbp();
 
     try {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, contact, consent, eventId, fbclid }),
+        body: JSON.stringify({ name, contact, consent, eventId, fbclid, fbp }),
       });
 
       const body = (await res.json()) as { ok?: boolean; error?: string };
