@@ -4,6 +4,7 @@ import { MotionConfig } from "motion/react";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import MetaPixel from "@/components/MetaPixel";
+import Clarity from "@/components/Clarity";
 import ConsentBanner from "@/components/ConsentBanner";
 import LoadingScreen from "@/components/LoadingScreen";
 import ScrollProgress from "@/components/ScrollProgress";
@@ -77,6 +78,7 @@ export default function RootLayout({
           {children}
           <ScrollTopButton />
           <MetaPixel />
+          <Clarity />
           <ConsentBanner />
           <Analytics />
           <SpeedInsights />
