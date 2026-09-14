@@ -13,9 +13,11 @@ const nextConfig: NextConfig = {
           //   - https://connect.facebook.net + https://www.facebook.com: Meta Pixel + CAPI (consent-gated).
           //   - https://api.telegram.org: lead delivery to Telegram bot.
           //   - https://va.vercel-scripts.com: Vercel Analytics + Speed Insights.
-          //   - https://www.clarity.ms + https://*.clarity.ms: Microsoft Clarity (consent-gated).
+          //   - https://*.clarity.ms: Microsoft Clarity (consent-gated). Tag redirects
+          //     www.clarity.ms/tag/<id> to scripts.clarity.ms/<ver>/clarity.js — the wildcard
+          //     covers both script-src hops.
           //   - https://fonts.googleapis.com / fonts.gstatic.com: Space Grotesk, IBM Plex, Caveat.
-          { key: "Content-Security-Policy", value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://connect.facebook.net https://va.vercel-scripts.com https://www.clarity.ms; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https://www.facebook.com https://*.clarity.ms; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.telegram.org https://connect.facebook.net https://www.facebook.com https://va.vercel-scripts.com https://*.clarity.ms; frame-src https://www.facebook.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://www.facebook.com" },
+          { key: "Content-Security-Policy", value: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://connect.facebook.net https://va.vercel-scripts.com https://*.clarity.ms; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https://www.facebook.com https://*.clarity.ms; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://api.telegram.org https://connect.facebook.net https://www.facebook.com https://va.vercel-scripts.com https://*.clarity.ms; frame-src https://www.facebook.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://www.facebook.com" },
           { key: "X-Frame-Options", value: "DENY" },
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
