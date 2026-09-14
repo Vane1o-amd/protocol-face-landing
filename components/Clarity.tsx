@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Script from "next/script";
 import { consentGranted, subscribe } from "@/lib/consent";
 
-const CLARITY_ID = "yh42educ4z";
+const CLARITY_ID = "yi904c33gp";
 
 export default function Clarity() {
   const [enabled, setEnabled] = useState(false);
