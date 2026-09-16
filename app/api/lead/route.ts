@@ -4,6 +4,7 @@ import { getEnv } from "@/lib/env";
 import { rateLimitCheap, rateLimit } from "@/lib/rateLimit";
 import { sendLead, type LeadData } from "@/lib/telegram";
 import { sendLeadEvent } from "@/lib/meta-capi";
+import { saveLead, hashIp } from "@/lib/db";
 
 const LeadSchema = z.object({
   name: z.string().min(1).max(200),
@@ -92,6 +93,21 @@ export async function POST(req: NextRequest) {
       { ok: false, error: "Delivery failed. Try later." },
       { status: 502 },
     );
+  }
+
+  // Audit trail after delivery — lead already reached Telegram, so a DB
+  // failure must not turn a delivered lead into a user-facing error.
+  try {
+    await saveLead({
+      name: d.name,
+      contact: d.contact,
+      ip_hash: hashIp(ip),
+      event_id: d.eventId,
+      fbclid: d.fbclid,
+      fbp: d.fbp,
+    });
+  } catch (err) {
+    console.error("[/api/lead] supabase save failed", err);
   }
 
   if (d.eventId) {
