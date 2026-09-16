@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { getEnv } from "@/lib/env";
 import { rateLimitCheap, rateLimit } from "@/lib/rateLimit";
 import { sendLead, type LeadData } from "@/lib/telegram";
 import { sendLeadEvent } from "@/lib/meta-capi";
@@ -24,17 +23,17 @@ function clientIp(req: NextRequest): string {
   return "0.0.0.0";
 }
 
+// Hardcoded like romanderkach — the domain never changes, so no env var.
+// localhost keeps local form testing working.
+const ALLOWED_ORIGINS = new Set([
+  "https://menface.pro",
+  "https://www.menface.pro",
+  // "http://localhost:3000", // uncomment for local form testing
+]);
+
 function originAllowed(req: NextRequest): boolean {
-  const env = getEnv();
-  if (env.ALLOWED_ORIGIN) {
-    const allowed = env.ALLOWED_ORIGIN.split(",").map((h) => h.trim().toLowerCase());
-    const origin = req.headers.get("origin")?.toLowerCase();
-    if (!origin) return false;
-    return allowed.includes(origin);
-  }
-  const host = req.headers.get("host")?.toLowerCase();
-  if (!host) return false;
-  return true;
+  const origin = req.headers.get("origin")?.toLowerCase();
+  return !!origin && ALLOWED_ORIGINS.has(origin);
 }
 
 export async function POST(req: NextRequest) {
