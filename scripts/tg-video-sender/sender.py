@@ -45,9 +45,8 @@ HERE = Path(__file__).resolve().parent
 POLL_SECONDS = 30
 BATCH = 20
 DEFAULT_CAPTION = (
-    "Привет, {name}! Это Роман \U0001f44b Спасибо за заявку — "
-    "вот короткое видео, чтобы ты знал, с кем имеешь дело. "
-    "Напишу тебе в ближайшее время."
+    "Жду от вас два фото! Напишите когда вам удобнее созвонится, "
+    "завтра или послезавтра?"
 )
 
 # Telegram usernames: 5-32 chars, letters/digits/underscore. The bare form
@@ -132,7 +131,15 @@ def fetch_leads(supabase_url: str, service_key: str) -> list[dict]:
 async def send_video(client: TelegramClient, handle: str, name: str,
                      video_path: str, caption: str) -> None:
     first = (name or "").split(" ", 1)[0] or "там"
-    await client.send_file(f"@{handle}", video_path, caption=caption.format(name=first))
+    text = caption.format(name=first)
+    await client.send_file(f"@{handle}", video_path, video_note=True)
+    # Greeting text rides on a photo in the next message; no photo file
+    # configured → plain text instead.
+    photo_path = os.environ.get("PHOTO_PATH", "")
+    if photo_path and Path(photo_path).is_file():
+        await client.send_file(f"@{handle}", photo_path, caption=text)
+    else:
+        await client.send_message(f"@{handle}", text)
 
 
 async def main() -> None:
@@ -153,13 +160,29 @@ async def main() -> None:
 
     if len(sys.argv) > 1 and sys.argv[1] == "login":
         # One-time interactive login; stores tg.session in DATA_DIR.
-        await client.start()
-        print("logged in ok — session saved, now run: python sender.py")
+        # Explicit flow (not client.start()): holds the phone_code_hash from
+        # send_code_request for sign_in — a code reused from an earlier
+        # aborted run gets rejected by Telegram ("previously shared").
+        await client.connect()
+        if not await client.is_user_authorized():
+            phone = input("phone in intl format (+<country><number>): ")
+            sent = await client.send_code_request(phone)
+            code = input("code from the Telegram app (the NEW one): ")
+            await client.sign_in(phone, code, phone_code_hash=sent.phone_code_hash)
+        me = await client.get_me()
+        print(f"logged in ok as {me.first_name} — now run: python sender.py")
         await client.disconnect()
         return
 
     state_path = data_dir / "processed.json"
     processed = load_processed(state_path)
+    if not state_path.exists():
+        # First run on a fresh deployment: mark current leads processed
+        # without sending — the video goes only to leads that arrive after
+        # the poller went live, never to the backlog.
+        processed |= {lead["id"] for lead in fetch_leads(supabase_url, service_key)}
+        save_processed(state_path, processed)
+        print(f"[seed] {len(processed)} existing leads marked, no backlog video", flush=True)
     print(f"poller up — {len(processed)} already processed, video={video_path}", flush=True)
 
     await client.start()
