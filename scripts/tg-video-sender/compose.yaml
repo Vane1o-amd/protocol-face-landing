@@ -1,0 +1,11 @@
+services:
+  sender:
+    build: .
+    restart: unless-stopped
+    env_file: sender.env
+    environment:
+      VIDEO_PATH: /app/video.mp4
+      DATA_DIR: /app/data
+    volumes:
+      - ./data:/app/data
+      - ./video.mp4:ro
