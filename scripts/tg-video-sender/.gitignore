@@ -2,3 +2,5 @@ sender.env
 tg.session
 processed.json
 __pycache__/
+video.mp4
+photo.jpg

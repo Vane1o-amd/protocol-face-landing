@@ -5,7 +5,9 @@ services:
     env_file: sender.env
     environment:
       VIDEO_PATH: /app/video.mp4
+      PHOTO_PATH: /app/photo.jpg
       DATA_DIR: /app/data
     volumes:
       - ./data:/app/data
       - ./video.mp4:/app/video.mp4:ro
+      - ./photo.jpg:/app/photo.jpg:ro
