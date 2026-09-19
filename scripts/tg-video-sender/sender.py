@@ -153,8 +153,17 @@ async def main() -> None:
 
     if len(sys.argv) > 1 and sys.argv[1] == "login":
         # One-time interactive login; stores tg.session in DATA_DIR.
-        await client.start()
-        print("logged in ok — session saved, now run: python sender.py")
+        # Explicit flow (not client.start()): holds the phone_code_hash from
+        # send_code_request for sign_in — a code reused from an earlier
+        # aborted run gets rejected by Telegram ("previously shared").
+        await client.connect()
+        if not await client.is_user_authorized():
+            phone = input("phone in intl format (+<country><number>): ")
+            sent = await client.send_code_request(phone)
+            code = input("code from the Telegram app (the NEW one): ")
+            await client.sign_in(phone, code, phone_code_hash=sent.phone_code_hash)
+        me = await client.get_me()
+        print(f"logged in ok as {me.first_name} — now run: python sender.py")
         await client.disconnect()
         return
 
