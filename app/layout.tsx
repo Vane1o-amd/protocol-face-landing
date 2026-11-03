@@ -75,11 +75,11 @@ export default function RootLayout({
         <MotionConfig reducedMotion="user">
           <LoadingScreen />
           <ScrollProgress />
+          <ConsentBanner />
           {children}
           <ScrollTopButton />
           <MetaPixel />
           <Clarity />
-          <ConsentBanner />
           <Analytics />
           <SpeedInsights />
         </MotionConfig>

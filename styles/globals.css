@@ -689,10 +689,26 @@ footer .wrap {
   box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.06);
 }
 
+/* showModal makes the page inert behind the banner — keep it visually unchanged */
+.consent-banner::backdrop {
+  background: transparent;
+}
+
+/* Dialog itself is a focus stop (tabindex=-1, focused on open) — outline
+   around whole banner edge would look broken; controls keep their rings. */
+.consent-banner:focus {
+  outline: none;
+}
+
 .consent-banner p {
   font-size: 13.5px;
   color: var(--color-ink-soft);
   max-width: 60ch;
+}
+
+.consent-banner .privacy-link {
+  color: inherit;
+  text-decoration: underline;
 }
 
 .consent-banner .actions {
@@ -707,6 +723,10 @@ footer .wrap {
   font-family: var(--font-mono);
   font-size: 12.5px;
   padding: 10px 18px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   border-radius: var(--radius);
   border: 1px solid var(--color-ink);
   background: var(--color-paper);
