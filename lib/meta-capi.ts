@@ -22,6 +22,7 @@ export interface CapiLeadInput {
   eventId: string;
   fbclid?: string;
   fbp?: string;
+  consent?: boolean;
   ip?: string;
   userAgent?: string;
 }
@@ -62,6 +63,13 @@ export async function sendLeadEvent(input: CapiLeadInput): Promise<void> {
   };
 
   try {
+    // Defense in depth: route.ts gates this call on consent; this catches any
+    // future caller that bypasses that gate.
+    if (input.consent !== true) {
+      console.warn(
+        "[capi] Lead event fired WITHOUT verified marketing consent (gate lives in app/api/lead/route.ts)",
+      );
+    }
     const url = `${GRAPH_API}/${pixelId}/events?access_token=${token}`;
     const res = await fetch(url, {
       method: "POST",

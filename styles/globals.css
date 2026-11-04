@@ -86,11 +86,6 @@ h4 {
   font-weight: 500;
 }
 
-/* font utility classes */
-.hand { font-family: var(--font-hand); }
-.mono { font-family: var(--font-mono); }
-.disp { font-family: var(--font-display); }
-
 /* WCAG focus ring — keyboard nav only */
 :focus-visible {
   outline: 2px solid var(--color-mark);
@@ -110,19 +105,7 @@ h4 {
 
 .touch { min-height: var(--touch); min-width: var(--touch); }
 
-/* =========================================================================
-   Buttons — shared base + variants
-   All buttons color-flip on hover, 0.15s smooth.
-   ========================================================================= */
-
-.btn {
-  font-family: var(--font-mono);
-  display: inline-flex;
-  align-items: center;
-  border-radius: var(--radius);
-  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
-}
-.btn:active { transform: scale(0.98); }
+/* Buttons — variants */
 
 /* primary / submit — paper bg, ink text, flips to ink/paper */
 .btn-primary,
@@ -465,7 +448,6 @@ h2 { max-width: 16ch; }
 }
 
 .t-row .t-what { font-size: 15px; }
-.t-row .t-what b { font-weight: 600; }
 
 /* =========================================================================
    Client case studies
@@ -520,12 +502,6 @@ h2 { max-width: 16ch; }
   display: block;
   aspect-ratio: 900 / 867;
   overflow: hidden;
-}
-
-/* Two-angle client photos side by side */
-.client-card figure.pair {
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
 }
 
 .client-card img {
@@ -765,9 +741,7 @@ footer .wrap {
   letter-spacing: 0.02em;
 }
 
-.lead-form input,
-.lead-form textarea,
-.lead-form select {
+.lead-form input {
   font-family: var(--font-sans);
   font-size: 15px;
   color: var(--color-ink);
@@ -778,16 +752,10 @@ footer .wrap {
   width: 100%;
   transition: border-color 0.15s ease;
 }
-.lead-form input:focus,
-.lead-form textarea:focus,
-.lead-form select:focus {
+
+.lead-form input:focus {
   border-color: var(--color-ink);
   outline: none;
-}
-
-.lead-form textarea {
-  min-height: 96px;
-  resize: vertical;
 }
 
 .lead-form .consent-row {
@@ -825,11 +793,6 @@ footer .wrap {
   display: none;
 }
 .lead-form .form-status.show { display: block; }
-.lead-form .form-status.success {
-  background: var(--color-paper-alt);
-  color: var(--color-verdigris);
-  border: 1px solid var(--color-line);
-}
 .lead-form .form-status.error {
   background: var(--color-paper-alt);
   color: var(--color-mark);

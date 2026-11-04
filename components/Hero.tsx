@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { fadeUp, inViewOnce } from "@/lib/motion";
+import { CTA_PRIMARY, CTA_TURNAROUND } from "@/components/cta-strings";
 
 export default function Hero() {
   return (
@@ -74,10 +75,10 @@ export default function Hero() {
             </motion.ul>
             <div className="cta-row">
               <a href="#apply" className="btn-primary">
-                Записаться на разбор →
+                {CTA_PRIMARY}
               </a>
               <span className="note">
-                Ответ в течение 24 часов · разбор бесплатный · веду клиентов
+                {CTA_TURNAROUND} · разбор бесплатный · веду клиентов
                 лично, мест на месяц ограниченное количество
               </span>
             </div>

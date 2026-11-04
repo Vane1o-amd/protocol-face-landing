@@ -7,6 +7,13 @@ const lead = new Map<string, number[]>();
 
 function hit(map: Map<string, number[]>, key: string, max: number): boolean {
   const now = Date.now();
+  // Lightweight sweep: once the map grows past 500 keys, drop entries whose
+  // timestamps have fully aged out of the window so dead IPs can't accumulate.
+  if (map.size >= 500) {
+    for (const [k, arr] of map) {
+      if (arr.every((t) => now - t >= WINDOW_MS)) map.delete(k);
+    }
+  }
   const arr = (map.get(key) ?? []).filter((t) => now - t < WINDOW_MS);
   if (arr.length >= max) return false;
   arr.push(now);
@@ -20,9 +27,4 @@ export function rateLimitCheap(ip: string): boolean {
 
 export function rateLimit(ip: string): boolean {
   return hit(lead, ip, LEAD_MAX);
-}
-
-export function __resetLimiter(): void {
-  cheap.clear();
-  lead.clear();
 }

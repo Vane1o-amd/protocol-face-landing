@@ -4,7 +4,6 @@ export interface LeadData {
   name: string;
   contact: string; // phone or telegram handle
   consent: boolean;
-  utm?: { source?: string; medium?: string; campaign?: string };
   eventId?: string;
   fbclid?: string;
 }
@@ -20,7 +19,7 @@ function sanitize(text: string): string {
     .trim();
 }
 
-export function composeLeadMessage(d: LeadData): string {
+function composeLeadMessage(d: LeadData): string {
   const lines = [
     "🔔 Новый лид — MenFace",
     "",
@@ -28,9 +27,6 @@ export function composeLeadMessage(d: LeadData): string {
     `📞 Контакт: ${sanitize(d.contact)}`,
     `✅ Согласие: ${d.consent ? "да" : "нет"}`,
   ];
-  if (d.utm?.source) lines.push(`📊 utm_source: ${sanitize(d.utm.source)}`);
-  if (d.utm?.medium) lines.push(`📊 utm_medium: ${sanitize(d.utm.medium)}`);
-  if (d.utm?.campaign) lines.push(`📊 utm_campaign: ${sanitize(d.utm.campaign)}`);
   return lines.join("\n");
 }
 

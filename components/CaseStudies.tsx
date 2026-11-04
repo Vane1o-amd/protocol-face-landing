@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "motion/react";
 import { fadeUp, inViewOnce } from "@/lib/motion";
 import Carousel from "@/components/Carousel";
+import { CTA_PRIMARY } from "@/components/cta-strings";
 
 type CaseImage = { src: string; alt: string };
 
@@ -46,7 +47,7 @@ export default function CaseStudies() {
                 <span className="cname">{c.name}</span>
                 <span className="days">{c.days}</span>
               </div>
-              <figure className={c.images.length > 1 ? "pair" : undefined}>
+              <figure>
                 {c.images.map((img) => (
                   <span key={img.src}>
                     <Image
@@ -64,7 +65,7 @@ export default function CaseStudies() {
         </Carousel>
 
         <motion.div className="section-cta" {...inViewOnce}>
-          <a href="#apply" className="btn-primary">Записаться на разбор →</a>
+          <a href="#apply" className="btn-primary">{CTA_PRIMARY}</a>
         </motion.div>
       </div>
     </section>

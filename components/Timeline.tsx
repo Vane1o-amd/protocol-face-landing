@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { inViewOnce } from "@/lib/motion";
+import { CTA_PRIMARY } from "@/components/cta-strings";
 
 const ROWS = [
   {
@@ -50,7 +51,7 @@ export default function Timeline() {
         </motion.div>
 
         <motion.div className="section-cta" {...inViewOnce}>
-          <a href="#apply" className="btn-primary">Записаться на разбор →</a>
+          <a href="#apply" className="btn-primary">{CTA_PRIMARY}</a>
         </motion.div>
       </div>
     </section>

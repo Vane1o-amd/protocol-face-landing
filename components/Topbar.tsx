@@ -1,3 +1,5 @@
+import { CTA_PRIMARY } from "@/components/cta-strings";
+
 export default function Topbar() {
   return (
     <header className="topbar">
@@ -7,7 +9,7 @@ export default function Topbar() {
           MenFace
         </a>
         <a href="#apply" className="nav-cta">
-          Записаться на разбор →
+          {CTA_PRIMARY}
         </a>
       </div>
     </header>

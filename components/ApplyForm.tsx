@@ -6,6 +6,7 @@ import Link from "next/link";
 import { trackLead } from "@/components/MetaPixel";
 import { consentGranted } from "@/lib/consent";
 import { readFbclid, readFbp } from "@/lib/meta-cookies";
+import { CTA_TURNAROUND } from "@/components/cta-strings";
 
 type FieldErrors = Record<string, string>;
 type Issues = { field?: string; message: string }[];
@@ -56,13 +57,14 @@ export default function ApplyForm() {
       setFieldErrors(errors);
       setStatus("error");
       setMessage(issues[0].message);
-      const order = [nameRef, contactRef, consentRef];
-      for (const ref of order) {
-        if (ref.current && ref.current.dataset.error === "true") {
-          ref.current.focus();
-          break;
-        }
-      }
+      // Focus the first failing field directly — dataset reads here would see
+      // stale data (React has not flushed the new state into the DOM yet).
+      const fieldRefs: Record<string, React.RefObject<HTMLInputElement | null>> = {
+        name: nameRef,
+        contact: contactRef,
+        consent: consentRef,
+      };
+      fieldRefs[issues[0].field ?? ""]?.current?.focus();
       return;
     }
 
@@ -106,7 +108,7 @@ export default function ApplyForm() {
             <div className="eyebrow">Заявка</div>
             <h2 id="apply-head">Оставить заявку</h2>
           </div>
-          <p>Ответ в течение 24 часов. Без спама и навязчивых звонков.</p>
+          <p>{CTA_TURNAROUND}. Без спама и навязчивых звонков.</p>
         </div>
 
         <form
@@ -124,7 +126,6 @@ export default function ApplyForm() {
               autoComplete="name"
               placeholder="Ваше имя"
               ref={nameRef}
-              data-error={!!fieldErrors.name}
               aria-invalid={!!fieldErrors.name}
               aria-describedby={fieldErrors.name ? `${nameId}-err` : undefined}
             />
@@ -144,7 +145,6 @@ export default function ApplyForm() {
               autoComplete="tel"
               placeholder="+47 ... или @telegram"
               ref={contactRef}
-              data-error={!!fieldErrors.contact}
               aria-invalid={!!fieldErrors.contact}
               aria-describedby={fieldErrors.contact ? `${contactId}-err` : undefined}
             />
@@ -162,7 +162,6 @@ export default function ApplyForm() {
               type="checkbox"
               defaultChecked
               ref={consentRef}
-              data-error={!!fieldErrors.consent}
               aria-invalid={!!fieldErrors.consent}
               aria-describedby={fieldErrors.consent ? `${consentId}-err` : undefined}
             />

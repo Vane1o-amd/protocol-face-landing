@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { fadeUp, inViewOnce } from "@/lib/motion";
 import Carousel from "@/components/Carousel";
+import { CTA_PRIMARY } from "@/components/cta-strings";
 
 const STEPS = [
   {
@@ -54,7 +55,7 @@ export default function Process() {
         </Carousel>
 
         <motion.div className="section-cta" {...inViewOnce}>
-          <a href="#apply" className="btn-primary">Записаться на разбор →</a>
+          <a href="#apply" className="btn-primary">{CTA_PRIMARY}</a>
         </motion.div>
       </div>
     </section>

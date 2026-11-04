@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { fadeUp, inViewOnce, staggerContainer } from "@/lib/motion";
+import { CTA_PRIMARY, CTA_TURNAROUND } from "@/components/cta-strings";
 
 const POINTS = [
   "Разбор фото и осанки — что мешает лицу раскрыться",
@@ -50,9 +51,9 @@ export default function DiscoveryCTA() {
 
           <motion.div className="discovery-cta" {...inViewOnce}>
             <a href="#apply" className="btn-primary">
-              Записаться на разбор →
+              {CTA_PRIMARY}
             </a>
-            <span className="note">Ответ в течение 24 часов</span>
+            <span className="note">{CTA_TURNAROUND}</span>
           </motion.div>
         </div>
       </div>
