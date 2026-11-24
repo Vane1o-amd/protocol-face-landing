@@ -10,8 +10,8 @@ const LeadSchema = z.object({
   contact: z.string().min(1).max(200),
   consent: z.boolean().refine((v) => v === true, "Consent required"),
   eventId: z.string().uuid().optional(),
-  fbclid: z.string().optional(),
-  fbp: z.string().optional(),
+  fbclid: z.string().max(512).optional(),
+  fbp: z.string().max(512).optional(),
   company: z.string().optional(),
 });
 
@@ -109,7 +109,9 @@ export async function POST(req: NextRequest) {
     console.error("[/api/lead] supabase save failed", err);
   }
 
-  if (d.eventId) {
+  // CAPI fires only for consented leads (schema enforces consent===true;
+  // privacy copy promises consent-gated).
+  if (d.eventId && d.consent === true) {
     try {
       await sendLeadEvent({
         name: d.name,
@@ -117,12 +119,17 @@ export async function POST(req: NextRequest) {
         eventId: d.eventId,
         fbclid: d.fbclid,
         fbp: d.fbp,
+        consent: d.consent,
         ip,
         userAgent: req.headers.get("user-agent") ?? undefined,
       });
     } catch {
       // CAPI failure never blocks — Pixel still has the event
     }
+  } else if (d.eventId) {
+    console.warn(
+      "[/api/lead] CAPI skipped for lead without consent (unreachable — schema enforces consent===true)",
+    );
   }
 
   return NextResponse.json({ ok: true });

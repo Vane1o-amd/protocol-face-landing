@@ -1,7 +1,8 @@
 import Link from "next/link";
 
 export default function Footer() {
-  const year = new Date().getFullYear();
+  // build-frozen year is fine for static site
+  const year = 2026;
   return (
     <footer>
       <div className="wrap">

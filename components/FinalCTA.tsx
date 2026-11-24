@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { inViewOnce } from "@/lib/motion";
+import { CTA_PRIMARY, CTA_TURNAROUND } from "@/components/cta-strings";
 
 export default function FinalCTA() {
   return (
@@ -12,10 +13,10 @@ export default function FinalCTA() {
           <h2 id="final-head">Готовы изменить лицо — за 12 недель?</h2>
         </motion.div>
         <motion.a href="#apply" className="btn-primary" {...inViewOnce}>
-          Записаться на разбор →
+          {CTA_PRIMARY}
         </motion.a>
         <motion.span className="note" {...inViewOnce}>
-          Ответ в течение 24 часов
+          {CTA_TURNAROUND}
         </motion.span>
       </div>
     </section>

@@ -8,15 +8,24 @@ export function newFbpValue(): string {
   return `fb.1.${ts}.${rand}`;
 }
 
+// Local cookie reader shared by ensureFbp/readFbp: returns the cookie value
+// or undefined when absent. Replaces two duplicated split/find blocks.
+function readCookie(name: string): string | undefined {
+  if (typeof document === "undefined") return undefined;
+  try {
+    return document.cookie
+      .split("; ")
+      .find((c) => c.startsWith(`${name}=`))
+      ?.split("=")[1];
+  } catch {
+    return undefined;
+  }
+}
+
 export function ensureFbp(): string | undefined {
   if (typeof document === "undefined") return undefined;
-  const existing = document.cookie
-    .split("; ")
-    .find((c) => c.startsWith(`${FBP_COOKIE}=`));
-  if (existing) {
-    const val = existing.split("=")[1];
-    if (val) return val;
-  }
+  const existing = readCookie(FBP_COOKIE);
+  if (existing) return existing;
   const value = newFbpValue();
   document.cookie = `${FBP_COOKIE}=${value}; max-age=${FBP_MAX_AGE}; path=/; SameSite=Lax; Secure`;
   return value;
@@ -47,13 +56,5 @@ export function readFbclid(): string | undefined {
 // Read-only accessor for the _fbp cookie Meta's Pixel manages (or that
 // ensureFbp seeded pre-consent). Needed server-side: CAPI user_data.fbp.
 export function readFbp(): string | undefined {
-  if (typeof document === "undefined") return undefined;
-  try {
-    return document.cookie
-      .split("; ")
-      .find((c) => c.startsWith(`${FBP_COOKIE}=`))
-      ?.split("=")[1];
-  } catch {
-    return undefined;
-  }
+  return readCookie(FBP_COOKIE);
 }
