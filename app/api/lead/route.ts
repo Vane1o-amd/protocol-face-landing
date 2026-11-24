@@ -119,17 +119,12 @@ export async function POST(req: NextRequest) {
         eventId: d.eventId,
         fbclid: d.fbclid,
         fbp: d.fbp,
-        consent: d.consent,
         ip,
         userAgent: req.headers.get("user-agent") ?? undefined,
       });
     } catch {
       // CAPI failure never blocks — Pixel still has the event
     }
-  } else if (d.eventId) {
-    console.warn(
-      "[/api/lead] CAPI skipped for lead without consent (unreachable — schema enforces consent===true)",
-    );
   }
 
   return NextResponse.json({ ok: true });
