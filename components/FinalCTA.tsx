@@ -1,5 +1,3 @@
-"use client";
-
 import { CTA_PRIMARY, CTA_TURNAROUND } from "@/components/cta-strings";
 
 export default function FinalCTA() {

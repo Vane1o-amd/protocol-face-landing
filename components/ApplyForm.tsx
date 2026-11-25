@@ -47,7 +47,7 @@ export default function ApplyForm() {
     const issues: Issues = [];
     if (!name) issues.push({ field: "name", message: "Укажи имя" });
     if (!contact) issues.push({ field: "contact", message: "Укажи телефон или Telegram" });
-    if (!consent) issues.push({ field: "consent", message: "Требуется согласие на обработку" });
+    if (!consent) issues.push({ field: "consent", message: "Требуется согласие на передачу заявки" });
 
     if (issues.length > 0) {
       const errors: FieldErrors = {};
@@ -149,7 +149,6 @@ export default function ApplyForm() {
               id={contactId}
               name="contact"
               type="text"
-              autoComplete="tel"
               placeholder="+47 ... или @telegram"
               ref={contactRef}
               aria-invalid={!!fieldErrors.contact}
@@ -172,7 +171,7 @@ export default function ApplyForm() {
               aria-describedby={fieldErrors.consent ? `${consentId}-err` : undefined}
             />
             <label htmlFor={consentId}>
-              Согласен на обработку персональных данных и их передачу через Telegram за пределы ЕС/ЕЭЗ согласно{" "}
+              Согласен на передачу моей заявки через Telegram за пределы ЕС/ЕЭЗ (без решения об адекватности) согласно{" "}
               <Link
                 href="/privacy"
                 target="_blank"
@@ -197,6 +196,12 @@ export default function ApplyForm() {
             <input id={hpId} name="company" type="text" tabIndex={-1} autoComplete="off" placeholder="Компания" />
           </div>
 
+          <noscript>
+            <p className="form-status show error">
+              Для отправки заявки включи JavaScript или напиши на
+              roman.derkach.business@gmail.com.
+            </p>
+          </noscript>
           <button type="submit" className="submit-btn" disabled={status === "loading"}>
             {status === "loading" ? "Отправка…" : "Отправить заявку"}
           </button>

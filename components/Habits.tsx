@@ -1,6 +1,3 @@
-"use client";
-
-
 export default function Habits() {
   return (
     <section id="habits" className="alt" aria-labelledby="habits-head">

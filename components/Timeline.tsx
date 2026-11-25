@@ -1,5 +1,3 @@
-"use client";
-
 import { CTA_PRIMARY } from "@/components/cta-strings";
 
 const ROWS = [

@@ -1,6 +1,3 @@
-"use client";
-
-
 const CARDS = [
   {
     tag: "01 / Подход",

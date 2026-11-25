@@ -16,7 +16,7 @@ export default function DiscoveryCTA() {
       <div className="wrap">
         <div className="discovery-grid">
           <div>
-            <div className="eyebrow">Бесплатно</div>
+            <div className="eyebrow">Первый шаг</div>
             <h2 id="discovery-head">
               Узнай реальный потенциал лица
             </h2>

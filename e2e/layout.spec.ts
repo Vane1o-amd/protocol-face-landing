@@ -55,6 +55,11 @@ test.describe("without JavaScript", () => {
   test("the lead form never sends personal data in the URL", async ({ page }) => {
     await page.goto("/");
     await expect(page.locator("#apply form")).toHaveAttribute("method", "post");
+    // Without JS the form cannot deliver: the visitor gets the email instead of a silent reload.
+    // getByText skips <noscript> content, so locate by CSS.
+    const note = page.locator("#apply noscript p");
+    await expect(note).toBeVisible();
+    await expect(note).toContainText("включи JavaScript");
   });
 
   test("motion items rendered hidden are shown", async ({ page }) => {
