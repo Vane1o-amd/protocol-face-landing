@@ -40,9 +40,15 @@ for (const route of ROUTES) {
 
 test.describe("without JavaScript", () => {
   test.use({ javaScriptEnabled: false });
-  test("hero text is visible", async ({ page }) => {
+  test("hero text is visible and nothing covers it", async ({ page }) => {
     await page.goto("/");
-    await expect(page.locator(".hero h1")).toBeVisible();
-    await expect.poll(() => page.locator(".hero h1").evaluate((el) => getComputedStyle(el).opacity)).toBe("1");
+    const h1 = page.locator(".hero h1");
+    await expect.poll(() => h1.evaluate((el) => getComputedStyle(el).opacity)).toBe("1");
+    // toBeVisible ignores overlays: check what is actually on top at the heading's centre.
+    const onTop = await h1.evaluate((el) => {
+      const r = el.getBoundingClientRect();
+      return el.contains(document.elementFromPoint(r.x + r.width / 2, r.y + r.height / 2));
+    });
+    expect(onTop).toBe(true);
   });
 });

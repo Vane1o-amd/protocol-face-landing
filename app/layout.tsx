@@ -73,6 +73,10 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${ibmPlexSans.variable} ${ibmPlexMono.variable} ${caveat.variable}`}
     >
       <body>
+        {/* Only the client script lifts the loading screen: without JavaScript it must not render at all. */}
+        <noscript>
+          <style>{".loading-screen{display:none}"}</style>
+        </noscript>
         <MotionConfig reducedMotion="user">
           <LoadingScreen />
           <ScrollProgress />

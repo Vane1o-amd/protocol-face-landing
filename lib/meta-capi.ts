@@ -11,7 +11,6 @@ function normalizePhone(phone: string): string {
   return phone.replace(/[^\d+]/g, "");
 }
 
-
 export interface CapiLeadInput {
   name: string;
   contact: string; // phone or telegram handle
