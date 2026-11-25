@@ -52,6 +52,11 @@ test.describe("without JavaScript", () => {
     expect(onTop).toBe(true);
   });
 
+  test("the lead form never sends personal data in the URL", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator("#apply form")).toHaveAttribute("method", "post");
+  });
+
   test("motion items rendered hidden are shown", async ({ page }) => {
     await page.goto("/");
     const hidden = await page.evaluate(() =>

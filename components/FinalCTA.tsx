@@ -1,23 +1,21 @@
 "use client";
 
-import { motion } from "motion/react";
-import { inViewOnce } from "@/lib/motion";
 import { CTA_PRIMARY, CTA_TURNAROUND } from "@/components/cta-strings";
 
 export default function FinalCTA() {
   return (
     <section id="final" className="final" aria-labelledby="final-head">
       <div className="wrap">
-        <motion.div {...inViewOnce}>
+        <div>
           <div className="eyebrow">Начать</div>
           <h2 id="final-head">Готов изменить лицо за 90 дней?</h2>
-        </motion.div>
-        <motion.a href="#apply" className="btn-primary" {...inViewOnce}>
+        </div>
+        <a href="#apply" className="btn-primary">
           {CTA_PRIMARY}
-        </motion.a>
-        <motion.span className="note" {...inViewOnce}>
+        </a>
+        <span className="note">
           {CTA_TURNAROUND}
-        </motion.span>
+        </span>
       </div>
     </section>
   );

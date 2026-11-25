@@ -829,7 +829,6 @@ footer .wrap {
   display: grid;
   gap: 14px;
   place-self: center;
-  /* place-content: center; */
 }
 .discovery-list li {
   display: flex;
@@ -1069,7 +1068,6 @@ footer .wrap {
   .discovery-grid { grid-template-columns: 1fr 1fr; align-items: start; }
   .discovery-cta { grid-column: 1 / -1; }
 
-  /* video — constrain width */
   /* testimonials — 2-up tablet */
   .testimonials > * { width: calc((100% - 20px) / 2); }
 
@@ -1156,7 +1154,7 @@ footer .wrap {
   .process > * { width: 25%; }
   .process-carousel .car-nav { display: none; }
 
-  /* desktop: clients — only 2 cards: keep card size, center pair, hide arrows */
+  /* desktop: clients — 3-up: keep card size, centre the row, hide arrows */
   .clients-grid > * { width: calc((100% - 44px) / 3); }
   .clients-grid { justify-content: safe center; }
   .clients-carousel .car-nav { display: none; }

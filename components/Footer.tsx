@@ -8,6 +8,7 @@ export default function Footer() {
       <div className="wrap">
         <span>© {year} MenFace. Все права защищены.</span>
         <nav className="footer-nav">
+          <Link href="/">Главная</Link>
           <Link
             href="/privacy"
           >

@@ -1,7 +1,5 @@
 "use client";
 
-import { motion } from "motion/react";
-import { inViewOnce } from "@/lib/motion";
 import { CTA_PRIMARY } from "@/components/cta-strings";
 
 const ROWS = [
@@ -32,27 +30,27 @@ export default function Timeline() {
     <section id="timeline" className="alt" aria-labelledby="timeline-head">
       <div className="wrap">
         <div className="section-head">
-          <motion.div {...inViewOnce}>
+          <div>
             <div className="eyebrow">Таймлайн</div>
             <h2 id="timeline-head">Что происходит за 90 дней</h2>
-          </motion.div>
-          <motion.p {...inViewOnce}>
+          </div>
+          <p>
             Не за неделю. Не через год. Постепенно — и результат остаётся.
-          </motion.p>
+          </p>
         </div>
 
-        <motion.div className="timeline" {...inViewOnce}>
+        <div className="timeline">
           {ROWS.map((r) => (
             <div className="t-row" key={r.when}>
               <span className="t-when">{r.when}</span>
               <span className="t-what">{r.what}</span>
             </div>
           ))}
-        </motion.div>
+        </div>
 
-        <motion.div className="section-cta" {...inViewOnce}>
+        <div className="section-cta">
           <a href="#apply" className="btn-primary">{CTA_PRIMARY}</a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

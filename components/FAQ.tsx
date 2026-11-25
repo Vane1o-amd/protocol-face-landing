@@ -1,8 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
 import { useState } from "react";
-import { inViewOnce } from "@/lib/motion";
 
 const ITEMS = [
   {
@@ -34,16 +32,16 @@ export default function FAQ() {
     <section id="faq" aria-labelledby="faq-head">
       <div className="wrap">
         <div className="section-head">
-          <motion.div {...inViewOnce}>
+          <div>
             <div className="eyebrow">Вопросы</div>
             <h2 id="faq-head">Частые вопросы</h2>
-          </motion.div>
-          <motion.p {...inViewOnce}>
+          </div>
+          <p>
             Коротко о том, что чаще всего спрашивают перед стартом.
-          </motion.p>
+          </p>
         </div>
 
-        <motion.div className="faq-list" {...inViewOnce}>
+        <div className="faq-list">
           {ITEMS.map((item, i) => (
             <details
               className="faq-item"
@@ -74,7 +72,7 @@ export default function FAQ() {
               </div>
             </details>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

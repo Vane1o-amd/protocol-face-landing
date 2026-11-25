@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { motion } from "motion/react";
-import { fadeUp, inViewOnce } from "@/lib/motion";
+import { fadeUp } from "@/lib/motion";
 import Carousel from "@/components/Carousel";
 
 type VideoElement = HTMLVideoElement & {
@@ -87,13 +87,13 @@ export default function Testimonials() {
     <section id="testimonials" aria-labelledby="testimonials-head">
       <div className="wrap">
         <div className="section-head">
-          <motion.div {...inViewOnce}>
+          <div>
             <div className="eyebrow">Отзывы</div>
             <h2 id="testimonials-head">Что говорят те, кто прошёл протокол</h2>
-          </motion.div>
-          <motion.p {...inViewOnce}>
+          </div>
+          <p>
             Реальные результаты реальных людей. Без фильтров и рекламы.
-          </motion.p>
+          </p>
         </div>
 
         <Carousel

@@ -118,6 +118,7 @@ export default function ApplyForm() {
         </div>
 
         <form
+          method="post"
           className="lead-form"
           onSubmit={handleSubmit}
           noValidate
