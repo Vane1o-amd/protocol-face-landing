@@ -55,9 +55,9 @@ function TestimonialVideo({ src, name }: { src: string; name: string }) {
         .catch(() => {});
     } else if (typeof v.webkitEnterFullscreen === "function") {
       v.webkitEnterFullscreen();
-      v.play();
+      v.play().catch(() => {});
     } else {
-      v.play();
+      v.play().catch(() => {});
     }
   }
 

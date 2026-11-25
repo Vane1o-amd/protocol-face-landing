@@ -10,7 +10,6 @@ import DiscoveryCTA from "@/components/DiscoveryCTA";
 import FinalCTA from "@/components/FinalCTA";
 import FAQ from "@/components/FAQ";
 import ApplyForm from "@/components/ApplyForm";
-import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -29,7 +28,6 @@ export default function Home() {
         <FAQ />
         <ApplyForm />
       </main>
-      <Footer />
     </>
   );
 }

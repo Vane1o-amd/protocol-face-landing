@@ -56,6 +56,8 @@ test("/privacy: the banner does not block reading the policy", async ({ page }) 
   await visit(page, "/privacy");
   await expect(page.locator(".consent-banner")).toBeVisible();
   expect(await page.evaluate(() => document.querySelector("dialog:modal"))).toBeNull();
+  // The policy points here to withdraw: the button must be on this page too.
+  await expect(page.getByRole("button", { name: "Настройки cookie" })).toBeVisible();
 });
 
 test("lead API refuses a foreign origin", async ({ request }) => {

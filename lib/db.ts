@@ -18,6 +18,7 @@ type LeadRow = {
   event_id?: string;
   fbclid?: string;
   fbp?: string;
+  consent: boolean;
 };
 
 export async function saveLead(row: LeadRow): Promise<void> {

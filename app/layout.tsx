@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import type { Metadata } from "next";
 import { Space_Grotesk, IBM_Plex_Sans, IBM_Plex_Mono, Caveat } from "next/font/google";
 import { MotionConfig } from "motion/react";
@@ -77,6 +78,7 @@ export default function RootLayout({
           <ScrollProgress />
           <ConsentBanner />
           {children}
+          <Footer />
           <ScrollTopButton />
           <MetaPixel />
           <Clarity />

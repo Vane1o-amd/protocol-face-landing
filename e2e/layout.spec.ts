@@ -37,3 +37,12 @@ for (const route of ROUTES) {
     expect(unnamed).toEqual([]);
   });
 }
+
+test.describe("without JavaScript", () => {
+  test.use({ javaScriptEnabled: false });
+  test("hero text is visible", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator(".hero h1")).toBeVisible();
+    await expect.poll(() => page.locator(".hero h1").evaluate((el) => getComputedStyle(el).opacity)).toBe("1");
+  });
+});

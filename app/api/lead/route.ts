@@ -92,6 +92,7 @@ export async function POST(req: NextRequest) {
       event_id: d.eventId,
       fbclid: d.fbclid,
       fbp: d.fbp,
+      consent: d.consent,
     });
   } catch (err) {
     stored = false;
