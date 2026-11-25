@@ -54,7 +54,7 @@ export default function Carousel({ children, trackClassName, ariaLabel, wrapperC
       <motion.div
         ref={trackRef}
         className={`car-track ${trackClassName}`}
-        role="list"
+        role="group"
         aria-label={ariaLabel}
         variants={staggerContainer}
         initial="hidden"

@@ -81,9 +81,9 @@ export default function ApplyForm() {
         body: JSON.stringify({ name, contact, consent, eventId, fbclid, fbp }),
       });
 
-      const body = (await res.json()) as { ok?: boolean };
+      const body = res.ok ? ((await res.json()) as { ok?: boolean }) : null;
 
-      if (!res.ok || !body.ok) {
+      if (!body?.ok) {
         // Server errors are English API text; the visitor gets Russian copy.
         setStatus("error");
         setMessage(

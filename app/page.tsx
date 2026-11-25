@@ -6,7 +6,6 @@ import Habits from "@/components/Habits";
 import Timeline from "@/components/Timeline";
 import CaseStudies from "@/components/CaseStudies";
 import Testimonials from "@/components/Testimonials";
-// Detail removed from page per docx prototype section order; component file kept for future use
 import Why from "@/components/Why";
 import DiscoveryCTA from "@/components/DiscoveryCTA";
 import FinalCTA from "@/components/FinalCTA";

@@ -6,8 +6,8 @@ import { sendLeadEvent } from "@/lib/meta-capi";
 import { saveLead, hashIp } from "@/lib/db";
 
 const LeadSchema = z.object({
-  name: z.string().min(1).max(200),
-  contact: z.string().min(1).max(200),
+  name: z.string().trim().min(1).max(200),
+  contact: z.string().trim().min(1).max(200),
   consent: z.boolean().refine((v) => v === true, "Consent required"),
   eventId: z.string().uuid().optional(),
   fbclid: z.string().max(512).optional(),
@@ -79,21 +79,10 @@ export async function POST(req: NextRequest) {
     name: d.name,
     contact: d.contact,
     consent: d.consent,
-    eventId: d.eventId,
-    fbclid: d.fbclid,
   };
 
-  try {
-    await sendLead(leadData);
-  } catch {
-    return NextResponse.json(
-      { ok: false, error: "Delivery failed. Try later." },
-      { status: 502 },
-    );
-  }
-
-  // Audit trail after delivery — lead already reached Telegram, so a DB
-  // failure must not turn a delivered lead into a user-facing error.
+  // The DB is the system of record, Telegram the notification: the lead is lost only if both fail.
+  let stored = true;
   try {
     await saveLead({
       name: d.name,
@@ -104,7 +93,16 @@ export async function POST(req: NextRequest) {
       fbp: d.fbp,
     });
   } catch (err) {
+    stored = false;
     console.error("[/api/lead] supabase save failed", err);
+  }
+  try {
+    await sendLead(leadData);
+  } catch (err) {
+    console.error("[/api/lead] telegram send failed", err);
+    if (!stored) {
+      return NextResponse.json({ ok: false, error: "Delivery failed. Try later." }, { status: 502 });
+    }
   }
 
   // CAPI only for leads with an eventId: the form sends one only after a marketing yes on the banner.

@@ -35,7 +35,7 @@ export default function ConsentBanner() {
       }}
     >
       <p>
-        Мы используем cookies для аналитики и подбора рекламы. Обработка данных —
+        Мы используем cookie для аналитики и подбора рекламы. Обработка данных —
         согласно{" "}
         <a href="/privacy" className="privacy-link">
           политике конфиденциальности

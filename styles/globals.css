@@ -515,49 +515,6 @@ h2 { max-width: 16ch; }
 }
 
 /* =========================================================================
-   Profile detail
-   ========================================================================= */
-
-.detail {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2px;
-  background: var(--color-line);
-  border: 1px solid var(--color-line);
-  max-width: 720px;
-  margin: 0 auto;
-}
-
-.detail figure {
-  position: relative;
-  margin: 0;
-  background: #000;
-  aspect-ratio: 4 / 5;
-}
-
-.detail img {
-  width: 100%;
-  height: 100%;
-  /* object-fit: cover; */
-  opacity: 0.96;
-}
-
-.detail figcaption {
-  position: absolute;
-  left: 14px;
-  bottom: 14px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: #fff;
-  background: rgba(27, 30, 28, 0.55);
-  padding: 4px 9px;
-  border-radius: 2px;
-}
-.detail figcaption.after { background: rgba(75, 99, 88, 0.65); }
-
-/* =========================================================================
    Why cards
    ========================================================================= */
 
@@ -758,6 +715,8 @@ footer .wrap {
 
 .lead-form input:focus {
   border-color: var(--color-ink);
+}
+.lead-form input:not([type="checkbox"]):focus:not(:focus-visible) {
   outline: none;
 }
 
@@ -1160,9 +1119,6 @@ footer .wrap {
   /* tablet: clients 2-up (gap 22px) */
   .clients-grid > * { width: calc((100% - 22px) / 2); }
   .client-card .meta .cname { font-size: 19px; }
-
-  /* tablet: detail typography */
-  .detail figcaption { font-size: 11.5px; }
 
   /* tablet: footer row */
   footer .wrap {

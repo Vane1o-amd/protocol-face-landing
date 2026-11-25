@@ -66,7 +66,7 @@ function TestimonialVideo({ src, name }: { src: string; name: string }) {
       type="button"
       className="video-thumb"
       onClick={open}
-      aria-label={`Смотреть видео-отзыв: ${name} на весь экран`}
+      aria-label={`Смотреть видеоотзыв: ${name} на весь экран`}
     >
       <video
         ref={ref}

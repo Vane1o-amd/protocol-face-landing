@@ -4,8 +4,6 @@ export interface LeadData {
   name: string;
   contact: string; // phone or telegram handle
   consent: boolean;
-  eventId?: string;
-  fbclid?: string;
 }
 
 function sanitize(text: string): string {

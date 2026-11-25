@@ -80,7 +80,7 @@ export default function Hero() {
               </a>
               <span className="note">
                 {CTA_TURNAROUND} · разбор бесплатный · веду клиентов
-                лично, мест на месяц ограниченное количество
+                лично, количество мест на месяц ограничено
               </span>
             </div>
           </motion.div>

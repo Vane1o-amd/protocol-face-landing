@@ -7,7 +7,6 @@ const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
 // IP is personal data under GDPR: store a salted hash instead of the raw value.
 export function hashIp(ip: string): string {
-  if (ip === "unknown") return "unknown";
   const secret = process.env.IP_HASH_SECRET ?? "";
   return createHash("sha256").update(`${ip}:${secret}`).digest("hex");
 }
