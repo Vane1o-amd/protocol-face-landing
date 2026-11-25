@@ -4,6 +4,15 @@ export const metadata: Metadata = {
   title: "Политика конфиденциальности — MenFace",
   description: "Как MenFace обрабатывает твои персональные данные. GDPR.",
   alternates: { canonical: "/privacy" },
+  openGraph: {
+    title: "Политика конфиденциальности — MenFace",
+    description: "Как MenFace обрабатывает твои персональные данные. GDPR.",
+    url: "/privacy",
+  },
+  twitter: {
+    title: "Политика конфиденциальности — MenFace",
+    description: "Как MenFace обрабатывает твои персональные данные. GDPR.",
+  },
   robots: { index: true, follow: true },
 };
 
@@ -157,8 +166,8 @@ export default function PrivacyPage() {
       <p style={dim}>
         По умолчанию каждую заявку читает человек и отвечает на неё. Автоматический
         ИИ-респондер не используется. Если будет введён ИИ-ассистент для обработки
-        заявок, эта политика будет обновлена с раскрытием, согласно EU AI Act
-        Article 50.
+        заявок, эта политика будет обновлена с раскрытием согласно EU AI Act,
+        статья 50.
       </p>
 
       <h2 style={sectionH2}>Твои права</h2>

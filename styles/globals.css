@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* =========================================================================
-   PROTOCOL FACE — globals
+   MenFace — globals
    Romanderkach 3-breakpoint token system: mobile base / 768 / 1024.
    Sizing lives ONLY in media queries (tokens redefine). Mobile is default.
    Palette + fonts preserved verbatim from source.
@@ -14,7 +14,7 @@
   --color-ink: #1B1E1C;
   --color-ink-soft: #4B4F49;
   --color-line: #C7CABF;
-  --color-mark: #C1401C;
+  --color-mark: #B33C1A; /* WCAG AA: 4.6:1 on paper-alt, 5.0:1 on paper for small text */
   --color-verdigris: #4B6358;
   --color-card: #F6F6F2;
 
@@ -529,11 +529,10 @@ h2 { max-width: 16ch; }
 .why .card {
   background: var(--color-card);
   padding: 26px 22px;
-  transition: transform 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease;
 }
 .why .card:hover {
   transform: translateY(-2px);
-  border-color: var(--color-ink);
 }
 
 .why .card .tag {
@@ -864,7 +863,6 @@ footer .wrap {
   width: 150px;
   aspect-ratio: 9 / 16;
   margin-inline: auto;
-  padding: 0;
   border: 1px solid var(--color-line);
   border-radius: var(--radius);
   background: var(--color-paper-alt);

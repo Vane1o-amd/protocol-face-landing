@@ -14,13 +14,28 @@ export default function ConsentBanner() {
      Guard = Strict Mode double-invoke (showModal throws if already open). */
   useEffect(() => {
     const banner = bannerRef.current;
-    if (!banner || choice !== null || banner.open) return;
+    if (!banner || choice !== null) return;
+    // Navigating to or from /privacy switches the mode: reopen the open dialog in the new one.
+    if (banner.open) {
+      if (modal === banner.matches(":modal")) return;
+      banner.close();
+    }
     if (modal) banner.showModal();
     else banner.show();
     /* Focus the dialog itself, not its first control (Chrome would autofocus
        the privacy link and draw its ring mid-sentence). tabindex=-1 keeps it
        out of the tab cycle. */
     banner.focus({ preventScroll: true });
+  }, [choice, modal]);
+
+  // Non-modal: the fixed banner would cover the page bottom (footer links), so reserve its height.
+  useEffect(() => {
+    const banner = bannerRef.current;
+    if (!banner || choice !== null || modal) return;
+    document.body.style.paddingBottom = `${banner.offsetHeight}px`;
+    return () => {
+      document.body.style.paddingBottom = "";
+    };
   }, [choice, modal]);
 
   if (choice !== null) return null;

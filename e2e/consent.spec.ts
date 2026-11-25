@@ -60,6 +60,13 @@ test("/privacy: the banner does not block reading the policy", async ({ page }) 
   await expect(page.getByRole("button", { name: "Настройки cookie" })).toBeVisible();
 });
 
+test("leaving /privacy without answering makes the banner modal again", async ({ page }) => {
+  await visit(page, "/privacy");
+  await page.getByRole("link", { name: "Главная" }).click();
+  await page.waitForURL((u) => u.pathname === "/");
+  await expect.poll(() => page.evaluate(() => !!document.querySelector("dialog:modal"))).toBe(true);
+});
+
 test("lead API refuses a foreign origin", async ({ request }) => {
   const res = await request.post("/api/lead", {
     headers: { origin: "https://evil.example" },
