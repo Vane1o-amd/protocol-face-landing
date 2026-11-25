@@ -62,6 +62,11 @@ test.describe("without JavaScript", () => {
     await expect(note).toContainText("включи JavaScript");
   });
 
+  test("no consent banner: its buttons cannot work without JS", async ({ page }) => {
+    await page.goto("/privacy");
+    await expect(page.locator(".consent-banner")).toBeHidden();
+  });
+
   test("motion items rendered hidden are shown", async ({ page }) => {
     await page.goto("/");
     const hidden = await page.evaluate(() =>

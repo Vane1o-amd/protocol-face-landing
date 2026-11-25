@@ -79,7 +79,6 @@ export async function POST(req: NextRequest) {
   const leadData: LeadData = {
     name: d.name,
     contact: d.contact,
-    consent: d.consent,
   };
 
   // The DB is the system of record, Telegram the notification: the lead is lost only if both fail.

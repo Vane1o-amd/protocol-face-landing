@@ -52,6 +52,7 @@ export const metadata: Metadata = {
     description:
       "Личный протокол лица: измени лицо за 90 дней — первые видимые изменения к 4-й неделе.",
     ...OG_BASE,
+    url: "/",
   },
   twitter: {
     ...TWITTER_BASE,

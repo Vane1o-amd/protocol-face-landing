@@ -3,7 +3,6 @@ import { getEnv } from "./env";
 export interface LeadData {
   name: string;
   contact: string; // phone or telegram handle
-  consent: boolean;
 }
 
 function sanitize(text: string): string {
@@ -23,7 +22,6 @@ function composeLeadMessage(d: LeadData): string {
     "",
     `👤 Имя: ${sanitize(d.name)}`,
     `📞 Контакт: ${sanitize(d.contact)}`,
-    `✅ Согласие: ${d.consent ? "да" : "нет"}`,
   ];
   return lines.join("\n");
 }
