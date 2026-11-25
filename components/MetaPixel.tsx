@@ -23,9 +23,9 @@ export default function MetaPixel() {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    captureFbclid();
     const enable = () => {
       ensureFbp();
+      captureFbclid();
       setEnabled(true);
     };
     if (consentGranted()) enable();
