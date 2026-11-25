@@ -1,8 +1,5 @@
 import type { NextConfig } from "next";
 
-// React dev mode evals for stack traces; production builds never do.
-const devEval = process.env.NODE_ENV === "development" ? " 'unsafe-eval'" : "";
-
 const nextConfig: NextConfig = {
   async headers() {
     return [
@@ -10,16 +7,7 @@ const nextConfig: NextConfig = {
         source: "/(.*)",
         headers: [
           { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
-          // CSP allows the third-party resources this site loads:
-          //   - 'unsafe-inline' script: Next.js inline runtime + any inline JSON-LD.
-          //   - 'unsafe-eval' script: next dev only (devEval above).
-          //   - https://connect.facebook.net + https://www.facebook.com: Meta Pixel.
-          //   - https://va.vercel-scripts.com: Vercel Analytics + Speed Insights.
-          //   - https://*.clarity.ms: Microsoft Clarity (consent-gated). Tag redirects
-          //     www.clarity.ms/tag/<id> to scripts.clarity.ms/<ver>/clarity.js — the wildcard
-          //     covers both script-src hops.
-          //   Fonts: next/font self-hosts them at build time, so no Google Fonts origin.
-          { key: "Content-Security-Policy", value: `default-src 'self'; script-src 'self' 'unsafe-inline'${devEval} https://connect.facebook.net https://va.vercel-scripts.com https://*.clarity.ms; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://www.facebook.com https://*.clarity.ms; font-src 'self'; connect-src 'self' https://connect.facebook.net https://www.facebook.com https://va.vercel-scripts.com https://*.clarity.ms; frame-ancestors 'none'; base-uri 'self'; form-action 'self'` },
+          // Content-Security-Policy is set per request in proxy.ts (nonce).
           { key: "X-Frame-Options", value: "DENY" },
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },

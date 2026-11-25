@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Space_Grotesk, IBM_Plex_Sans, IBM_Plex_Mono, Caveat } from "next/font/google";
 import { MotionConfig } from "motion/react";
 import { Analytics } from "@vercel/analytics/next";
@@ -63,9 +64,11 @@ export const metadata: Metadata = {
   robots: { index: true, follow: true },
 };
 
-export default function RootLayout({
+// Reading the per-request nonce (proxy.ts) renders every page per request.
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
   return (
     <html
       lang="ru"
@@ -83,8 +86,8 @@ export default function RootLayout({
           {children}
           <Footer />
           <ScrollTopButton />
-          <MetaPixel />
-          <Clarity />
+          <MetaPixel nonce={nonce} />
+          <Clarity nonce={nonce} />
           <Analytics />
           <SpeedInsights />
         </MotionConfig>
