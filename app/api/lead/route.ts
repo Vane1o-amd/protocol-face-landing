@@ -4,6 +4,7 @@ import { rateLimitCheap, rateLimit } from "@/lib/rateLimit";
 import { sendLead, type LeadData } from "@/lib/telegram";
 import { sendLeadEvent } from "@/lib/meta-capi";
 import { saveLead, hashIp } from "@/lib/db";
+import { alert, failReason } from "@/lib/alert";
 
 const LeadSchema = z.object({
   name: z.string().trim().min(1).max(200),
@@ -35,6 +36,21 @@ function originAllowed(req: NextRequest): boolean {
   return !!origin && ALLOWED_ORIGINS.has(origin);
 }
 
+// One retry: a single Telegram hiccup must not cost a notification. Returns the last error, or null.
+async function sendLeadWithRetry(lead: LeadData): Promise<unknown> {
+  let lastError: unknown = null;
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      await sendLead(lead);
+      return null;
+    } catch (err) {
+      lastError = err;
+      console.error(`[/api/lead] telegram send failed (attempt ${attempt})`, err);
+    }
+  }
+  return lastError;
+}
+
 export async function POST(req: NextRequest) {
   if (!originAllowed(req)) {
     return NextResponse.json({ ok: false, error: "Origin not allowed" }, { status: 403 });
@@ -43,6 +59,7 @@ export async function POST(req: NextRequest) {
   const ip = clientIp(req);
 
   if (!rateLimitCheap(ip)) {
+    await alert("rate limit hit on /api/lead (requests)", "rate-limit");
     return NextResponse.json(
       { ok: false, error: "Too many requests. Try later." },
       { status: 429 },
@@ -70,6 +87,7 @@ export async function POST(req: NextRequest) {
   }
 
   if (!rateLimit(ip)) {
+    await alert("rate limit hit on /api/lead (leads)", "rate-limit");
     return NextResponse.json(
       { ok: false, error: "Too many leads. Try later." },
       { status: 429 },
@@ -82,7 +100,7 @@ export async function POST(req: NextRequest) {
   };
 
   // The DB is the system of record, Telegram the notification: the lead is lost only if both fail.
-  let stored = true;
+  let dbError: unknown = null;
   try {
     await saveLead({
       name: d.name,
@@ -94,17 +112,17 @@ export async function POST(req: NextRequest) {
       consent: d.consent,
     });
   } catch (err) {
-    stored = false;
+    dbError = err;
     console.error("[/api/lead] supabase save failed", err);
   }
-  try {
-    await sendLead(leadData);
-  } catch (err) {
-    console.error("[/api/lead] telegram send failed", err);
-    if (!stored) {
-      return NextResponse.json({ ok: false, error: "Delivery failed. Try later." }, { status: 502 });
-    }
+  const tgError = await sendLeadWithRetry(leadData);
+
+  if (dbError && tgError) {
+    await alert(`lead LOST, database (${failReason(dbError)}) and Telegram (${failReason(tgError)}) failed`);
+    return NextResponse.json({ ok: false, error: "Delivery failed. Try later." }, { status: 502 });
   }
+  if (tgError) await alert(`lead saved, Telegram notify failed (${failReason(tgError)})`);
+  if (dbError) await alert(`lead NOT saved in database (${failReason(dbError)}), Telegram notify sent`);
 
   // CAPI only for leads with an eventId: the form sends one only after a marketing yes on the banner.
   if (d.eventId) {

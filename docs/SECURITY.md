@@ -2,19 +2,17 @@
 
 ## Known gaps
 
-### Lead-path failures raise no alert (open, next PR)
-- Today: `app/api/lead/route.ts` saves to Supabase, then notifies Telegram. A failure in either,
-  and every rate-limit hit, goes only to `console.error` in the Vercel logs. If Telegram fails
-  after a successful save, the visitor sees success and nobody is told: the lead sits in
-  Supabase unseen.
-- Decided fix (Ivan, 2026-11-25), a separate small PR after the full-pass PR merges:
-  - On a failed Telegram send, retry once.
-  - Then alert Ivan's Telegram through a separate alert-only bot, on any lead-path failure
-    (Telegram or database) and on rate-limit hits (at most one alert per hour).
-  - Alerts carry no lead data, e.g. `menface: lead saved, Telegram notify failed (<status>)`.
-  - Token and chat id from two new env vars; missing vars mean log only, never a crash.
-  - Ivan creates the bot and sets the vars in Vercel. Tests mock Telegram; one real end-to-end
-    alert test by Ivan that writes nothing to the database.
+### Lead-path alerts (lib/alert.ts)
+- A failed Telegram send is retried once. Then Ivan gets an alert on any lead-path failure
+  (Telegram, database, or both = lead lost) and on rate-limit hits (at most one per hour per
+  instance). Alerts carry no lead data, only the step and an HTTP status or error name, e.g.
+  `menface: lead saved, Telegram notify failed (500)`.
+- Env: `TELEGRAM_ALERT_BOT_TOKEN`, `TELEGRAM_ALERT_CHAT_ID` (Vercel Production, Sensitive).
+  Missing vars = log only, the visitor's response never changes.
+- The bot is Ivan's existing alert-only bot @uptimealertsibot (it also sends his uptime alerts),
+  so its token lives in two places: the uptime monitor and this Vercel project.
+- **Handover to Roman: delete both Vercel vars first.** Roman must not get the token of Ivan's
+  uptime bot, and alerts would otherwise keep going to Ivan.
 
 ### Rate limits are per server instance
 - `lib/rateLimit.ts` keeps counts in module memory, so each Vercel instance counts separately
