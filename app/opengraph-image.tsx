@@ -19,7 +19,7 @@ export default function OpenGraphImage() {
           padding: "80px",
         }}
       >
-        <div style={{ fontSize: 28, color: "#C1401C", marginBottom: 24 }}>
+        <div style={{ fontSize: 28, color: "#B33C1A", marginBottom: 24 }}>
           MENFACE
         </div>
         <div

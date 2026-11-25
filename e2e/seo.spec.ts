@@ -20,3 +20,9 @@ test("sitemap and robots use the served host", async ({ request }) => {
 test("unknown route returns 404", async ({ request }) => {
   expect((await request.get("/does-not-exist")).status()).toBe(404);
 });
+
+test("/privacy keeps the shared OpenGraph and Twitter fields", async ({ request }) => {
+  const html = await (await request.get("/privacy")).text();
+  expect(html).toContain('property="og:site_name" content="MenFace"');
+  expect(html).toContain('name="twitter:card" content="summary_large_image"');
+});

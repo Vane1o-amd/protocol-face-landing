@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
+import { OG_BASE, TWITTER_BASE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Политика конфиденциальности — MenFace",
   description: "Как MenFace обрабатывает твои персональные данные. GDPR.",
   alternates: { canonical: "/privacy" },
   openGraph: {
+    ...OG_BASE,
     title: "Политика конфиденциальности — MenFace",
     description: "Как MenFace обрабатывает твои персональные данные. GDPR.",
     url: "/privacy",
   },
   twitter: {
+    ...TWITTER_BASE,
     title: "Политика конфиденциальности — MenFace",
     description: "Как MenFace обрабатывает твои персональные данные. GDPR.",
   },
@@ -198,8 +201,8 @@ export default function PrivacyPage() {
         Meta не отправятся. Твой выбор хранится локально в браузере (запись{" "}
         <code>pf_marketing_consent</code>) и может быть изменён или отозван кнопкой
         «Настройки cookie» внизу любой страницы. Идентификатор клика{" "}
-        <code>fbclid</code> хранится только в сессии браузера и только после
-        согласия. Управлять этими cookie и удалять их
+        <code>fbclid</code> появляется только после согласия: до отправки формы он
+        хранится в сессии браузера, после отправки — вместе с заявкой. Управлять этими cookie и удалять их
         можно также в настройках своего браузера.
       </p>
 

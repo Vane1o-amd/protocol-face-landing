@@ -10,7 +10,7 @@ import ConsentBanner from "@/components/ConsentBanner";
 import LoadingScreen from "@/components/LoadingScreen";
 import ScrollProgress from "@/components/ScrollProgress";
 import ScrollTopButton from "@/components/ScrollTopButton";
-import { SITE_URL } from "@/lib/site";
+import { OG_BASE, SITE_URL, TWITTER_BASE } from "@/lib/site";
 import "@/styles/globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -51,12 +51,10 @@ export const metadata: Metadata = {
     title: "MenFace — персональная диагностика и сопровождение",
     description:
       "Личный протокол лица: измени лицо за 90 дней — первые видимые изменения к 4-й неделе.",
-    type: "website",
-    locale: "ru_RU",
-    siteName: "MenFace",
+    ...OG_BASE,
   },
   twitter: {
-    card: "summary_large_image",
+    ...TWITTER_BASE,
     title: "MenFace — персональная диагностика и сопровождение",
     description:
       "Личный протокол лица: измени лицо за 90 дней — первые видимые изменения к 4-й неделе.",

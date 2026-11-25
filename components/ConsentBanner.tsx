@@ -32,8 +32,13 @@ export default function ConsentBanner() {
   useEffect(() => {
     const banner = bannerRef.current;
     if (!banner || choice !== null || modal) return;
-    document.body.style.paddingBottom = `${banner.offsetHeight}px`;
+    // Track the height: text rewraps on resize or rotation.
+    const observer = new ResizeObserver(() => {
+      document.body.style.paddingBottom = `${banner.offsetHeight}px`;
+    });
+    observer.observe(banner);
     return () => {
+      observer.disconnect();
       document.body.style.paddingBottom = "";
     };
   }, [choice, modal]);
