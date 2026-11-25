@@ -76,3 +76,17 @@ test.describe("without JavaScript", () => {
     expect(await page.locator('[style*="opacity:0"]').count()).toBeGreaterThan(0);
   });
 });
+
+test("every testimonial video has Russian captions that load", async ({ page, request }) => {
+  await page.goto("/");
+  const tracks = await page.locator("#testimonials video track[kind=captions]").evaluateAll((els) =>
+    els.map((t) => ({ src: (t as HTMLTrackElement).src, lang: t.getAttribute("srclang") })),
+  );
+  expect(tracks).toHaveLength(await page.locator("#testimonials video").count());
+  for (const t of tracks) {
+    expect(t.lang).toBe("ru");
+    const res = await request.get(t.src);
+    expect(res.status()).toBe(200);
+    expect(await res.text()).toMatch(/^WEBVTT/);
+  }
+});

@@ -69,7 +69,9 @@ function TestimonialVideo({ src, name }: { src: string; name: string }) {
         src={`${src}#t=0.1`}
         playsInline
         preload="metadata"
-      />
+      >
+        <track kind="captions" src={src.replace(/\.mp4$/, ".vtt")} srcLang="ru" label="Русский" default />
+      </video>
       <button
         type="button"
         className="thumb-play"
