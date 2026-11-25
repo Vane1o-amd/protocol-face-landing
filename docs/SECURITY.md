@@ -17,3 +17,12 @@
 ### Rate limits are per server instance
 - `lib/rateLimit.ts` keeps counts in module memory, so each Vercel instance counts separately
   and a cold start resets them; an attempt counts even when delivery fails.
+
+### Content-Security-Policy (proxy.ts)
+- Per-request nonce: `script-src 'self' 'nonce-…' 'strict-dynamic'`, no `'unsafe-inline'`, no
+  `'unsafe-eval'` (dev mode only adds eval for React stack traces). Next puts the nonce on its own
+  scripts; `app/layout.tsx` passes it to the consent-gated Pixel and Clarity loaders, and
+  `'strict-dynamic'` lets them load fbevents.js and clarity.js.
+- Cost: reading the nonce renders every page per request instead of serving a static file.
+- `style-src` keeps `'unsafe-inline'`: React and motion write `style` attributes, which a nonce
+  cannot cover. Accepted: style injection is far weaker than script injection.

@@ -110,8 +110,8 @@ test("accept: the lead carries eventId, fbclid and fbp", async ({ page }) => {
   expect(body.fbp).toMatch(/^fb\.1\./);
 });
 
-for (const answer of ["btn-decline", "btn-allow"] as const) {
-  test(`no CSP violations after ${answer}`, async ({ page }) => {
+for (const answer of ["no answer", "btn-decline", "btn-allow"] as const) {
+  test(`no CSP violations on any route: ${answer}`, async ({ page }) => {
     await page.addInitScript(() => {
       (window as unknown as { csp: string[] }).csp = [];
       document.addEventListener("securitypolicyviolation", (e) =>
@@ -121,9 +121,33 @@ for (const answer of ["btn-decline", "btn-allow"] as const) {
     for (const route of ["/", "/privacy", "/success", "/does-not-exist"]) {
       await page.goto(route);
       const banner = page.locator(`.${answer}`);
-      if (await banner.isVisible()) await banner.click();
+      if (answer !== "no answer" && (await banner.isVisible())) await banner.click();
       await page.waitForTimeout(1500);
       expect(await page.evaluate(() => (window as unknown as { csp: string[] }).csp)).toEqual([]);
     }
   });
 }
+
+test("CSP: a fresh nonce per request, no 'unsafe-inline' or 'unsafe-eval' in script-src", async ({ request, page }) => {
+  const nonces = new Set<string>();
+  for (const route of ["/", "/", "/privacy", "/success", "/does-not-exist", "/x.php"]) {
+    const res = await request.get(route);
+    const policy = res.headers()["content-security-policy"];
+    const scriptSrc = policy.split(";").find((d) => d.trim().startsWith("script-src"))!;
+    expect(scriptSrc).toContain("'strict-dynamic'");
+    expect(scriptSrc).not.toContain("'unsafe-inline'");
+    expect(scriptSrc).not.toContain("'unsafe-eval'");
+    const nonce = scriptSrc.match(/'nonce-([^']+)'/)![1];
+    nonces.add(nonce);
+    // Every script Next renders carries this request's nonce.
+    const html = await res.text();
+    const scripts = html.match(/<script\b[^>]*>/g) ?? [];
+    expect(scripts.length).toBeGreaterThan(0);
+    for (const tag of scripts) expect(tag).toContain(`nonce="${nonce}"`);
+  }
+  expect(nonces.size).toBe(6);
+  await page.goto("/");
+  await page.locator(".btn-allow").click();
+  await expect(page.locator("script#meta-pixel")).toHaveCount(1);
+  await expect(page.locator("script#ms-clarity")).toHaveCount(1);
+});
