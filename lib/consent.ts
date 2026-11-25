@@ -28,6 +28,23 @@ export function setConsent(value: ConsentValue): void {
   listeners.forEach((fn) => fn(value));
 }
 
+// Withdraw (GDPR Art 7(3)): forget the answer and drop the cookies Meta and Clarity set on this site.
+// The caller reloads, so the already-loaded scripts stop and the banner asks again.
+export function resetConsent(): void {
+  session = null;
+  try {
+    localStorage.removeItem(CONSENT_KEY);
+    sessionStorage.clear();
+  } catch {
+    // storage unavailable: nothing was kept
+  }
+  const domain = location.hostname.replace(/^www\./, "");
+  for (const name of ["_fbp", "_fbc", "_clck", "_clsk"]) {
+    document.cookie = `${name}=; max-age=0; path=/`;
+    document.cookie = `${name}=; max-age=0; path=/; domain=.${domain}`;
+  }
+}
+
 function subscribe(fn: Listener): () => void {
   listeners.add(fn);
   return () => listeners.delete(fn);

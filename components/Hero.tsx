@@ -1,7 +1,5 @@
 "use client";
 
-import { motion } from "motion/react";
-import { fadeUp, inViewOnce } from "@/lib/motion";
 import { CTA_PRIMARY, CTA_TURNAROUND } from "@/components/cta-strings";
 import Image from "next/image";
 
@@ -10,21 +8,21 @@ export default function Hero() {
     <section id="top" className="hero">
       <div className="wrap">
         <div className="hero-grid">
-          <motion.div {...inViewOnce}>
+          <div>
             <div className="eyebrow">Личный протокол лица</div>
-            <motion.h1 variants={fadeUp} initial="hidden" animate="visible">
+            <h1>
               Мужское, выразительное лицо за 90 дней
-            </motion.h1>
-            <motion.p className="sub" variants={fadeUp} initial="hidden" animate="visible">
+            </h1>
+            <p className="sub">
               Уберём отёки, жир и прыщи, добавим контраст и чёткую челюсть —
               без диет, инъекций и спортзала. Всего 15 минут в день.
-            </motion.p>
-            <motion.p className="hero-subtitle" variants={fadeUp} initial="hidden" animate="visible">
+            </p>
+            <p className="hero-subtitle">
               Персональный протокол по фото и разбору. Первые изменения — уже
               через 7 дней. Система встраивается в любой график: командировки,
               тренировки, ресторан — без исключений.
-            </motion.p>
-            <motion.ul className="hero-points" variants={fadeUp} initial="hidden" animate="visible">
+            </p>
+            <ul className="hero-points">
               <li>
                 <img
                   src="/images/galochka.svg"
@@ -73,7 +71,7 @@ export default function Hero() {
                   </span>
                 </span>
               </li>
-            </motion.ul>
+            </ul>
             <div className="cta-row">
               <a href="#apply" className="btn-primary">
                 {CTA_PRIMARY}
@@ -83,9 +81,9 @@ export default function Hero() {
                 лично, количество мест на месяц ограничено
               </span>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div className="hero-visual" {...inViewOnce}>
+          <div className="hero-visual">
             <figure>
               <Image
                 src="/images/hero-before.jpg"
@@ -101,7 +99,7 @@ export default function Hero() {
               <b>Не косметика.</b> Структурная работа с лицом: осанка, тонус,
               привычки. Результат накапливается постепенно и остаётся.
             </p>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

@@ -11,6 +11,7 @@ const LeadSchema = z.object({
   consent: z.boolean().refine((v) => v === true, "Consent required"),
   eventId: z.string().uuid().optional(),
   fbclid: z.string().max(512).optional(),
+  fbclidAt: z.number().int().positive().optional(),
   fbp: z.string().max(512).optional(),
   company: z.string().max(200).optional(),
 });
@@ -113,12 +114,13 @@ export async function POST(req: NextRequest) {
         contact: d.contact,
         eventId: d.eventId,
         fbclid: d.fbclid,
+        fbclidAt: d.fbclidAt,
         fbp: d.fbp,
         ip,
         userAgent: req.headers.get("user-agent") ?? undefined,
       });
     } catch (err) {
-      // CAPI failure never blocks: the Pixel still has the event.
+      // CAPI failure never blocks the lead: the Pixel still has the event.
       console.error("[/api/lead] CAPI send failed", err);
     }
   }

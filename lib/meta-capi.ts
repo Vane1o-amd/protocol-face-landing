@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { getEnv } from "./env";
 
-const GRAPH_API = "https://graph.facebook.com/v18.0";
+const GRAPH_API = "https://graph.facebook.com/v26.0";
 
 function sha256(value: string): string {
   return createHash("sha256").update(value).digest("hex");
@@ -11,16 +11,13 @@ function normalizePhone(phone: string): string {
   return phone.replace(/[^\d+]/g, "");
 }
 
-function synthesizeFbc(fbclid?: string): string | undefined {
-  if (!fbclid) return undefined;
-  return `fb.1.${Date.now()}.${fbclid}`;
-}
 
 export interface CapiLeadInput {
   name: string;
   contact: string; // phone or telegram handle
   eventId: string;
   fbclid?: string;
+  fbclidAt?: number; // ms, when the ad click landed
   fbp?: string;
   ip?: string;
   userAgent?: string;
@@ -44,8 +41,7 @@ export async function sendLeadEvent(input: CapiLeadInput): Promise<void> {
   // fbp/fbc go to CAPI raw (click/cookie ids are not hashed — only personal
   // identifiers like fn/ln/ph/em are, per Meta's user_data spec).
   if (input.fbp) userData.fbp = input.fbp;
-  const fbc = synthesizeFbc(input.fbclid);
-  if (fbc) userData.fbc = fbc;
+  if (input.fbclid) userData.fbc = `fb.1.${input.fbclidAt ?? Date.now()}.${input.fbclid}`;
   if (input.ip) userData.client_ip_address = input.ip;
   if (input.userAgent) userData.client_user_agent = input.userAgent;
 
@@ -61,18 +57,12 @@ export async function sendLeadEvent(input: CapiLeadInput): Promise<void> {
     ],
   };
 
-  try {
-    const url = `${GRAPH_API}/${pixelId}/events?access_token=${token}`;
-    const res = await fetch(url, {
-      method: "POST",
-      signal: AbortSignal.timeout(8000),
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-    if (!res.ok) {
-      console.error(`CAPI ${res.status}: ${await res.text()}`);
-    }
-  } catch (err) {
-    console.error("CAPI failure:", err);
-  }
+  // Token in the body, not the URL: URLs end up in logs.
+  const res = await fetch(`${GRAPH_API}/${pixelId}/events`, {
+    method: "POST",
+    signal: AbortSignal.timeout(8000),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ ...body, access_token: token }),
+  });
+  if (!res.ok) throw new Error(`CAPI ${res.status}: ${await res.text()}`);
 }

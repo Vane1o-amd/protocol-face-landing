@@ -41,6 +41,23 @@ test("accept: Pixel loads, _fbp and fbclid set", async ({ page }) => {
   expect(await fbclid(page)).toBe("e2etest");
 });
 
+test("withdraw: the footer button clears the answer, _fbp and fbclid, and asks again", async ({ page }) => {
+  await visit(page, "/");
+  await page.locator(".btn-allow").click();
+  await expect.poll(() => fbp(page)).toBe(true);
+  await page.getByRole("button", { name: "Настройки cookie" }).click();
+  await expect(page.locator(".consent-banner")).toBeVisible();
+  expect(await fbp(page)).toBe(false);
+  expect(await fbclid(page)).toBeNull();
+  expect(await page.evaluate(() => localStorage.getItem("pf_marketing_consent"))).toBeNull();
+});
+
+test("/privacy: the banner does not block reading the policy", async ({ page }) => {
+  await visit(page, "/privacy");
+  await expect(page.locator(".consent-banner")).toBeVisible();
+  expect(await page.evaluate(() => document.querySelector("dialog:modal"))).toBeNull();
+});
+
 test("lead API refuses a foreign origin", async ({ request }) => {
   const res = await request.post("/api/lead", {
     headers: { origin: "https://evil.example" },
@@ -61,7 +78,9 @@ async function submittedLead(page: Page, answer: "btn-decline" | "btn-allow") {
   const form = page.locator("#apply form");
   await form.locator('[name="name"]').fill("E2E Test");
   await form.locator('[name="contact"]').fill("+4700000000");
-  await form.locator('[name="consent"]').check();
+  const consent = form.locator('[name="consent"]');
+  await expect(consent).not.toBeChecked(); // consent must be an active choice, never pre-ticked
+  await consent.check();
   await form.locator('button[type="submit"]').click();
   await page.waitForURL("**/success");
   return body;
@@ -78,6 +97,7 @@ test("accept: the lead carries eventId, fbclid and fbp", async ({ page }) => {
   const body = await submittedLead(page, "btn-allow");
   expect(body.eventId).toMatch(/^[0-9a-f-]{36}$/);
   expect(body.fbclid).toBe("e2etest");
+  expect(body.fbclidAt).toBeGreaterThan(Date.now() - 60_000);
   expect(body.fbp).toMatch(/^fb\.1\./);
 });
 

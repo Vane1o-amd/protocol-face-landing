@@ -62,22 +62,23 @@ function TestimonialVideo({ src, name }: { src: string; name: string }) {
   }
 
   return (
-    <button
-      type="button"
-      className="video-thumb"
-      onClick={open}
-      aria-label={`Смотреть видеоотзыв: ${name} на весь экран`}
-    >
+    // The video is a sibling of the button: a <video controls> inside a <button> is invalid nested interaction.
+    <div className="video-thumb">
       <video
         ref={ref}
         src={`${src}#t=0.1`}
         playsInline
         preload="metadata"
       />
-      <span className="thumb-play" aria-hidden="true">
-        ▶
-      </span>
-    </button>
+      <button
+        type="button"
+        className="thumb-play"
+        onClick={open}
+        aria-label={`Смотреть видеоотзыв: ${name} на весь экран`}
+      >
+        <span aria-hidden="true">▶</span>
+      </button>
+    </div>
   );
 }
 

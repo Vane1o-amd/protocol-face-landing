@@ -71,14 +71,14 @@ export default function ApplyForm() {
     // eventId is what lets the server send the lead to Meta (CAPI): only after a marketing yes on the banner.
     const marketing = consentGranted();
     const eventId = marketing ? crypto.randomUUID() : undefined;
-    const fbclid = readFbclid();
+    const { fbclid, fbclidAt } = readFbclid();
     const fbp = readFbp();
 
     try {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, contact, consent, eventId, fbclid, fbp }),
+        body: JSON.stringify({ name, contact, consent, eventId, fbclid, fbclidAt, fbp }),
       });
 
       const body = res.ok ? ((await res.json()) as { ok?: boolean }) : null;
@@ -166,7 +166,6 @@ export default function ApplyForm() {
               id={consentId}
               name="consent"
               type="checkbox"
-              defaultChecked
               ref={consentRef}
               aria-invalid={!!fieldErrors.consent}
               aria-describedby={fieldErrors.consent ? `${consentId}-err` : undefined}
@@ -201,15 +200,14 @@ export default function ApplyForm() {
             {status === "loading" ? "Отправка…" : "Отправить заявку"}
           </button>
 
-          {message && (
-            <output
-              id="form-status"
-              className="form-status show error"
-              aria-live="polite"
-            >
-              {message}
-            </output>
-          )}
+          {/* Always mounted: screen readers announce changes only in a live region that already exists. */}
+          <output
+            id="form-status"
+            className={message ? "form-status show error" : "form-status"}
+            aria-live="polite"
+          >
+            {message}
+          </output>
         </form>
       </div>
     </section>
