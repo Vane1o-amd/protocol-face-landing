@@ -2,6 +2,7 @@ import { test, expect } from "@playwright/test";
 import { NextRequest } from "next/server";
 import { POST } from "../app/api/lead/route";
 import { hashIp } from "../lib/db";
+import { alert } from "../lib/alert";
 
 // Unit tests of the lead route: no server, no network (fetch is stubbed). Runs serially:
 // the alert throttle and rate limits are module state.
@@ -136,4 +137,19 @@ test("IP hash: the salt is required in production only", () => {
   } finally {
     delete process.env.VERCEL_ENV;
   }
+});
+
+test("every alert starts with 'menface:' (the bot also alerts for other sites)", async () => {
+  const sent: string[] = [];
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = (async (_: RequestInfo | URL, init?: RequestInit) => {
+    sent.push(JSON.parse(String(init?.body)).text);
+    return new Response("{}", { status: 200 });
+  }) as typeof fetch;
+  try {
+    await alert("any text");
+  } finally {
+    globalThis.fetch = realFetch;
+  }
+  expect(sent).toEqual(["menface: any text"]);
 });

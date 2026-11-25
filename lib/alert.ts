@@ -1,3 +1,4 @@
+// Every alert starts with "menface:": the bot also alerts for other sites.
 // Ops alerts to Ivan's alert-only Telegram bot. Never carries lead data, never throws:
 // an alert failure must not change the visitor's response.
 const HOUR_MS = 60 * 60 * 1000;
@@ -13,7 +14,7 @@ export async function alert(text: string, throttleKey?: string): Promise<void> {
   const token = process.env.TELEGRAM_ALERT_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_ALERT_CHAT_ID;
   if (!token || !chatId) {
-    console.error("[alert] TELEGRAM_ALERT_* not set:", text);
+    console.error("[alert] TELEGRAM_ALERT_* not set:", `menface: ${text}`);
     return;
   }
   try {
@@ -21,7 +22,7 @@ export async function alert(text: string, throttleKey?: string): Promise<void> {
       method: "POST",
       signal: AbortSignal.timeout(5000),
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ chat_id: chatId, text }),
+      body: JSON.stringify({ chat_id: chatId, text: `menface: ${text}` }),
     });
     if (!res.ok) console.error("[alert] send failed", res.status);
   } catch (err) {

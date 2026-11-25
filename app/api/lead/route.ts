@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
   const ip = clientIp(req);
 
   if (!rateLimitCheap(ip)) {
-    await alert("menface: rate limit hit on /api/lead (requests)", "rate-limit");
+    await alert("rate limit hit on /api/lead (requests)", "rate-limit");
     return NextResponse.json(
       { ok: false, error: "Too many requests. Try later." },
       { status: 429 },
@@ -87,7 +87,7 @@ export async function POST(req: NextRequest) {
   }
 
   if (!rateLimit(ip)) {
-    await alert("menface: rate limit hit on /api/lead (leads)", "rate-limit");
+    await alert("rate limit hit on /api/lead (leads)", "rate-limit");
     return NextResponse.json(
       { ok: false, error: "Too many leads. Try later." },
       { status: 429 },
@@ -118,11 +118,11 @@ export async function POST(req: NextRequest) {
   const tgError = await sendLeadWithRetry(leadData);
 
   if (dbError && tgError) {
-    await alert(`menface: lead LOST, database (${failReason(dbError)}) and Telegram (${failReason(tgError)}) failed`);
+    await alert(`lead LOST, database (${failReason(dbError)}) and Telegram (${failReason(tgError)}) failed`);
     return NextResponse.json({ ok: false, error: "Delivery failed. Try later." }, { status: 502 });
   }
-  if (tgError) await alert(`menface: lead saved, Telegram notify failed (${failReason(tgError)})`);
-  if (dbError) await alert(`menface: lead NOT saved in database (${failReason(dbError)}), Telegram notify sent`);
+  if (tgError) await alert(`lead saved, Telegram notify failed (${failReason(tgError)})`);
+  if (dbError) await alert(`lead NOT saved in database (${failReason(dbError)}), Telegram notify sent`);
 
   // CAPI only for leads with an eventId: the form sends one only after a marketing yes on the banner.
   if (d.eventId) {
