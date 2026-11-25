@@ -10,7 +10,7 @@ export default function FinalCTA() {
       <div className="wrap">
         <motion.div {...inViewOnce}>
           <div className="eyebrow">Начать</div>
-          <h2 id="final-head">Готовы изменить лицо — за 12 недель?</h2>
+          <h2 id="final-head">Готов изменить лицо за 90 дней?</h2>
         </motion.div>
         <motion.a href="#apply" className="btn-primary" {...inViewOnce}>
           {CTA_PRIMARY}

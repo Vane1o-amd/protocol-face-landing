@@ -45,12 +45,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "MenFace — персональная диагностика и сопровождение",
   description:
-    "Личный протокол лица: измени лицо за 30 дней — первые изменения уже через неделю.",
+    "Личный протокол лица: измени лицо за 90 дней — первые изменения уже через неделю.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "MenFace — персональная диагностика и сопровождение",
     description:
-      "Личный протокол лица: измени лицо за 30 дней — первые изменения уже через неделю.",
+      "Личный протокол лица: измени лицо за 90 дней — первые изменения уже через неделю.",
     type: "website",
     locale: "ru_RU",
     siteName: "MenFace",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "MenFace — персональная диагностика и сопровождение",
     description:
-      "Личный протокол лица: измени лицо за 30 дней — первые изменения уже через неделю.",
+      "Личный протокол лица: измени лицо за 90 дней — первые изменения уже через неделю.",
   },
   robots: { index: true, follow: true },
 };
@@ -73,9 +73,9 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${ibmPlexSans.variable} ${ibmPlexMono.variable} ${caveat.variable}`}
     >
       <body>
-        {/* Only the client script lifts the loading screen: without JavaScript it must not render at all. */}
+        {/* Without JavaScript: no loading screen, and motion items rendered hidden (opacity:0) are shown. */}
         <noscript>
-          <style>{".loading-screen{display:none}"}</style>
+          <style>{".loading-screen{display:none}[style*=\"opacity:0\"]{opacity:1!important;transform:none!important}"}</style>
         </noscript>
         <MotionConfig reducedMotion="user">
           <LoadingScreen />

@@ -39,7 +39,7 @@ export default function ConsentBanner() {
       }}
     >
       <p>
-        С вашего согласия мы используем cookie Meta (Pixel, измерение рекламы) и
+        С твоего согласия я использую cookie Meta (Pixel, измерение рекламы) и
         Microsoft Clarity (аналитика и запись сессий). Обработка данных —
         согласно{" "}
         <a href="/privacy" className="privacy-link">

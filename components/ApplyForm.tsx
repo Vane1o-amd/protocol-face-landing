@@ -45,8 +45,8 @@ export default function ApplyForm() {
     }
 
     const issues: Issues = [];
-    if (!name) issues.push({ field: "name", message: "Укажите имя" });
-    if (!contact) issues.push({ field: "contact", message: "Укажите телефон или Telegram" });
+    if (!name) issues.push({ field: "name", message: "Укажи имя" });
+    if (!contact) issues.push({ field: "contact", message: "Укажи телефон или Telegram" });
     if (!consent) issues.push({ field: "consent", message: "Требуется согласие на обработку" });
 
     if (issues.length > 0) {
@@ -88,8 +88,8 @@ export default function ApplyForm() {
         setStatus("error");
         setMessage(
           res.status === 429
-            ? "Слишком много заявок. Попробуйте позже."
-            : "Ошибка отправки. Попробуйте позже.",
+            ? "Слишком много заявок. Попробуй позже."
+            : "Ошибка отправки. Попробуй позже.",
         );
         return;
       }
@@ -102,7 +102,7 @@ export default function ApplyForm() {
       router.push("/success");
     } catch {
       setStatus("error");
-      setMessage("Сеть недоступна. Попробуйте позже.");
+      setMessage("Сеть недоступна. Попробуй позже.");
     }
   }
 
@@ -130,7 +130,7 @@ export default function ApplyForm() {
               name="name"
               type="text"
               autoComplete="name"
-              placeholder="Ваше имя"
+              placeholder="Твоё имя"
               ref={nameRef}
               aria-invalid={!!fieldErrors.name}
               aria-describedby={fieldErrors.name ? `${nameId}-err` : undefined}
@@ -171,7 +171,7 @@ export default function ApplyForm() {
               aria-describedby={fieldErrors.consent ? `${consentId}-err` : undefined}
             />
             <label htmlFor={consentId}>
-              Согласен на обработку персональных данных согласно{" "}
+              Согласен на обработку персональных данных и их передачу через Telegram за пределы ЕС/ЕЭЗ согласно{" "}
               <Link
                 href="/privacy"
                 target="_blank"

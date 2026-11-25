@@ -51,4 +51,13 @@ test.describe("without JavaScript", () => {
     });
     expect(onTop).toBe(true);
   });
+
+  test("motion items rendered hidden are shown", async ({ page }) => {
+    await page.goto("/");
+    const hidden = await page.evaluate(() =>
+      [...document.querySelectorAll<HTMLElement>('[style*="opacity:0"]')].filter((el) => getComputedStyle(el).opacity !== "1").length,
+    );
+    expect(hidden).toBe(0);
+    expect(await page.locator('[style*="opacity:0"]').count()).toBeGreaterThan(0);
+  });
 });
