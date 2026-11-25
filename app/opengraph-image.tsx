@@ -19,7 +19,7 @@ export default function OpenGraphImage() {
           padding: "80px",
         }}
       >
-        <div style={{ fontSize: 28, color: "#C1401C", marginBottom: 24 }}>
+        <div style={{ fontSize: 28, color: "#B33C1A", marginBottom: 24 }}>
           MENFACE
         </div>
         <div
@@ -33,7 +33,7 @@ export default function OpenGraphImage() {
           Персональная диагностика и сопровождение
         </div>
         <div style={{ fontSize: 30, color: "#4B4F49", marginTop: 32 }}>
-          Измени лицо за 30 дней — первые изменения через неделю
+          Измени лицо за 90 дней — первые изменения к 4-й неделе
         </div>
       </div>
     ),

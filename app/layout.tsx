@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import type { Metadata } from "next";
 import { Space_Grotesk, IBM_Plex_Sans, IBM_Plex_Mono, Caveat } from "next/font/google";
 import { MotionConfig } from "motion/react";
@@ -9,6 +10,7 @@ import ConsentBanner from "@/components/ConsentBanner";
 import LoadingScreen from "@/components/LoadingScreen";
 import ScrollProgress from "@/components/ScrollProgress";
 import ScrollTopButton from "@/components/ScrollTopButton";
+import { OG_BASE, SITE_URL, TWITTER_BASE } from "@/lib/site";
 import "@/styles/globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -39,26 +41,24 @@ const caveat = Caveat({
   display: "swap",
 });
 
-// TODO: replace placeholder domain once user confirms final domain
 export const metadata: Metadata = {
-  metadataBase: new URL("https://menface.pro"),
+  metadataBase: new URL(SITE_URL),
   title: "MenFace — персональная диагностика и сопровождение",
   description:
-    "Личный протокол лица: измени лицо за 30 дней — первые изменения уже через неделю.",
+    "Личный протокол лица: измени лицо за 90 дней — первые видимые изменения к 4-й неделе.",
   alternates: { canonical: "/" },
   openGraph: {
     title: "MenFace — персональная диагностика и сопровождение",
     description:
-      "Личный протокол лица: измени лицо за 30 дней — первые изменения уже через неделю.",
-    type: "website",
-    locale: "ru_RU",
-    siteName: "MenFace",
+      "Личный протокол лица: измени лицо за 90 дней — первые видимые изменения к 4-й неделе.",
+    ...OG_BASE,
+    url: "/",
   },
   twitter: {
-    card: "summary_large_image",
+    ...TWITTER_BASE,
     title: "MenFace — персональная диагностика и сопровождение",
     description:
-      "Личный протокол лица: измени лицо за 30 дней — первые изменения уже через неделю.",
+      "Личный протокол лица: измени лицо за 90 дней — первые видимые изменения к 4-й неделе.",
   },
   robots: { index: true, follow: true },
 };
@@ -72,11 +72,16 @@ export default function RootLayout({
       className={`${spaceGrotesk.variable} ${ibmPlexSans.variable} ${ibmPlexMono.variable} ${caveat.variable}`}
     >
       <body>
+        {/* Without JavaScript: no loading screen, and motion items rendered hidden (opacity:0) are shown. */}
+        <noscript>
+          <style>{".loading-screen{display:none}[style*=\"opacity:0\"]{opacity:1!important;transform:none!important}"}</style>
+        </noscript>
         <MotionConfig reducedMotion="user">
           <LoadingScreen />
           <ScrollProgress />
           <ConsentBanner />
           {children}
+          <Footer />
           <ScrollTopButton />
           <MetaPixel />
           <Clarity />

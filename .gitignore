@@ -45,3 +45,7 @@ next-env.d.ts
 # extraction script (one-shot)
 extract_images.py
 .vercel
+
+# Playwright
+/test-results/
+/playwright-report/

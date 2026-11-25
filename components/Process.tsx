@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { fadeUp, inViewOnce } from "@/lib/motion";
+import { fadeUp } from "@/lib/motion";
 import Carousel from "@/components/Carousel";
 import { CTA_PRIMARY } from "@/components/cta-strings";
 
@@ -9,12 +9,12 @@ const STEPS = [
   {
     num: "01",
     title: "Диагностика",
-    text: "Разбор фото, осанки, мимических привычек. Определяем, что мешит лицу раскрыться.",
+    text: "Разбор фото, осанки, мимических привычек. Определяю, что мешает лицу раскрыться.",
   },
   {
     num: "02",
     title: "Протокол",
-    text: "Персональный план на 12 недель. Конкретные упражнения, привычки и режим.",
+    text: "Персональный план на 90 дней. Конкретные упражнения, привычки и режим.",
   },
   {
     num: "03",
@@ -33,15 +33,15 @@ export default function Process() {
     <section id="process" aria-labelledby="process-head">
       <div className="wrap">
         <div className="section-head">
-          <motion.div {...inViewOnce}>
+          <div>
             <div className="eyebrow">Как это работает</div>
             <h2 id="process-head">Четыре этапа работы с лицом</h2>
-          </motion.div>
-          <motion.p {...inViewOnce}>
-            уберем отеки, жир, прыщи, добавим контраст, выразим челюсть. Сделаем
-            мужские черты лица. Всего 15 минут в день, питание, упражнения,
+          </div>
+          <p>
+            Уберу отёки, жир, прыщи, добавлю контраст и подчеркну челюсть, чтобы черты
+            лица стали мужскими. Всего 15 минут в день: питание, упражнения и
             привычки в одной системе.
-          </motion.p>
+          </p>
         </div>
 
         <Carousel trackClassName="process" ariaLabel="Этапы работы" wrapperClassName="process-carousel">
@@ -54,9 +54,9 @@ export default function Process() {
           ))}
         </Carousel>
 
-        <motion.div className="section-cta" {...inViewOnce}>
+        <div className="section-cta">
           <a href="#apply" className="btn-primary">{CTA_PRIMARY}</a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

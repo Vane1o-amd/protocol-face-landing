@@ -1,12 +1,12 @@
 "use client";
 
 import { motion } from "motion/react";
-import { fadeUp, inViewOnce, staggerContainer } from "@/lib/motion";
+import { fadeUp, staggerContainer } from "@/lib/motion";
 import { CTA_PRIMARY, CTA_TURNAROUND } from "@/components/cta-strings";
 
 const POINTS = [
   "Разбор фото и осанки — что мешает лицу раскрыться",
-  "Калькулятор реального потенциала на 30 дней",
+  "Калькулятор реального потенциала на 90 дней",
   "Чек-лист первых шагов, которые можно сделать сегодня",
 ] as const;
 
@@ -15,16 +15,16 @@ export default function DiscoveryCTA() {
     <section id="discovery" className="alt" aria-labelledby="discovery-head">
       <div className="wrap">
         <div className="discovery-grid">
-          <motion.div {...inViewOnce}>
-            <div className="eyebrow">Бесплатно</div>
+          <div>
+            <div className="eyebrow">Первый шаг</div>
             <h2 id="discovery-head">
-              Узнай реальный потенциал лица — бесплатно
+              Узнай реальный потенциал лица
             </h2>
-            <motion.p className="sub" {...inViewOnce}>
-              100% бесплатный разбор. Без обязательств. Получи персональную
+            <p className="sub">
+              Без обязательств. Получи персональную
               оценку и чек-лист первых шагов за один день.
-            </motion.p>
-          </motion.div>
+            </p>
+          </div>
 
           <motion.ul
             className="discovery-list"
@@ -49,12 +49,12 @@ export default function DiscoveryCTA() {
             ))}
           </motion.ul>
 
-          <motion.div className="discovery-cta" {...inViewOnce}>
+          <div className="discovery-cta">
             <a href="#apply" className="btn-primary">
               {CTA_PRIMARY}
             </a>
             <span className="note">{CTA_TURNAROUND}</span>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>

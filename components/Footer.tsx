@@ -1,19 +1,16 @@
 import Link from "next/link";
+import CookieSettings from "@/components/CookieSettings";
 
 export default function Footer() {
-  // build-frozen year is fine for static site
-  const year = 2026;
+  const year = new Date().getFullYear();
   return (
     <footer>
       <div className="wrap">
         <span>© {year} MenFace. Все права защищены.</span>
         <nav className="footer-nav">
+          <Link href="/">Главная</Link>
           <Link
             href="/privacy"
-            style={{
-              textDecoration: "underline",
-              textDecorationColor: "var(--color-line)",
-            }}
           >
             Политика конфиденциальности
           </Link>
@@ -21,10 +18,6 @@ export default function Footer() {
             href="https://instagram.com/roman.ascend"
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              textDecoration: "underline",
-              textDecorationColor: "var(--color-line)",
-            }}
           >
             Instagram
           </a>
@@ -32,22 +25,15 @@ export default function Footer() {
             href="https://www.youtube.com/@Roman_DDD1"
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              textDecoration: "underline",
-              textDecorationColor: "var(--color-line)",
-            }}
           >
             YouTube
           </a>
           <a
             href="mailto:roman.derkach.business@gmail.com"
-            style={{
-              textDecoration: "underline",
-              textDecorationColor: "var(--color-line)",
-            }}
           >
             Email
           </a>
+          <CookieSettings />
         </nav>
       </div>
     </footer>

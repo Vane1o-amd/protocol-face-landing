@@ -45,9 +45,9 @@ export default function ApplyForm() {
     }
 
     const issues: Issues = [];
-    if (!name) issues.push({ field: "name", message: "Укажите имя" });
-    if (!contact) issues.push({ field: "contact", message: "Укажите телефон или Telegram" });
-    if (!consent) issues.push({ field: "consent", message: "Требуется согласие на обработку" });
+    if (!name) issues.push({ field: "name", message: "Укажи имя" });
+    if (!contact) issues.push({ field: "contact", message: "Укажи телефон или Telegram" });
+    if (!consent) issues.push({ field: "consent", message: "Требуется согласие на передачу заявки" });
 
     if (issues.length > 0) {
       const errors: FieldErrors = {};
@@ -68,27 +68,33 @@ export default function ApplyForm() {
       return;
     }
 
-    const eventId = crypto.randomUUID();
-    const fbclid = readFbclid();
+    // eventId is what lets the server send the lead to Meta (CAPI): only after a marketing yes on the banner.
+    const marketing = consentGranted();
+    const eventId = marketing ? crypto.randomUUID() : undefined;
+    const { fbclid, fbclidAt } = readFbclid();
     const fbp = readFbp();
 
     try {
       const res = await fetch("/api/lead", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, contact, consent, eventId, fbclid, fbp }),
+        body: JSON.stringify({ name, contact, consent, eventId, fbclid, fbclidAt, fbp }),
       });
 
-      const body = (await res.json()) as { ok?: boolean; error?: string };
+      const body = res.ok ? ((await res.json()) as { ok?: boolean }) : null;
 
-      if (!res.ok || !body.ok) {
-        const errText = body.error ?? "Ошибка отправки. Попробуйте позже.";
+      if (!body?.ok) {
+        // Server errors are English API text; the visitor gets Russian copy.
         setStatus("error");
-        setMessage(errText);
+        setMessage(
+          res.status === 429
+            ? "Слишком много заявок. Попробуй позже."
+            : "Ошибка отправки. Попробуй позже.",
+        );
         return;
       }
 
-      if (consentGranted()) {
+      if (marketing) {
         trackLead(eventId);
       }
 
@@ -96,7 +102,7 @@ export default function ApplyForm() {
       router.push("/success");
     } catch {
       setStatus("error");
-      setMessage("Сеть недоступна. Попробуйте позже.");
+      setMessage("Сеть недоступна. Попробуй позже.");
     }
   }
 
@@ -112,6 +118,7 @@ export default function ApplyForm() {
         </div>
 
         <form
+          method="post"
           className="lead-form"
           onSubmit={handleSubmit}
           noValidate
@@ -124,7 +131,7 @@ export default function ApplyForm() {
               name="name"
               type="text"
               autoComplete="name"
-              placeholder="Ваше имя"
+              placeholder="Твоё имя"
               ref={nameRef}
               aria-invalid={!!fieldErrors.name}
               aria-describedby={fieldErrors.name ? `${nameId}-err` : undefined}
@@ -142,7 +149,6 @@ export default function ApplyForm() {
               id={contactId}
               name="contact"
               type="text"
-              autoComplete="tel"
               placeholder="+47 ... или @telegram"
               ref={contactRef}
               aria-invalid={!!fieldErrors.contact}
@@ -160,13 +166,12 @@ export default function ApplyForm() {
               id={consentId}
               name="consent"
               type="checkbox"
-              defaultChecked
               ref={consentRef}
               aria-invalid={!!fieldErrors.consent}
               aria-describedby={fieldErrors.consent ? `${consentId}-err` : undefined}
             />
             <label htmlFor={consentId}>
-              Согласен на обработку персональных данных согласно{" "}
+              Согласен на передачу моей заявки через Telegram за пределы ЕС/ЕЭЗ (без решения об адекватности) согласно{" "}
               <Link
                 href="/privacy"
                 target="_blank"
@@ -191,19 +196,24 @@ export default function ApplyForm() {
             <input id={hpId} name="company" type="text" tabIndex={-1} autoComplete="off" placeholder="Компания" />
           </div>
 
+          <noscript>
+            <p className="form-status show error">
+              Для отправки заявки включи JavaScript или напиши на
+              roman.derkach.business@gmail.com.
+            </p>
+          </noscript>
           <button type="submit" className="submit-btn" disabled={status === "loading"}>
             {status === "loading" ? "Отправка…" : "Отправить заявку"}
           </button>
 
-          {message && (
-            <output
-              id="form-status"
-              className="form-status show error"
-              aria-live="polite"
-            >
-              {message}
-            </output>
-          )}
+          {/* Always mounted: screen readers announce changes only in a live region that already exists. */}
+          <output
+            id="form-status"
+            className={message ? "form-status show error" : "form-status"}
+            aria-live="polite"
+          >
+            {message}
+          </output>
         </form>
       </div>
     </section>

@@ -1,8 +1,3 @@
-"use client";
-
-import { motion } from "motion/react";
-import { inViewOnce } from "@/lib/motion";
-
 const CARDS = [
   {
     tag: "01 / Подход",
@@ -17,7 +12,7 @@ const CARDS = [
   {
     tag: "03 / Результат",
     title: "Остаётся",
-    text: "Результат не уходит после прекращения. Новые привычки и тонус сохраняются надолго.",
+    text: "Результат не уходит после завершения протокола. Новые привычки и тонус сохраняются надолго.",
   },
 ] as const;
 
@@ -26,16 +21,16 @@ export default function Why() {
     <section id="why" aria-labelledby="why-head">
       <div className="wrap">
         <div className="section-head">
-          <motion.div {...inViewOnce}>
+          <div>
             <div className="eyebrow">Почему это работает</div>
             <h2 id="why-head">Три принципа протокола</h2>
-          </motion.div>
-          <motion.p {...inViewOnce}>
+          </div>
+          <p>
             Система, а не разовая процедура. Поэтому результат держится.
-          </motion.p>
+          </p>
         </div>
 
-        <motion.div className="why" {...inViewOnce}>
+        <div className="why">
           {CARDS.map((c) => (
             <div className="card" key={c.title}>
               <div className="tag">{c.tag}</div>
@@ -43,7 +38,7 @@ export default function Why() {
               <p>{c.text}</p>
             </div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -16,7 +16,7 @@ export default function NotFound() {
     >
       <h1 style={{ fontSize: "clamp(48px, 10vw, 96px)" }}>404</h1>
       <p style={{ color: "var(--color-ink-soft)", maxWidth: "480px" }}>
-        Такой страницы нет. Работа продолжается на главной.
+        Такой страницы нет. Всё остальное — на главной.
       </p>
       <Link
         href="/"

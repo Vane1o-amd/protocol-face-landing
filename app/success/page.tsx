@@ -35,7 +35,7 @@ export default function SuccessPage() {
             marginBottom: "48px",
           }}
         >
-          Мы свяжемся лично в течение 24 часов.
+          Я свяжусь с тобой лично в течение 24 часов.
         </p>
         <Link
           href="/"

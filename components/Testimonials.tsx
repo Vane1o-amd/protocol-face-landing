@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { motion } from "motion/react";
-import { fadeUp, inViewOnce } from "@/lib/motion";
+import { fadeUp } from "@/lib/motion";
 import Carousel from "@/components/Carousel";
 
 type VideoElement = HTMLVideoElement & {
@@ -55,29 +55,30 @@ function TestimonialVideo({ src, name }: { src: string; name: string }) {
         .catch(() => {});
     } else if (typeof v.webkitEnterFullscreen === "function") {
       v.webkitEnterFullscreen();
-      v.play();
+      v.play().catch(() => {});
     } else {
-      v.play();
+      v.play().catch(() => {});
     }
   }
 
   return (
-    <button
-      type="button"
-      className="video-thumb"
-      onClick={open}
-      aria-label={`Смотреть видео-отзыв: ${name} на весь экран`}
-    >
+    // The video is a sibling of the button: a <video controls> inside a <button> is invalid nested interaction.
+    <div className="video-thumb">
       <video
         ref={ref}
         src={`${src}#t=0.1`}
         playsInline
         preload="metadata"
       />
-      <span className="thumb-play" aria-hidden="true">
-        ▶
-      </span>
-    </button>
+      <button
+        type="button"
+        className="thumb-play"
+        onClick={open}
+        aria-label={`Смотреть видеоотзыв: ${name} на весь экран`}
+      >
+        <span aria-hidden="true">▶</span>
+      </button>
+    </div>
   );
 }
 
@@ -86,13 +87,13 @@ export default function Testimonials() {
     <section id="testimonials" aria-labelledby="testimonials-head">
       <div className="wrap">
         <div className="section-head">
-          <motion.div {...inViewOnce}>
+          <div>
             <div className="eyebrow">Отзывы</div>
             <h2 id="testimonials-head">Что говорят те, кто прошёл протокол</h2>
-          </motion.div>
-          <motion.p {...inViewOnce}>
+          </div>
+          <p>
             Реальные результаты реальных людей. Без фильтров и рекламы.
-          </motion.p>
+          </p>
         </div>
 
         <Carousel

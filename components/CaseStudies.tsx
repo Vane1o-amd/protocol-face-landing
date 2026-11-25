@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
-import { fadeUp, inViewOnce } from "@/lib/motion";
+import { fadeUp } from "@/lib/motion";
 import Carousel from "@/components/Carousel";
 import { CTA_PRIMARY } from "@/components/cta-strings";
 
@@ -31,13 +31,13 @@ export default function CaseStudies() {
     <section id="cases" aria-labelledby="cases-head">
       <div className="wrap">
         <div className="section-head">
-          <motion.div {...inViewOnce}>
+          <div>
             <div className="eyebrow">Клиенты</div>
             <h2 id="cases-head">Реальные результаты — от 30 дней</h2>
-          </motion.div>
-          <motion.p {...inViewOnce}>
+          </div>
+          <p>
             Не ретушь. Не фильтры. Фотографии до и после — без монтажа.
-          </motion.p>
+          </p>
         </div>
 
         <Carousel trackClassName="clients-grid" ariaLabel="Результаты клиентов" wrapperClassName="clients-carousel">
@@ -64,9 +64,9 @@ export default function CaseStudies() {
           ))}
         </Carousel>
 
-        <motion.div className="section-cta" {...inViewOnce}>
+        <div className="section-cta">
           <a href="#apply" className="btn-primary">{CTA_PRIMARY}</a>
-        </motion.div>
+        </div>
       </div>
     </section>
   );

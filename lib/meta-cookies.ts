@@ -1,15 +1,14 @@
-export const FBP_COOKIE = "_fbp";
-export const FBP_MAX_AGE = 60 * 60 * 24 * 90; // 90 days
-export const FBCLID_KEY = "pf_fbclid";
+const FBP_COOKIE = "_fbp";
+const FBP_MAX_AGE = 60 * 60 * 24 * 90; // 90 days
+const FBCLID_KEY = "pf_fbclid";
+const FBCLID_AT_KEY = "pf_fbclid_at"; // click time: Meta wants it as the fbc creation time
 
-export function newFbpValue(): string {
+function newFbpValue(): string {
   const ts = Date.now();
   const rand = Math.floor(Math.random() * 1e10);
   return `fb.1.${ts}.${rand}`;
 }
 
-// Local cookie reader shared by ensureFbp/readFbp: returns the cookie value
-// or undefined when absent. Replaces two duplicated split/find blocks.
 function readCookie(name: string): string | undefined {
   if (typeof document === "undefined") return undefined;
   try {
@@ -38,18 +37,21 @@ export function captureFbclid(): void {
     const fbclid = url.searchParams.get("fbclid");
     if (fbclid) {
       sessionStorage.setItem(FBCLID_KEY, fbclid);
+      sessionStorage.setItem(FBCLID_AT_KEY, String(Date.now()));
     }
   } catch {
     /* ignore */
   }
 }
 
-export function readFbclid(): string | undefined {
-  if (typeof window === "undefined") return undefined;
+export function readFbclid(): { fbclid?: string; fbclidAt?: number } {
+  if (typeof window === "undefined") return {};
   try {
-    return sessionStorage.getItem(FBCLID_KEY) ?? undefined;
+    const fbclid = sessionStorage.getItem(FBCLID_KEY) ?? undefined;
+    const at = Number(sessionStorage.getItem(FBCLID_AT_KEY));
+    return { fbclid, fbclidAt: fbclid && at > 0 ? at : undefined };
   } catch {
-    return undefined;
+    return {};
   }
 }
 

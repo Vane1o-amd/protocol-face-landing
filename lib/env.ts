@@ -7,7 +7,7 @@ const EnvSchema = z.object({
   NEXT_PUBLIC_META_PIXEL_ID: z.string().min(1),
 });
 
-export type Env = z.infer<typeof EnvSchema>;
+type Env = z.infer<typeof EnvSchema>;
 
 export function getEnv(): Env {
   const parsed = EnvSchema.safeParse({

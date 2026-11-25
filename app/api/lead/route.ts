@@ -6,13 +6,14 @@ import { sendLeadEvent } from "@/lib/meta-capi";
 import { saveLead, hashIp } from "@/lib/db";
 
 const LeadSchema = z.object({
-  name: z.string().min(1).max(200),
-  contact: z.string().min(1).max(200),
+  name: z.string().trim().min(1).max(200),
+  contact: z.string().trim().min(1).max(200),
   consent: z.boolean().refine((v) => v === true, "Consent required"),
   eventId: z.string().uuid().optional(),
   fbclid: z.string().max(512).optional(),
+  fbclidAt: z.number().int().positive().optional(),
   fbp: z.string().max(512).optional(),
-  company: z.string().optional(),
+  company: z.string().max(200).optional(),
 });
 
 function clientIp(req: NextRequest): string {
@@ -23,12 +24,10 @@ function clientIp(req: NextRequest): string {
   return "0.0.0.0";
 }
 
-// Hardcoded like romanderkach — the domain never changes, so no env var.
-// localhost keeps local form testing working.
+// Hardcoded: the domain never changes, so no env var. Local runs get 403 by design.
 const ALLOWED_ORIGINS = new Set([
   "https://menface.pro",
   "https://www.menface.pro",
-  // "http://localhost:3000", // uncomment for local form testing
 ]);
 
 function originAllowed(req: NextRequest): boolean {
@@ -80,22 +79,10 @@ export async function POST(req: NextRequest) {
   const leadData: LeadData = {
     name: d.name,
     contact: d.contact,
-    consent: d.consent,
-    eventId: d.eventId,
-    fbclid: d.fbclid,
   };
 
-  try {
-    await sendLead(leadData);
-  } catch {
-    return NextResponse.json(
-      { ok: false, error: "Delivery failed. Try later." },
-      { status: 502 },
-    );
-  }
-
-  // Audit trail after delivery — lead already reached Telegram, so a DB
-  // failure must not turn a delivered lead into a user-facing error.
+  // The DB is the system of record, Telegram the notification: the lead is lost only if both fail.
+  let stored = true;
   try {
     await saveLead({
       name: d.name,
@@ -104,26 +91,37 @@ export async function POST(req: NextRequest) {
       event_id: d.eventId,
       fbclid: d.fbclid,
       fbp: d.fbp,
+      consent: d.consent,
     });
   } catch (err) {
+    stored = false;
     console.error("[/api/lead] supabase save failed", err);
   }
+  try {
+    await sendLead(leadData);
+  } catch (err) {
+    console.error("[/api/lead] telegram send failed", err);
+    if (!stored) {
+      return NextResponse.json({ ok: false, error: "Delivery failed. Try later." }, { status: 502 });
+    }
+  }
 
-  // CAPI fires only for consented leads (schema enforces consent===true;
-  // privacy copy promises consent-gated).
-  if (d.eventId && d.consent === true) {
+  // CAPI only for leads with an eventId: the form sends one only after a marketing yes on the banner.
+  if (d.eventId) {
     try {
       await sendLeadEvent({
         name: d.name,
         contact: d.contact,
         eventId: d.eventId,
         fbclid: d.fbclid,
+        fbclidAt: d.fbclidAt,
         fbp: d.fbp,
         ip,
         userAgent: req.headers.get("user-agent") ?? undefined,
       });
-    } catch {
-      // CAPI failure never blocks — Pixel still has the event
+    } catch (err) {
+      // CAPI failure never blocks the lead: the Pixel still has the event.
+      console.error("[/api/lead] CAPI send failed", err);
     }
   }
 

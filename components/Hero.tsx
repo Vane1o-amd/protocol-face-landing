@@ -1,29 +1,26 @@
-"use client";
-
-import { motion } from "motion/react";
-import { fadeUp, inViewOnce } from "@/lib/motion";
 import { CTA_PRIMARY, CTA_TURNAROUND } from "@/components/cta-strings";
+import Image from "next/image";
 
 export default function Hero() {
   return (
     <section id="top" className="hero">
       <div className="wrap">
         <div className="hero-grid">
-          <motion.div {...inViewOnce}>
+          <div>
             <div className="eyebrow">Личный протокол лица</div>
-            <motion.h1 variants={fadeUp} initial="hidden" animate="visible">
+            <h1>
               Мужское, выразительное лицо за 90 дней
-            </motion.h1>
-            <motion.p className="sub" variants={fadeUp} initial="hidden" animate="visible">
-              Уберём отёки, жир и прыщи, добавим контраст и чёткую челюсть —
-              без диет, инъекций и спортзала. Всего 15 минут в день.
-            </motion.p>
-            <motion.p className="hero-subtitle" variants={fadeUp} initial="hidden" animate="visible">
-              Персональный протокол по фото и разбору. Первые изменения — уже
-              через 7 дней. Система встраивается в любой график: командировки,
+            </h1>
+            <p className="sub">
+              Уберу отёки, жир и прыщи, добавлю контраст и чёткую челюсть —
+              без жёстких диет, инъекций и спортзала. Всего 15 минут в день.
+            </p>
+            <p className="hero-subtitle">
+              Персональный протокол по фото и разбору. Отёки уходят уже за 7
+              дней, первые видимые изменения — к 4-й неделе. Система встраивается в любой график: командировки,
               тренировки, ресторан — без исключений.
-            </motion.p>
-            <motion.ul className="hero-points" variants={fadeUp} initial="hidden" animate="visible">
+            </p>
+            <ul className="hero-points">
               <li>
                 <img
                   src="/images/galochka.svg"
@@ -35,7 +32,7 @@ export default function Hero() {
                 <span className="point-body">
                   <b>Не косметика, а причина.</b>
                   <span>
-                    Работаем не с симптомами (крем, филлер), а с первопричиной:
+                    Работаю не с симптомами (крем, филлер), а с первопричиной:
                     осанка, тонус мышц лица, мимические привычки.
                   </span>
                 </span>
@@ -68,28 +65,31 @@ export default function Hero() {
                   <b>Результат остаётся.</b>
                   <span>
                     Протокол меняет привычки, а не даёт разовый эффект — после
-                    завершения работы форма и тонус лица не откатываются назад.
+                    завершения работы форма и тонус лица не откатываются.
                   </span>
                 </span>
               </li>
-            </motion.ul>
+            </ul>
             <div className="cta-row">
               <a href="#apply" className="btn-primary">
                 {CTA_PRIMARY}
               </a>
               <span className="note">
                 {CTA_TURNAROUND} · разбор бесплатный · веду клиентов
-                лично, мест на месяц ограниченное количество
+                лично, количество мест на месяц ограничено
               </span>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div className="hero-visual" {...inViewOnce}>
+          <div className="hero-visual">
             <figure>
-              <img
+              <Image
                 src="/images/hero-before.jpg"
                 alt="Результат протокола лица"
-                loading="lazy"
+                width={1600}
+                height={1136}
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                preload
               />
             </figure>
 
@@ -97,7 +97,7 @@ export default function Hero() {
               <b>Не косметика.</b> Структурная работа с лицом: осанка, тонус,
               привычки. Результат накапливается постепенно и остаётся.
             </p>
-          </motion.div>
+          </div>
         </div>
       </div>
     </section>
