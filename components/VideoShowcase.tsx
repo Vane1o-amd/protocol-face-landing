@@ -38,23 +38,26 @@ export default function VideoShowcase() {
   const [isFs, setIsFs] = useState(false);
   const [volume, setVolume] = useState(100); // 0..100
 
-  // Auto-hide controls after HIDE_DELAY of inactivity (only while playing).
-  const armHide = useCallback(() => {
+  // Hide controls after HIDE_DELAY of inactivity (only while playing).
+  const scheduleHide = useCallback(() => {
     if (hideTimer.current) clearTimeout(hideTimer.current);
-    setShowControls(true);
     hideTimer.current = setTimeout(() => {
       const v = videoRef.current;
       if (v && !v.paused) setShowControls(false);
     }, HIDE_DELAY);
   }, []);
+  const armHide = useCallback(() => {
+    setShowControls(true);
+    scheduleHide();
+  }, [scheduleHide]);
 
-  // First-load: show controls for 3s, then hide if still muted-autoplaying.
+  // First load: controls start visible; hide them after HIDE_DELAY if still autoplaying.
   useEffect(() => {
-    armHide();
+    scheduleHide();
     return () => {
       if (hideTimer.current) clearTimeout(hideTimer.current);
     };
-  }, [armHide]);
+  }, [scheduleHide]);
 
   // Sync fullscreen state with the browser (Esc exits).
   useEffect(() => {
@@ -92,11 +95,6 @@ export default function VideoShowcase() {
       v.removeEventListener("volumechange", onVol);
     };
   }, []);
-
-  // Keep overlay in sync: if sound comes on anywhere, drop the unmute box.
-  useEffect(() => {
-    if (!muted) setShowOverlay(false);
-  }, [muted]);
 
   function unmute() {
     const v = videoRef.current;
@@ -225,9 +223,8 @@ export default function VideoShowcase() {
                 background: "transparent",
               }}
             />
-
-            {/* Click-to-unmute box */}
-            {showOverlay && (
+            {/* Click-to-unmute box; sound turned on anywhere (overlay, volume slider) drops it. */}
+            {showOverlay && muted && (
               <button
                 type="button"
                 aria-label="Видео воспроизводится без звука. Нажмите, чтобы включить звук."

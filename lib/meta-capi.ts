@@ -65,6 +65,7 @@ export async function sendLeadEvent(input: CapiLeadInput): Promise<void> {
     const url = `${GRAPH_API}/${pixelId}/events?access_token=${token}`;
     const res = await fetch(url, {
       method: "POST",
+      signal: AbortSignal.timeout(8000),
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });

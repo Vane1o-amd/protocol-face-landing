@@ -1,23 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Script from "next/script";
-import { consentGranted, subscribe } from "@/lib/consent";
+import { useConsent } from "@/lib/consent";
 
 const CLARITY_ID = "yi904c33gp";
 
 export default function Clarity() {
-  const [enabled, setEnabled] = useState(false);
-
-  useEffect(() => {
-    if (consentGranted()) setEnabled(true);
-    const unsub = subscribe((value) => {
-      if (value === "granted") setEnabled(true);
-    });
-    return unsub;
-  }, []);
-
-  if (!enabled) return null;
+  if (useConsent() !== "granted") return null;
 
   return (
     <Script

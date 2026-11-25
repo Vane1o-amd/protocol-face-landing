@@ -1,8 +1,8 @@
-export const FBP_COOKIE = "_fbp";
-export const FBP_MAX_AGE = 60 * 60 * 24 * 90; // 90 days
-export const FBCLID_KEY = "pf_fbclid";
+const FBP_COOKIE = "_fbp";
+const FBP_MAX_AGE = 60 * 60 * 24 * 90; // 90 days
+const FBCLID_KEY = "pf_fbclid";
 
-export function newFbpValue(): string {
+function newFbpValue(): string {
   const ts = Date.now();
   const rand = Math.floor(Math.random() * 1e10);
   return `fb.1.${ts}.${rand}`;

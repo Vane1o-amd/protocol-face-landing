@@ -36,6 +36,7 @@ export async function sendLead(d: LeadData): Promise<void> {
   const url = `https://api.telegram.org/bot${env.TG_BOT_TOKEN}/sendMessage`;
   const res = await fetch(url, {
     method: "POST",
+    signal: AbortSignal.timeout(8000),
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       chat_id: env.TG_CHAT_ID,

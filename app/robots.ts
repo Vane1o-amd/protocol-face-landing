@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/site";
 
-// TODO: replace placeholder domain once user confirms final domain
-const BASE = "https://menface.pro";
+const BASE = SITE_URL;
 
 export default function robots(): MetadataRoute.Robots {
   return {

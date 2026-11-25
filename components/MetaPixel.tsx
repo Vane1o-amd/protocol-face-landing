@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Script from "next/script";
-import { consentGranted, subscribe } from "@/lib/consent";
+import { consentGranted, useConsent } from "@/lib/consent";
 import { ensureFbp, captureFbclid } from "@/lib/meta-cookies";
 
 const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
@@ -20,20 +20,13 @@ export function trackLead(eventId?: string): void {
 
 // fbevents.js and the _fbp cookie wait for consent: nothing from Meta before an answer or after a decline.
 export default function MetaPixel() {
-  const [enabled, setEnabled] = useState(false);
+  const enabled = useConsent() === "granted";
 
   useEffect(() => {
-    const enable = () => {
-      ensureFbp();
-      captureFbclid();
-      setEnabled(true);
-    };
-    if (consentGranted()) enable();
-    const unsub = subscribe((value) => {
-      if (value === "granted") enable();
-    });
-    return unsub;
-  }, []);
+    if (!enabled) return;
+    ensureFbp();
+    captureFbclid();
+  }, [enabled]);
 
   if (!PIXEL_ID || !enabled) return null;
 

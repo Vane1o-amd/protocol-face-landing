@@ -1,15 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { getConsent, setConsent, type ConsentValue } from "@/lib/consent";
+import { useEffect, useRef } from "react";
+import { setConsent, useConsent } from "@/lib/consent";
 
 export default function ConsentBanner() {
-  const [choice, setChoice] = useState<ConsentValue | null>(null);
+  const choice = useConsent();
   const bannerRef = useRef<HTMLDialogElement>(null);
-
-  useEffect(() => {
-    setChoice(getConsent());
-  }, []);
 
   /* Open as modal: free focus trap + inert page + Escape fires `cancel`.
      Guard = Strict Mode double-invoke (showModal throws if already open). */
@@ -25,10 +21,7 @@ export default function ConsentBanner() {
 
   if (choice !== null) return null;
 
-  const decline = () => {
-    setConsent("denied");
-    setChoice("denied");
-  };
+  const decline = () => setConsent("denied");
 
   return (
     <dialog
@@ -56,10 +49,7 @@ export default function ConsentBanner() {
         <button
           type="button"
           className="btn-allow"
-          onClick={() => {
-            setConsent("granted");
-            setChoice("granted");
-          }}
+          onClick={() => setConsent("granted")}
         >
           Принять
         </button>

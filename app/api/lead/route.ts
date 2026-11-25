@@ -12,7 +12,7 @@ const LeadSchema = z.object({
   eventId: z.string().uuid().optional(),
   fbclid: z.string().max(512).optional(),
   fbp: z.string().max(512).optional(),
-  company: z.string().optional(),
+  company: z.string().max(200).optional(),
 });
 
 function clientIp(req: NextRequest): string {
@@ -23,12 +23,10 @@ function clientIp(req: NextRequest): string {
   return "0.0.0.0";
 }
 
-// Hardcoded like romanderkach — the domain never changes, so no env var.
-// localhost keeps local form testing working.
+// Hardcoded: the domain never changes, so no env var. Local runs get 403 by design.
 const ALLOWED_ORIGINS = new Set([
   "https://menface.pro",
   "https://www.menface.pro",
-  // "http://localhost:3000", // uncomment for local form testing
 ]);
 
 function originAllowed(req: NextRequest): boolean {
@@ -109,9 +107,8 @@ export async function POST(req: NextRequest) {
     console.error("[/api/lead] supabase save failed", err);
   }
 
-  // CAPI fires only for consented leads (schema enforces consent===true;
-  // privacy copy promises consent-gated).
-  if (d.eventId && d.consent === true) {
+  // CAPI only for leads with an eventId: the form sends one only after a marketing yes on the banner.
+  if (d.eventId) {
     try {
       await sendLeadEvent({
         name: d.name,
@@ -122,8 +119,9 @@ export async function POST(req: NextRequest) {
         ip,
         userAgent: req.headers.get("user-agent") ?? undefined,
       });
-    } catch {
-      // CAPI failure never blocks — Pixel still has the event
+    } catch (err) {
+      // CAPI failure never blocks: the Pixel still has the event.
+      console.error("[/api/lead] CAPI send failed", err);
     }
   }
 

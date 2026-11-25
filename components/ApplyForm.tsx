@@ -68,7 +68,9 @@ export default function ApplyForm() {
       return;
     }
 
-    const eventId = crypto.randomUUID();
+    // eventId is what lets the server send the lead to Meta (CAPI): only after a marketing yes on the banner.
+    const marketing = consentGranted();
+    const eventId = marketing ? crypto.randomUUID() : undefined;
     const fbclid = readFbclid();
     const fbp = readFbp();
 
@@ -79,16 +81,20 @@ export default function ApplyForm() {
         body: JSON.stringify({ name, contact, consent, eventId, fbclid, fbp }),
       });
 
-      const body = (await res.json()) as { ok?: boolean; error?: string };
+      const body = (await res.json()) as { ok?: boolean };
 
       if (!res.ok || !body.ok) {
-        const errText = body.error ?? "Ошибка отправки. Попробуйте позже.";
+        // Server errors are English API text; the visitor gets Russian copy.
         setStatus("error");
-        setMessage(errText);
+        setMessage(
+          res.status === 429
+            ? "Слишком много заявок. Попробуйте позже."
+            : "Ошибка отправки. Попробуйте позже.",
+        );
         return;
       }
 
-      if (consentGranted()) {
+      if (marketing) {
         trackLead(eventId);
       }
 

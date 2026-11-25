@@ -9,6 +9,7 @@ import ConsentBanner from "@/components/ConsentBanner";
 import LoadingScreen from "@/components/LoadingScreen";
 import ScrollProgress from "@/components/ScrollProgress";
 import ScrollTopButton from "@/components/ScrollTopButton";
+import { SITE_URL } from "@/lib/site";
 import "@/styles/globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -39,9 +40,8 @@ const caveat = Caveat({
   display: "swap",
 });
 
-// TODO: replace placeholder domain once user confirms final domain
 export const metadata: Metadata = {
-  metadataBase: new URL("https://menface.pro"),
+  metadataBase: new URL(SITE_URL),
   title: "MenFace — персональная диагностика и сопровождение",
   description:
     "Личный протокол лица: измени лицо за 30 дней — первые изменения уже через неделю.",

@@ -18,8 +18,8 @@ const nextConfig: NextConfig = {
           //   - https://*.clarity.ms: Microsoft Clarity (consent-gated). Tag redirects
           //     www.clarity.ms/tag/<id> to scripts.clarity.ms/<ver>/clarity.js — the wildcard
           //     covers both script-src hops.
-          //   - https://fonts.googleapis.com / fonts.gstatic.com: Space Grotesk, IBM Plex, Caveat.
-          { key: "Content-Security-Policy", value: `default-src 'self'; script-src 'self' 'unsafe-inline'${devEval} https://connect.facebook.net https://va.vercel-scripts.com https://*.clarity.ms; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data: blob: https://www.facebook.com https://*.clarity.ms; font-src 'self' https://fonts.gstatic.com; connect-src 'self' https://connect.facebook.net https://www.facebook.com https://va.vercel-scripts.com https://*.clarity.ms; frame-ancestors 'none'; base-uri 'self'; form-action 'self'` },
+          //   Fonts: next/font self-hosts them at build time, so no Google Fonts origin.
+          { key: "Content-Security-Policy", value: `default-src 'self'; script-src 'self' 'unsafe-inline'${devEval} https://connect.facebook.net https://va.vercel-scripts.com https://*.clarity.ms; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://www.facebook.com https://*.clarity.ms; font-src 'self'; connect-src 'self' https://connect.facebook.net https://www.facebook.com https://va.vercel-scripts.com https://*.clarity.ms; frame-ancestors 'none'; base-uri 'self'; form-action 'self'` },
           { key: "X-Frame-Options", value: "DENY" },
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },

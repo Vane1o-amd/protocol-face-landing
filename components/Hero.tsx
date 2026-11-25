@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 import { fadeUp, inViewOnce } from "@/lib/motion";
 import { CTA_PRIMARY, CTA_TURNAROUND } from "@/components/cta-strings";
+import Image from "next/image";
 
 export default function Hero() {
   return (
@@ -86,10 +87,13 @@ export default function Hero() {
 
           <motion.div className="hero-visual" {...inViewOnce}>
             <figure>
-              <img
+              <Image
                 src="/images/hero-before.jpg"
                 alt="Результат протокола лица"
-                loading="lazy"
+                width={1600}
+                height={1136}
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                preload
               />
             </figure>
 

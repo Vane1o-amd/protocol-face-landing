@@ -3,8 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Политика конфиденциальности — MenFace",
   description: "Как MenFace обрабатывает ваши персональные данные. GDPR.",
-  // TODO: replace placeholder domain once user provides it
-  alternates: { canonical: "https://menface.pro/privacy" },
+  alternates: { canonical: "/privacy" },
   robots: { index: true, follow: true },
 };
 
@@ -41,8 +40,13 @@ export default function PrivacyPage() {
       <h2 style={sectionH2}>Данные, которые мы собираем</h2>
       <ul style={list}>
         <li>Имя, телефон или Telegram</li>
-        <li>UTM-параметры (source/medium/campaign) из ссылки, по которой вы пришли</li>
-        <li>IP-адрес (только для rate-limit и маршрутизации)</li>
+        <li>
+          После согласия на маркетинг: идентификатор рекламного клика{" "}
+          <code>fbclid</code> и cookie <code>_fbp</code>
+        </li>
+        <li>
+          IP-адрес (для защиты от спама; в базе хранится только его хеш)
+        </li>
         <li>Отметка времени согласия</li>
       </ul>
       <p style={{ ...dim, marginTop: "12px" }}>
@@ -58,10 +62,10 @@ export default function PrivacyPage() {
           даётся при отправке формы.
         </li>
         <li>
-          <strong>Измерение конверсии через Meta</strong> — законный интерес
-          (GDPR Art 6(1)(f)) для оценки эффективности рекламы. Идентификаторы
-          передаются в Meta в виде SHA-256-хеша. Вы можете запретить эту обработку
-          в любой момент, написав на адрес выше.
+          <strong>Измерение конверсии через Meta и аналитика Microsoft
+          Clarity</strong> — согласие (GDPR Art 6(1)(a)), которое вы даёте на
+          баннере. Без согласия эти инструменты не запускаются. Идентификаторы
+          передаются в Meta в виде SHA-256-хеша.
         </li>
       </ul>
 
@@ -91,10 +95,23 @@ export default function PrivacyPage() {
           <strong>Telegram</strong> — доставка сообщений по вашей заявке
         </li>
         <li>
+          <strong>Supabase</strong> — хранение заявок (имя, контакт, хеш
+          IP-адреса, рекламные идентификаторы при согласии)
+        </li>
+        <li>
+          <strong>Microsoft Clarity</strong> — аналитика поведения на сайте
+          (клики, прокрутка), только после согласия на баннере. Устанавливает
+          cookie <code>_clck</code> и <code>_clsk</code>. Регулируется{" "}
+          <a href="https://privacy.microsoft.com/privacystatement" style={accent}>
+            Заявлением о конфиденциальности Microsoft
+          </a>
+          .
+        </li>
+        <li>
           <strong>Meta Platforms Ireland Ltd.</strong> — измерение конверсии
           (Meta Pixel и Conversions API). Pixel загружается с серверов Meta и
           устанавливает cookie <code>_fbp</code> и <code>_fbc</code>. Conversions
-          API отправляет хешированные (SHA-256) идентификаторы (имя, email,
+          API отправляет хешированные (SHA-256) идентификаторы (имя,
           телефон) и события конверсии на сервер. Использование этих данных
           Meta регулируется{" "}
           <a href="https://www.facebook.com/privacy/policy" style={accent}>
@@ -104,10 +121,10 @@ export default function PrivacyPage() {
         </li>
       </ul>
       <p style={dim}>
-        Шрифты self-hosted на этом домене. Внешние запросы: Vercel Analytics и
+        Шрифты размещены на этом домене. Внешние запросы: Vercel Analytics и
         Speed Insights (агрегированные метрики, без cookie), Supabase
-        (хранение заявок), Meta Conversions API (измерение конверсии — см.
-        раздел «Cookie и согласие»), Telegram Bot API (доставка заявки).
+        (хранение заявок), Telegram Bot API (доставка заявки); после согласия
+        также Meta и Microsoft Clarity (см. раздел «Cookie и согласие»).
       </p>
 
       <h2 style={sectionH2}>Передача данных в третью страну</h2>
@@ -146,20 +163,21 @@ export default function PrivacyPage() {
 
       <h2 style={sectionH2}>Cookie и согласие</h2>
       <p style={dim}>
-        Сайт использует Meta Pixel для измерения конверсии, который устанавливает
-        cookie <code>_fbp</code> и <code>_fbc</code>. Conversions API отправляет
-        хешированные идентификаторы на сервер и не устанавливает cookie.{" "}
+        Сайт использует Meta Pixel для измерения конверсии (cookie{" "}
+        <code>_fbp</code> и <code>_fbc</code>) и Microsoft Clarity для аналитики
+        (cookie <code>_clck</code> и <code>_clsk</code>). Conversions API
+        отправляет хешированные идентификаторы с сервера и не устанавливает
+        cookie.{" "}
         <strong>
-          Pixel загружается только после того, как вы примете маркетинг на
-          баннере согласия при первом посещении.
+          Pixel, Clarity и их cookie запускаются только после того, как вы
+          нажмёте «Принять» на баннере согласия.
         </strong>{" "}
-        Обратите внимание: cookie <code>_fbp</code> может быть создана до
-        явного согласия на маркетинг — для непрерывности атрибуции рекламных
-        кампаний. Если вы откажетесь, Pixel не запустится и данные конверсии в
+        Если вы откажетесь, ни они, ни Conversions API не запустятся и данные в
         Meta не отправятся. Ваш выбор хранится локально в браузере (запись{" "}
         <code>pf_marketing_consent</code>) и может быть изменён через очистку
-        данных сайта в настройках браузера. UTM-параметры хранятся только в сессии
-        браузера и не сохраняются долгосрочно. Для управления или удаления этих
+        данных сайта в настройках браузера. Идентификатор клика{" "}
+        <code>fbclid</code> хранится только в сессии браузера и только после
+        согласия. Для управления или удаления этих
         cookie используйте средства управления cookie вашего браузера.
       </p>
 
@@ -170,7 +188,7 @@ export default function PrivacyPage() {
           color: "var(--color-ink-soft)",
         }}
       >
-        Последнее обновление: 2026-11-03.
+        Последнее обновление: 2026-11-25.
       </p>
     </main>
   );

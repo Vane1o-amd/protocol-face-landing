@@ -12,7 +12,7 @@ export function hashIp(ip: string): string {
   return createHash("sha256").update(`${ip}:${secret}`).digest("hex");
 }
 
-export type LeadRow = {
+type LeadRow = {
   name: string;
   contact: string;
   ip_hash: string;
@@ -25,6 +25,7 @@ export async function saveLead(row: LeadRow): Promise<void> {
   if (!SUPABASE_URL || !SERVICE_KEY) throw new Error("supabase env missing");
   const res = await fetch(`${SUPABASE_URL}/rest/v1/leads`, {
     method: "POST",
+    signal: AbortSignal.timeout(8000),
     headers: {
       apikey: SERVICE_KEY,
       Authorization: `Bearer ${SERVICE_KEY}`,
