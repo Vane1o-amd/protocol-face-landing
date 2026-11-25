@@ -18,16 +18,19 @@ export function trackLead(eventId?: string): void {
   window.fbq("track", "Lead", {}, { eventID: eventId });
 }
 
-// fbevents.js loads only after consent: no request to Meta before an answer or after a decline.
+// fbevents.js and the _fbp cookie wait for consent: nothing from Meta before an answer or after a decline.
 export default function MetaPixel() {
   const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
-    ensureFbp();
     captureFbclid();
-    if (consentGranted()) setEnabled(true);
+    const enable = () => {
+      ensureFbp();
+      setEnabled(true);
+    };
+    if (consentGranted()) enable();
     const unsub = subscribe((value) => {
-      if (value === "granted") setEnabled(true);
+      if (value === "granted") enable();
     });
     return unsub;
   }, []);
